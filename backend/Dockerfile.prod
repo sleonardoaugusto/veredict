@@ -1,0 +1,52 @@
+# Stage 1: Build Stage
+FROM python:3.10.0-alpine AS builder
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install system dependencies
+RUN apk update && apk add --no-cache \
+    postgresql-dev \
+    build-base \
+    libpq \
+    bash
+
+# Set working directory
+WORKDIR /app
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install --user -r requirements.txt
+
+# Stage 2: Production Image
+FROM python:3.10.0-alpine AS runner
+
+# Set environment variables for production
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install minimal runtime dependencies
+RUN apk add --no-cache \
+    libpq \
+    bash
+
+# Set working directory
+WORKDIR /app
+
+# Copy installed Python packages from builder stage
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+
+# Copy the project files
+COPY . .
+
+# Collect static files (if applicable)
+RUN python manage.py collectstatic --noinput
+
+# Expose port (adjust based on your server configuration)
+EXPOSE 8000
+
+# Start the Django application using Gunicorn
+CMD ["gunicorn", "projectname.wsgi:application", "--bind", "0.0.0.0:8000"]
