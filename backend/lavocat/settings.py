@@ -78,9 +78,9 @@ REST_FRAMEWORK = {
     ],
 }
 
-FIVE_DAYS = timedelta(days=5)
+AUTH_TOKEN_LIFETIME = timedelta(days=30)
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': FIVE_DAYS,
+    'ACCESS_TOKEN_LIFETIME': AUTH_TOKEN_LIFETIME,
 }
 
 ROOT_URLCONF = 'lavocat.urls'
