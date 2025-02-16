@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {AuthService} from "@/app/lib/auth";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-const token = process.env.NEXT_PUBLIC_API_AUTH_TOKEN
+const token = AuthService.getToken()
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
