@@ -1,3 +1,4 @@
+[![Backend Tests](https://github.com/sleonardoaugusto/veredict/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/sleonardoaugusto/veredict/actions/workflows/backend-tests.yml)
 
 # 🚀 Lavocat Project
 
