@@ -54,22 +54,40 @@ docker-compose down
 
 ## 🔄 **Common Commands**
 
-- **Run DB Migrations (Django):**
+### **Backend Commands (Django)**
+- **Create Migrations:**
+  ```bash
+  make makemigrations
+  ```
+- **Run DB Migrations:**
+  ```bash
+  make migrate
+  ```
+- **Run Django Shell Plus (with auto-imported models):**
+  ```bash
+  make shell_plus
+  ```
+- **SSH into the Backend Container:**
+  ```bash
+  make ssh-backend
+  ```
 
-```bash
-docker-compose exec backend python manage.py migrate
-```
+### **Frontend Commands (Node.js)**
+- **Install a Node Package:**
+  ```bash
+  docker-compose exec frontend npm install <package-name>
+  ```
+- **SSH into the Frontend Container:**
+  ```bash
+  make ssh-frontend
+  ```
 
-- **Install Python Package:**
+### **General Commands**
+- **Install a Python Package inside the Backend Container:**
+  ```bash
+  docker-compose exec backend pip install <package-name>
+  ```
 
-```bash
-docker-compose exec backend pip install <package-name>
-```
-
-- **Install Node Package:**
-
-```bash
-docker-compose exec frontend npm install <package-name>
 ```
 
 ---
