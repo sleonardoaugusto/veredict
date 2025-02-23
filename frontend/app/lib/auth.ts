@@ -1,5 +1,5 @@
 export class AuthService {
-  private static TOKEN_KEY = 'token'
+  private static TOKEN_KEY = 'veredict:auth:token'
 
   /**
    * Retrieves the user token from localStorage
