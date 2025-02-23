@@ -22,6 +22,7 @@ from django.urls import path, include, reverse
 
 urlpatterns = [
     path('', lambda *args: redirect(reverse('api-v1:docs'))),
+    path('api/', lambda *args: redirect(reverse('api-v1:docs'))),
     path('admin/', admin.site.urls),
     path('api/v1/', include('lavocat.api.v1.urls', namespace='api-v1')),
     path('accounts/', include('rest_framework.urls')),
