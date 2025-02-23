@@ -1,3 +1,3 @@
-from lavocat.test_fixtures.attendance import *
-from lavocat.test_fixtures.note import *
-from lavocat.test_fixtures.utils import *
+from veredict.test_fixtures.attendance import *
+from veredict.test_fixtures.note import *
+from veredict.test_fixtures.utils import *

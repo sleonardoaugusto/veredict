@@ -19,5 +19,5 @@ restore:
 	@echo "Copying dump file to the database container..."
 	docker cp $(DB_DUMP) db:/$(DB_DUMP)
 	@echo "Restoring database from dump..."
-	docker-compose exec db pg_restore --verbose --clean --no-acl --no-owner -U postgres -d lavocat /$(DB_DUMP)
+	docker-compose exec db pg_restore --verbose --clean --no-acl --no-owner -U postgres -d veredict /$(DB_DUMP)
 	@echo "Database restore complete!"

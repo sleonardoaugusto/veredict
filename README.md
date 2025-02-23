@@ -1,6 +1,6 @@
 [![Backend Tests](https://github.com/sleonardoaugusto/veredict/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/sleonardoaugusto/veredict/actions/workflows/backend-tests.yml)
 
-# 🚀 Lavocat Project
+# 🚀 Veredict Project
 
 This is a full-stack project using **Django (backend)**, **Next.js (frontend)**, and **PostgreSQL (database)**. Everything runs inside Docker containers for easy setup.
 
@@ -9,7 +9,7 @@ This is a full-stack project using **Django (backend)**, **Next.js (frontend)**,
 ## 📦 **Project Structure**
 
 ```
-lavocat/
+veredict/
 ├── backend/         # Django App
 ├── frontend/        # Next.js App
 └── compose.yml      # Docker Compose Config
@@ -22,8 +22,8 @@ lavocat/
 1. **Clone the Repo:**
 
 ```bash
-git clone https://github.com/your-username/lavocat.git
-cd lavocat
+git clone https://github.com/your-username/veredict.git
+cd veredict
 ```
 
 2. **Start the App:**
@@ -117,5 +117,5 @@ docker-compose down -v
 ---
 
 That's it! 🚀 Let me know if you need more details.
-# lavocat
+# veredict
 ...
