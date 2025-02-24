@@ -1,5 +1,51 @@
-from veredict.image_processings.models import Processing
+from typing import List
+
+from veredict.image_processings.models import (
+    Processing,
+    ProcessingImage,
+    ProcessingImageMetadata,
+)
+import textractcaller as tc
+
+from veredict.textractor.client import TextractorClient
+import textractor.entities.query as e
 
 
 def get_processing(pk: int):
     return Processing.objects.get(pk=pk)
+
+
+def _populate_processing_image_metadata(
+    results: List[e.Query], processing_image: ProcessingImage
+):
+    try:
+        metadata = processing_image.metadata
+    except AttributeError:
+        metadata = ProcessingImageMetadata(processing_image=processing_image)
+
+    for query in results:
+        setattr(metadata, query.alias, query.result)
+
+    metadata.save()
+
+
+def textract_processing_image(processing_image: ProcessingImage):
+    queries = [
+        tc.Query("what is the Ocorrencia code number at the top?", alias="ocr_code_1"),
+        tc.Query("what is the Date at the top?", alias="date_1"),
+        tc.Query("what is the Municipio at the top?", alias="city_1"),
+        tc.Query(
+            "what is the Ocorrencia code number at the middle?", alias="ocr_code_2"
+        ),
+        tc.Query("what is the Date at the middle?", alias="date_2"),
+        tc.Query("what is the Municipio at the middle?", alias="city_2"),
+        tc.Query(
+            "what is the Ocorrencia code number at the bottom?", alias="ocr_code_3"
+        ),
+        tc.Query("what is the Date at the bottom?", alias="date_3"),
+        tc.Query("what is the Municipio at the bottom?", alias="city_3"),
+    ]
+
+    textractor = TextractorClient(queries=queries, doc=processing_image.image)
+    document = textractor.run()
+    _populate_processing_image_metadata(document.queries, processing_image)

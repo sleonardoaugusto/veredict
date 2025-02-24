@@ -9,13 +9,13 @@ from veredict.api.v1.image_processings.serializers import (
 )
 from veredict.image_processings.models import Processing
 from veredict.image_processings.services.processing import get_processing
+from veredict.image_processings.tasks import parse_processing_image
 
 
 class ProcessingDetail(APIView):
-
     def post(self, request):
         instance = Processing.objects.create()
-        return Response({'id': instance.pk}, status=status.HTTP_201_CREATED)
+        return Response({"id": instance.pk}, status=status.HTTP_201_CREATED)
 
 
 class ProcessingImageDetail(APIView):
@@ -25,6 +25,8 @@ class ProcessingImageDetail(APIView):
         input_serializer = InputProcessingImageCreateSerializer(data=request.data)
         input_serializer.is_valid(raise_exception=True)
         instance = input_serializer.save(processing=get_processing(processing_pk))
+
+        parse_processing_image.delay_on_commit(instance.pk)
 
         output_serializer = OutputProcessingImageCreateSerializer(instance=instance)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)

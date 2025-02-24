@@ -5,13 +5,13 @@ from veredict.image_processings.models import ProcessingImage
 
 class InputProcessingImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        ref_name = 'ProcessingImageCreate'
+        ref_name = "ProcessingImageCreate"
         model = ProcessingImage
-        fields = ('id', 'image')
+        fields = ("id", "image")
 
 
 class OutputProcessingImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        ref_name = 'ProcessingImageCreate'
+        ref_name = "ProcessingImageCreate"
         model = ProcessingImage
-        fields = ('id', 'processing', 'image')
+        fields = ("id", "processing", "image")
