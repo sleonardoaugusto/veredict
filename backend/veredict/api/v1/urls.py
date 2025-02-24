@@ -19,4 +19,5 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='docs'),
     path('', include('veredict.api.v1.attendances.urls')),
     path('', include('veredict.api.v1.core.urls')),
+    path('', include('veredict.api.v1.image_processings.urls')),
 ]

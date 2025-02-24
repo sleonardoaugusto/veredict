@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+
 from datetime import timedelta
 from pathlib import Path
 
@@ -50,8 +51,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'django_filters',
+    'veredict.celery',
     'veredict.core',
     'veredict.attendances',
+    'veredict.image_processings',
 ]
 
 TEST_WITHOUT_MIGRATIONS_COMMAND = 'django_nose.management.commands.test.Command'
@@ -144,6 +147,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', '')

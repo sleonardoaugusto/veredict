@@ -25,7 +25,7 @@ drf-nested-routers==0.93.4
 django-multiselectfield==0.1.12
 ipython==8.15.0
 pytz==2024.2
-
-# Heroku
+redis==5.2.1
+celery==5.4.0
 dj-database-url==0.5.0
 dj-static==0.0.6

@@ -4,7 +4,7 @@ import { inter } from '@/app/ui/fonts'
 import ClientWrapper from '@/app/ClientWrapper'
 
 export const metadata: Metadata = {
-  title: "L'avocat",
+  title: 'Veredito',
 }
 
 export default function RootLayout({
