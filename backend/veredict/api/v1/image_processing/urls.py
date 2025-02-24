@@ -1,6 +1,6 @@
 from django.urls import path
 
-from veredict.api.v1.image_processings.views import (
+from veredict.api.v1.image_processing.views import (
     ProcessingDetail,
     ProcessingImageDetail,
 )

@@ -4,7 +4,7 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
-from veredict.image_processings.models import Processing, ProcessingImage
+from veredict.image_processing.models import Processing, ProcessingImage
 
 
 def test_post_processing(client):
@@ -23,7 +23,7 @@ def processing():
     return Processing.objects.create()
 
 
-@patch("veredict.api.v1.image_processings.views.parse_processing_image")
+@patch("veredict.api.v1.image_processing.views.parse_processing_image")
 def test_post_processing_image(mock_parse_processing_image, client, processing, file):
     assert not ProcessingImage.objects.exists()
 

@@ -1,6 +1,6 @@
 from veredict.celery.app import celery_app
-from veredict.image_processings.models import ProcessingImage
-from veredict.image_processings.services.processing import textract_processing_image
+from veredict.image_processing.models import ProcessingImage
+from veredict.image_processing.services.processing import textract_processing_image
 
 
 @celery_app.task(name="parse_processing_image")

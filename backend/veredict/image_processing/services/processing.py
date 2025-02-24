@@ -1,6 +1,6 @@
 from typing import List
 
-from veredict.image_processings.models import (
+from veredict.image_processing.models import (
     Processing,
     ProcessingImage,
     ProcessingImageMetadata,

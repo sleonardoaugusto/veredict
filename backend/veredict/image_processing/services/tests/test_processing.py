@@ -5,8 +5,8 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from model_bakery import baker
 
-from veredict.image_processings.models import ProcessingImageMetadata, ProcessingImage
-from veredict.image_processings.services.processing import textract_processing_image
+from veredict.image_processing.models import ProcessingImageMetadata, ProcessingImage
+from veredict.image_processing.services.processing import textract_processing_image
 
 
 @pytest.fixture

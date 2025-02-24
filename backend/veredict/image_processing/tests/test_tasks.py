@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 from model_bakery import baker
 
-from veredict.image_processings.tasks import parse_processing_image
+from veredict.image_processing.tasks import parse_processing_image
 
 
 @pytest.fixture
@@ -11,7 +11,7 @@ def processing_image(file):
     return baker.make("ProcessingImage", image=file)
 
 
-@patch("veredict.image_processings.tasks.textract_processing_image")
+@patch("veredict.image_processing.tasks.textract_processing_image")
 def test_parse_processing_image(mock_textract_processing_image, processing_image):
     """
     Test that `parse_processing_image` correctly calls `textract_processing_image`

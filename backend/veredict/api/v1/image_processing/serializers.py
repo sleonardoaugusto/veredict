@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from veredict.image_processings.models import ProcessingImage
+from veredict.image_processing.models import ProcessingImage
 
 
 class InputProcessingImageCreateSerializer(serializers.ModelSerializer):

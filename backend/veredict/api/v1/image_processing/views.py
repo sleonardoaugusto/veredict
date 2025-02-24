@@ -3,13 +3,13 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from veredict.api.v1.image_processings.serializers import (
+from veredict.api.v1.image_processing.serializers import (
     InputProcessingImageCreateSerializer,
     OutputProcessingImageCreateSerializer,
 )
-from veredict.image_processings.models import Processing
-from veredict.image_processings.services.processing import get_processing
-from veredict.image_processings.tasks import parse_processing_image
+from veredict.image_processing.models import Processing
+from veredict.image_processing.services.processing import get_processing
+from veredict.image_processing.tasks import parse_processing_image
 
 
 class ProcessingDetail(APIView):
