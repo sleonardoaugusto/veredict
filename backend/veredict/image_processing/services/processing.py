@@ -3,7 +3,7 @@ from typing import List
 from veredict.image_processing.models import (
     Processing,
     ProcessingImage,
-    ProcessingImageMetadata,
+    ImageMetadata,
 )
 import textractcaller as tc
 
@@ -21,7 +21,7 @@ def _populate_processing_image_metadata(
     try:
         metadata = processing_image.metadata
     except AttributeError:
-        metadata = ProcessingImageMetadata(processing_image=processing_image)
+        metadata = ImageMetadata(processing_image=processing_image)
 
     for query in results:
         setattr(metadata, query.alias, query.result)

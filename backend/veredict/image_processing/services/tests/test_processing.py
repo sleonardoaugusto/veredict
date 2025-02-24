@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from model_bakery import baker
 
-from veredict.image_processing.models import ProcessingImageMetadata, ProcessingImage
+from veredict.image_processing.models import ImageMetadata, ProcessingImage
 from veredict.image_processing.services.processing import textract_processing_image
 
 
@@ -34,7 +34,7 @@ def test_textract_processing_image(monkeypatch, processing_image, file_source):
     )
 
     textract_processing_image(processing_image)
-    metadata = ProcessingImageMetadata.objects.get()
+    metadata = ImageMetadata.objects.get()
 
     assert metadata.processing_image == processing_image
     assert metadata.ocr_code_1 == "3026"

@@ -23,7 +23,7 @@ class ProcessingImage(ModelBase):
     )
 
 
-class ProcessingImageMetadata(ModelBase):
+class ImageMetadata(ModelBase):
     processing_image = models.OneToOneField(
         ProcessingImage, null=False, on_delete=models.CASCADE, related_name="metadata"
     )
