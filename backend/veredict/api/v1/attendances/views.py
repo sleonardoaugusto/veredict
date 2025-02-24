@@ -45,13 +45,13 @@ class AttendanceFileViewSet(viewsets.ModelViewSet):
 class NestedAttendanceFileViewSet(BaseNestedRouteViewSet):
     queryset = AttendanceFile.objects.all()
     serializer_class = AttendanceFileSerializer
-    nested_lookup = 'attendance_pk'
+    nested_lookup = "attendance_pk"
 
 
 class NestedNoteViewSet(BaseNestedRouteViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-    nested_lookup = 'attendance_pk'
+    nested_lookup = "attendance_pk"
 
 
 class AttendanceStatusesView(views.APIView):

@@ -13,7 +13,7 @@ def test_should_exist_attendance_model(attendance):
 @pytest.fixture
 def attendance_file(delete_file):
     AttendanceFile.file.field.storage = FileSystemStorage()
-    return baker.make('AttendanceFile', _create_files=True)
+    return baker.make("AttendanceFile", _create_files=True)
 
 
 def test_should_exist_attendance_file(attendance_file):
@@ -21,6 +21,6 @@ def test_should_exist_attendance_file(attendance_file):
 
 
 def test_attribute_attendance_file(attendance_file):
-    record = baker.make('AttendanceFile')
+    record = baker.make("AttendanceFile")
     assert isinstance(record.attendance, Attendance)
     assert isinstance(record.file, FieldFile)

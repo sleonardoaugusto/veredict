@@ -10,9 +10,9 @@ from rest_framework.reverse import reverse
 def post_unauthorized(client_unauthenticated, faker):
     data = dict(username=faker.name(), password=faker.password())
     return client_unauthenticated.post(
-        reverse('api-v1:jwt-auth'),
+        reverse("api-v1:jwt-auth"),
         json.dumps(data),
-        content_type='application/json',
+        content_type="application/json",
     )
 
 
@@ -25,9 +25,9 @@ def post_authorized(client_unauthenticated, faker):
     data = dict(username=faker.name(), password=faker.name())
     User.objects.create_user(**data)
     return client_unauthenticated.post(
-        reverse('api-v1:jwt-auth'),
+        reverse("api-v1:jwt-auth"),
         json.dumps(data),
-        content_type='application/json',
+        content_type="application/json",
     )
 
 
@@ -37,5 +37,5 @@ def test_status_code(post_authorized):
 
 def test_content(post_authorized):
     min_length, max_length = 205, 208
-    assert min_length <= len(post_authorized.json()['access']) <= max_length
-    assert min_length <= len(post_authorized.json()['refresh']) <= max_length
+    assert min_length <= len(post_authorized.json()["access"]) <= max_length
+    assert min_length <= len(post_authorized.json()["refresh"]) <= max_length

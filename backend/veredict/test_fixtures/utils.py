@@ -22,10 +22,10 @@ def client_unauthenticated():
 
 @pytest.fixture
 def client():
-    user = baker.make('User', is_superuser=True)
+    user = baker.make("User", is_superuser=True)
     token = RefreshToken.for_user(user)
     client = APIClient()
-    client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {token.access_token}")
     return client
 
 
@@ -40,9 +40,9 @@ def delete_file():
 
 @pytest.fixture
 def faker():
-    return Faker('pt-BR')
+    return Faker("pt-BR")
 
 
 @pytest.fixture
 def file():
-    return SimpleUploadedFile('file.txt', b'hi there', content_type='application/pdf')
+    return SimpleUploadedFile("file.txt", b"hi there", content_type="application/pdf")

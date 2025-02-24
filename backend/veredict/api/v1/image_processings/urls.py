@@ -7,13 +7,13 @@ from veredict.api.v1.image_processings.views import (
 
 urlpatterns = [
     path(
-        'processings/',
+        "processings/",
         ProcessingDetail.as_view(),
-        name='processing',
+        name="processing",
     ),
     path(
-        'processings/<int:processing_pk>/images/',
+        "processings/<int:processing_pk>/images/",
         ProcessingImageDetail.as_view(),
-        name='processing-image',
+        name="processing-image",
     ),
 ]

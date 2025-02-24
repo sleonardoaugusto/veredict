@@ -6,7 +6,7 @@ from veredict.core.models import UserAllowed
 
 @pytest.fixture
 def record():
-    return baker.make('UserAllowed')
+    return baker.make("UserAllowed")
 
 
 def test_should_exist(record):

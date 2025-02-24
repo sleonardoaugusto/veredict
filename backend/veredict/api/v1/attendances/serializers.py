@@ -13,10 +13,10 @@ class AttendanceFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AttendanceFile
         fields = (
-            'id',
-            'attendance',
-            'file',
-            'filename',
+            "id",
+            "attendance",
+            "file",
+            "filename",
         )
 
 
@@ -29,16 +29,16 @@ class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = (
-            'id',
-            'customer_name',
-            'source',
-            'document_id',
-            'files',
-            'resume',
-            'status_resume',
-            'services_types',
-            'is_client',
-            'created_at',
+            "id",
+            "customer_name",
+            "source",
+            "document_id",
+            "files",
+            "resume",
+            "status_resume",
+            "services_types",
+            "is_client",
+            "created_at",
         )
 
     def create(self, validated_data):
@@ -52,10 +52,10 @@ class AttendanceSerializer(serializers.ModelSerializer):
         current_services = [
             ServicesTypesOptions(service).label for service in instance.services_types
         ]
-        if 'services_types' in validated_data:
+        if "services_types" in validated_data:
             new_services = [
                 ServicesTypesOptions(service).label
-                for service in validated_data['services_types']
+                for service in validated_data["services_types"]
             ]
             to_create = set(new_services) - set(current_services)
             to_delete = set(current_services) - set(new_services)
@@ -71,7 +71,7 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = (
-            'id',
-            'header',
-            'content',
+            "id",
+            "header",
+            "content",
         )

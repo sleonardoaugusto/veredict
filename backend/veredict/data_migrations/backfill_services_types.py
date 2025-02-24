@@ -1,21 +1,21 @@
 from veredict.attendances.models import Attendance, ServicesTypesOptions
 
 FROM_TO = (
-    (['DPVAT'], ServicesTypesOptions.DPVAT),
-    (['AUX DOENCA'], ServicesTypesOptions.AUXILIO_DOENCA),
-    (['AUX ACIDENTE'], ServicesTypesOptions.AUXILIO_ACIDENTE),
-    (['LOAS'], 'LOAS'),
+    (["DPVAT"], ServicesTypesOptions.DPVAT),
+    (["AUX DOENCA"], ServicesTypesOptions.AUXILIO_DOENCA),
+    (["AUX ACIDENTE"], ServicesTypesOptions.AUXILIO_ACIDENTE),
+    (["LOAS"], "LOAS"),
     (
-        ['CONTRA CONDUTOR', 'CONTRA PREFEITURA', 'AÇÃO CONTRA UPA'],
+        ["CONTRA CONDUTOR", "CONTRA PREFEITURA", "AÇÃO CONTRA UPA"],
         ServicesTypesOptions.ACAO_INDENIZATORIA,
     ),
-    (['TRABALHISTA'], ServicesTypesOptions.ACAO_TRABALHISTA),
+    (["TRABALHISTA"], ServicesTypesOptions.ACAO_TRABALHISTA),
     (
-        ['SELETA', 'SEGURO CPFL', 'SEGUROS PRIVADOS (MAGAZINE'],
+        ["SELETA", "SEGURO CPFL", "SEGUROS PRIVADOS (MAGAZINE"],
         ServicesTypesOptions.SEGURO_DE_VIDA_EMPRESARIAL,
     ),
     (
-        ['SEGURO OUTRA PARTE', 'SEGURO DE 3', 'SEGUROS PRIVADOS (MAGAZINE'],
+        ["SEGURO OUTRA PARTE", "SEGURO DE 3", "SEGUROS PRIVADOS (MAGAZINE"],
         ServicesTypesOptions.SEGURO_CONDUTOR,
     ),
 )

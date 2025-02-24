@@ -11,32 +11,32 @@ from veredict.api.v1.attendances.views import (
 )
 
 router = SimpleRouter()
-router.register('attendances', AttendanceViewSet)
-router.register('attendance-files', AttendanceFileViewSet)
+router.register("attendances", AttendanceViewSet)
+router.register("attendance-files", AttendanceFileViewSet)
 
 
 attendance_router = routers.NestedSimpleRouter(
     router,
-    'attendances',
-    lookup='attendance',
+    "attendances",
+    lookup="attendance",
 )
 attendance_router.register(
-    'documents',
+    "documents",
     NestedAttendanceFileViewSet,
-    basename='attendance-document',
+    basename="attendance-document",
 )
 attendance_router.register(
-    'notes',
+    "notes",
     NestedNoteViewSet,
-    basename='attendance-note',
+    basename="attendance-note",
 )
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
     path(
-        'attendance-statuses/',
+        "attendance-statuses/",
         AttendanceStatusesView.as_view(),
-        name='attendance-statuses',
+        name="attendance-statuses",
     ),
-    path('', include(attendance_router.urls)),
+    path("", include(attendance_router.urls)),
 ]
