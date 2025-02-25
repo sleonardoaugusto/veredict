@@ -20,7 +20,7 @@ LOGGING = {
     },
     "loggers": {
         "veredict": {
-            "handlers": ["file", "console"],
+            "handlers": ["console"],
             "level": "DEBUG" if settings.DEBUG else "INFO",
             "propagate": False,
         },
