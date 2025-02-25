@@ -1,11 +1,5 @@
-import os
 from django.conf import settings
 
-# Define log directory path
-LOG_DIR = os.path.join(settings.BASE_DIR, "logs")
-
-# Ensure the log directory exists
-os.makedirs(LOG_DIR, exist_ok=True)
 
 LOGGING = {
     "version": 1,
@@ -17,15 +11,6 @@ LOGGING = {
         },
     },
     "handlers": {
-        # Logs to a local file
-        "file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(
-                LOG_DIR, "veredict.log"
-            ),  # Ensures log file is created
-            "formatter": "verbose",
-        },
         # Logs to the console (useful for development)
         "console": {
             "level": "DEBUG",
