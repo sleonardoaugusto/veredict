@@ -81,11 +81,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-AUTH_TOKEN_LIFETIME = timedelta(days=30)
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": AUTH_TOKEN_LIFETIME,
-}
-
 ROOT_URLCONF = "veredict.urls"
 
 LOGIN_REDIRECT_URL = "/"
@@ -109,92 +104,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "veredict.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-default_dburl = f"sqlite:///{BASE_DIR}/db.sqlite3"
-DATABASES = {
-    "default": config("DATABASE_URL", default=default_dburl, cast=dburl),
-}
-
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
-]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
-CELERY_BROKER_URL = config("CELERY_BROKER_URL")
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-
-AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", "")
-AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", "")
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", "")
-AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
-USE_S3 = config("USE_S3", cast=bool, default=False)
-
-# Prod/Dev environment
-if USE_S3:
-    # AWS S3 settings
-    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", "")
-    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", "")
-    AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", "")
-    AWS_DEFAULT_ACL = "public-read"
-    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-
-    # Custom Static Storage
-    STATICFILES_STORAGE = "storage_backends.StaticStorage"
-    AWS_STATIC_LOCATION = "static"
-    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/"
-
-    # Media remains local (if needed)
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = config("MEDIA_ROOT", default=Path(BASE_DIR, "media"))
-else:
-    STATIC_URL = "/staticfiles/"
-    STATIC_ROOT = str(Path.joinpath(BASE_DIR, "staticfiles"))
-    MEDIA_URL = "/mediafiles/"
-    MEDIA_ROOT = str(Path.joinpath(BASE_DIR, "mediafiles"))
-
-sentry_sdk.init(
-    dsn="https://fff76d9a6f834c89a5fa059e4d1b9f3c@o346271.ingest.sentry.io/5721647",
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-    send_default_pii=True,
-)
-
-SWAGGER_SETTINGS = {
-    "USE_SESSION_AUTH": False,
-    "SECURITY_DEFINITIONS": {
-        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
-    },
-}

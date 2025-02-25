@@ -7,6 +7,9 @@ from textractor import Textractor
 from textractor.data.constants import TextractFeatures
 
 from veredict.utils import s3
+from veredict.utils.logger import get_logger
+
+logger = get_logger()
 
 
 class TextractorClient:
@@ -16,8 +19,11 @@ class TextractorClient:
         self.doc = doc
 
     def run(self) -> ted.Document:
+        file_source = s3.get_s3_uri(self.doc)
+        logger.info(f"Retrieved file source from S3 '{file_source}'")
+
         return self.client.analyze_document(
-            file_source=s3.get_s3_uri(self.doc),
+            file_source=file_source,
             features=[TextractFeatures.QUERIES],
             queries=self.queries,
         )

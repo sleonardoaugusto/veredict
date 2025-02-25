@@ -10,6 +10,10 @@ import textractcaller as tc
 from veredict.textractor.client import TextractorClient
 import textractor.entities.query as e
 
+from veredict.utils.logger import get_logger
+
+logger = get_logger()
+
 
 def get_processing(pk: int):
     return Processing.objects.get(pk=pk)
@@ -25,6 +29,10 @@ def _populate_processing_image_metadata(
 
     for query in results:
         setattr(metadata, query.alias, query.result)
+
+    logger.info(
+        f"Document metadata successfully updated for '{processing_image.pk}'. Updated fields: {results}"
+    )
 
     metadata.save()
 
@@ -46,6 +54,9 @@ def textract_processing_image(processing_image: ProcessingImage):
         tc.Query("what is the Municipio at the bottom?", alias="city_3"),
     ]
 
+    logger.info(f"Starting image metadata extraction '{processing_image.pk}'")
     textractor = TextractorClient(queries=queries, doc=processing_image.image)
+    logger.info(f"Retrieved Textract service instance '{processing_image.pk}'.")
     document = textractor.run()
+    logger.info(f"Analysis completed for '{processing_image.pk}', processing metadata.")
     _populate_processing_image_metadata(document.queries, processing_image)
