@@ -1,5 +1,7 @@
 from typing import List
 
+from textractor.data.constants import TextractFeatures
+
 from veredict.image_processing.models import (
     Processing,
     ProcessingImage,
@@ -57,6 +59,8 @@ def textract_processing_image(processing_image: ProcessingImage):
     logger.info(f"Starting image metadata extraction '{processing_image.pk}'")
     textractor = TextractorClient(queries=queries, doc=processing_image.image)
     logger.info(f"Retrieved Textract service instance '{processing_image.pk}'.")
-    document = textractor.run()
+
+    document = textractor.run(features=[TextractFeatures.QUERIES], queries=queries)
     logger.info(f"Analysis completed for '{processing_image.pk}', processing metadata.")
+
     _populate_processing_image_metadata(document.queries, processing_image)

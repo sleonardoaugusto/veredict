@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import textractor.entities.document as ted
 import textractor.entities.query as teq
@@ -8,6 +8,7 @@ from textractor.data.constants import TextractFeatures
 
 from veredict.utils import s3
 from veredict.utils.logger import get_logger
+import textractcaller as tc
 
 logger = get_logger()
 
@@ -18,12 +19,14 @@ class TextractorClient:
         self.queries = queries
         self.doc = doc
 
-    def run(self) -> ted.Document:
+    def run(
+        self, features: List[TextractFeatures], queries: Optional[List[tc.Query]] = None
+    ) -> ted.Document:
         file_source = s3.get_s3_uri(self.doc)
         logger.info(f"Retrieved file source from S3 '{file_source}'")
 
         return self.client.analyze_document(
             file_source=file_source,
-            features=[TextractFeatures.QUERIES],
-            queries=self.queries,
+            features=features,
+            queries=queries,
         )
