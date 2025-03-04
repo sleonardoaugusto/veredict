@@ -61,6 +61,7 @@ jobs:
             
             # Append environment variables
             echo "DEBUG=False" >> backend/.env.prod
+            echo "USE_S3=True" >> backend/.env.prod
             echo "SECRET_KEY=$SECRET_KEY" >> backend/.env.prod
             echo "ALLOWED_HOSTS=$ALLOWED_HOSTS" >> backend/.env.prod
             echo "DATABASE_URL=$DATABASE_URL" >> backend/.env.prod

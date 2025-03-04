@@ -11,7 +11,7 @@ def test_should_exist_attendance_model(attendance):
 
 
 @pytest.fixture
-def attendance_file(delete_file):
+def attendance_file():
     AttendanceFile.file.field.storage = FileSystemStorage()
     return baker.make("AttendanceFile", _create_files=True)
 

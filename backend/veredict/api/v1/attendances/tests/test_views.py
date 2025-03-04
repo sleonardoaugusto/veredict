@@ -66,7 +66,9 @@ class TestAttendanceEndpoints:
         }
 
     @staticmethod
-    def test_patch_attendance(client, attendance, note_dpvat, note_auxilio_doenca):
+    def test_patch_attendance(
+        client, attendance, note_dpvat, note_auxilio_doenca
+    ):
         """Should remove notes based on services_types"""
         payload = {
             "document_id": 99999999999,
@@ -113,7 +115,9 @@ class TestAttendanceEndpoints:
     def test_delete_attendance(client):
         attendance_file = baker.make("AttendanceFile")
         resp = client.delete(
-            reverse("api-v1:attendance-detail", args=[attendance_file.attendance.pk])
+            reverse(
+                "api-v1:attendance-detail", args=[attendance_file.attendance.pk]
+            )
         )
         assert resp.status_code == status.HTTP_204_NO_CONTENT
         assert Attendance.objects.all().count() == 0
@@ -149,9 +153,13 @@ class TestAttendanceFileEndpoint:
         assert response.status_code == status.HTTP_200_OK
 
     @staticmethod
-    def test_post_attendance_file(client, delete_file, file):
+    def test_post_attendance_file(client, file):
         attendance = baker.make("Attendance")
-        payload = {"attendance": attendance.pk, "file": file, "filename": file.name}
+        payload = {
+            "attendance": attendance.pk,
+            "file": file,
+            "filename": file.name,
+        }
         resp = client.post(reverse("api-v1:attendancefile-list"), payload)
         attendance_file = AttendanceFile.objects.first()
         assert AttendanceFile.objects.all().count() == 1
@@ -159,7 +167,7 @@ class TestAttendanceFileEndpoint:
         assert attendance_file.filename == "file.txt"
 
     @staticmethod
-    def test_update_filename(client, delete_file, attendance_file):
+    def test_update_filename(client, attendance_file):
         resp = client.patch(
             reverse("api-v1:attendancefile-detail", args=[attendance_file.pk]),
             data={"filename": "new-name.pdf"},

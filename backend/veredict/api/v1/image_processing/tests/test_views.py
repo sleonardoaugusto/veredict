@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 import pytest
+from django.core.files.storage import FileSystemStorage
 from django.urls import reverse
 from rest_framework import status
 
@@ -24,10 +25,16 @@ def processing():
 
 
 @patch("veredict.api.v1.image_processing.views.parse_processing_image")
-def test_post_processing_image(mock_parse_processing_image, client, processing, file):
+def test_post_processing_image(
+    mock_parse_processing_image, client, processing, file
+):
+    ProcessingImage.image.field.storage = FileSystemStorage()
+
     assert not ProcessingImage.objects.exists()
 
-    url = reverse("api-v1:processing-image", kwargs={"processing_pk": processing.id})
+    url = reverse(
+        "api-v1:processing-image", kwargs={"processing_pk": processing.id}
+    )
     data = {"image": file}
     response = client.post(url, data)
 
@@ -36,4 +43,6 @@ def test_post_processing_image(mock_parse_processing_image, client, processing, 
 
     record = ProcessingImage.objects.get(processing=processing)
     # assert parse function is called
-    mock_parse_processing_image.delay_on_commit.assert_called_once_with(record.pk)
+    mock_parse_processing_image.delay_on_commit.assert_called_once_with(
+        record.pk
+    )

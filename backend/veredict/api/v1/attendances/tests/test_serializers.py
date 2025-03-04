@@ -74,10 +74,12 @@ class TestAttendanceFileSerializer:
         attendance_file, attendance_file_serializer
     ):
         assert (
-            attendance_file_serializer.data["file"]
-            == f"/mediafiles/{attendance_file.file.name}"
+            attendance_file_serializer.data["file"] == attendance_file.file.url
         )
-        assert attendance_file_serializer.data["filename"] == attendance_file.filename
+        assert (
+            attendance_file_serializer.data["filename"]
+            == attendance_file.filename
+        )
 
 
 class TestNoteSerializer:

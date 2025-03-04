@@ -43,6 +43,8 @@ def attendances():
 
 
 @pytest.fixture
-def attendance_file(attendance, delete_file) -> AttendanceFile:
+def attendance_file(attendance) -> AttendanceFile:
     AttendanceFile.file.field.storage = FileSystemStorage()
-    yield baker.make("AttendanceFile", _create_files=True, attendance=attendance)
+    yield baker.make(
+        "AttendanceFile", _create_files=True, attendance=attendance
+    )

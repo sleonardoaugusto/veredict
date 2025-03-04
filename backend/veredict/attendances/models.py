@@ -30,7 +30,10 @@ class ServicesTypesOptions(models.TextChoices):
         "SEGURO_DE_VIDA_EMPRESARIAL",
         "Seguro de Vida Empresarial",
     )
-    SEGURO_DE_VIDA_NO_BANCO = "SEGURO_DE_VIDA_NO_BANCO", "Seguro de Vida no Banco"
+    SEGURO_DE_VIDA_NO_BANCO = (
+        "SEGURO_DE_VIDA_NO_BANCO",
+        "Seguro de Vida no Banco",
+    )
     PENSAO_POR_MORTE = "PENSAO_POR_MORTE", "Pensão por Morte"
 
 
@@ -61,14 +64,20 @@ def upload_to(instance, filename):
     attendance_pk = instance.attendance.pk
     ext = filename.split(".")[-1]
     new_filename = f"{uuid.uuid4()}.{ext}"
-    return f"documentos/{attendance_pk}/{new_filename}"
+    return (
+        f"{AttendanceFile.DOCUMENT_ROOT_FOLDER}/{attendance_pk}/{new_filename}"
+    )
 
 
 class AttendanceFile(ModelBase):
+    DOCUMENT_ROOT_FOLDER = "documentos"
+
     attendance = models.ForeignKey(
         Attendance, on_delete=models.CASCADE, related_name="files"
     )
-    file = models.FileField(null=False, upload_to=upload_to, storage=MediaStorage())
+    file = models.FileField(
+        null=False, upload_to=upload_to, storage=MediaStorage()
+    )
     filename = models.CharField(null=False, max_length=124)
 
 

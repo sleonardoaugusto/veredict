@@ -2,22 +2,22 @@ from pathlib import Path
 
 import pytest
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 from model_bakery import baker
 
-from veredict.image_processing.models import ImageMetadata, ProcessingImage
-from veredict.image_processing.services.processing import textract_processing_image
+from veredict.image_processing.models import ImageMetadata
+from veredict.image_processing.services.processing import (
+    textract_processing_image,
+)
 
 
 @pytest.fixture
 def processing_image(file):
-    ProcessingImage.image.field.storage = FileSystemStorage()
     return baker.make("ProcessingImage", image=file)
 
 
 @pytest.fixture
 def file_source():
-    filename = "bo1.jpeg"
+    filename = "occurrence.jpeg"
     current_parent = Path(__file__).resolve().parent
     return str(settings.BASE_DIR / current_parent / filename)
 
@@ -29,7 +29,7 @@ def test_textract_processing_image(monkeypatch, processing_image, file_source):
     and correctly populates `ProcessingImageMetadata`.
     """
     monkeypatch.setattr(
-        "veredict.utils.s3.get_s3_uri",
+        "veredict.utils.files.get_file_path",
         lambda *args, **kwargs: file_source,
     )
 
