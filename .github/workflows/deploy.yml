@@ -86,7 +86,7 @@ jobs:
             echo "DATABASE_URL=$DATABASE_URL" >> backend/.env.prod
             echo "CELERY_BROKER_URL=$CELERY_BROKER_URL" >> backend/.env.prod
             echo "USE_S3=True" >> backend/.env.prod
-            echo "AWS_REGION=AWS_REGION" >> backend/.env.prod
+            echo "AWS_REGION=$AWS_REGION" >> backend/.env.prod
             echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> backend/.env.prod
             echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> backend/.env.prod
             echo "AWS_STORAGE_BUCKET_NAME=$AWS_STORAGE_BUCKET_NAME" >> backend/.env.prod
