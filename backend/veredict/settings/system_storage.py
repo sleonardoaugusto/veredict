@@ -4,7 +4,9 @@ from decouple import config
 
 from veredict.settings.base import BASE_DIR
 
-if config("USE_S3", cast=bool, default=True):
+USE_S3 = config("USE_S3", cast=bool, default=False)
+
+if USE_S3:
     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", "")
     AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", "")
     AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", "")
