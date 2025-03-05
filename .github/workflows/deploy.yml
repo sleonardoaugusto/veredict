@@ -55,6 +55,7 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.LIGHTSAIL_IP }} << EOF
+            set -x
             cd /home/ubuntu/veredict
           
             # Force reset and pull latest code
@@ -95,7 +96,7 @@ jobs:
             echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> frontend/.env.production
             
             echo "Restarting services with Docker Compose..."
-            docker-compose -f compose.prod.yml down
+            docker-compose -f compose.prod.yml down --remove-orphans
             docker system prune -af
             docker-compose -f compose.prod.yml up -d
             
