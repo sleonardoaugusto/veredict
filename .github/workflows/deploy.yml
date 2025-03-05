@@ -31,7 +31,9 @@ jobs:
           ALLOWED_HOSTS: ${{ secrets.BACKEND_ALLOWED_HOSTS }}
           SECRET_KEY: ${{ secrets.BACKEND_SECRET_KEY }}
           DATABASE_URL: ${{ secrets.BACKEND_DATABASE_URL }}
+          CELERY_BROKER_URL: ${{ secrets.BACKEND_CELERY_BROKER_URL }}
           FRONTEND_API_URL: ${{ secrets.FRONTEND_API_URL }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
@@ -50,7 +52,9 @@ jobs:
             export SECRET_KEY="${SECRET_KEY}"
             export ALLOWED_HOSTS="${ALLOWED_HOSTS}"
             export DATABASE_URL="${DATABASE_URL}"
+            export CELERY_BROKER_URL="${CELERY_BROKER_URL}"
             export FRONTEND_API_URL="${FRONTEND_API_URL}"
+            export AWS_REGION="${AWS_REGION}"
             export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
             export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
             export AWS_STORAGE_BUCKET_NAME="${AWS_STORAGE_BUCKET_NAME}"
@@ -61,10 +65,12 @@ jobs:
             
             # Append environment variables
             echo "DEBUG=False" >> backend/.env.prod
-            echo "USE_S3=True" >> backend/.env.prod
             echo "SECRET_KEY=$SECRET_KEY" >> backend/.env.prod
             echo "ALLOWED_HOSTS=$ALLOWED_HOSTS" >> backend/.env.prod
             echo "DATABASE_URL=$DATABASE_URL" >> backend/.env.prod
+            echo "CELERY_BROKER_URL=$CELERY_BROKER_URL" >> backend/.env.prod
+            echo "USE_S3=True" >> backend/.env.prod
+            echo "AWS_REGION=AWS_REGION" >> backend/.env.prod
             echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> backend/.env.prod
             echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> backend/.env.prod
             echo "AWS_STORAGE_BUCKET_NAME=$AWS_STORAGE_BUCKET_NAME" >> backend/.env.prod
