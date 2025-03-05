@@ -84,7 +84,7 @@ jobs:
             # Build and deploy with Docker Compose
             docker-compose -f compose.prod.yml down
             docker system prune -af
-            docker-compose -f compose.prod.yml up -d --build
+            docker-compose -f compose.prod.yml up -d
             
             # Collectic staticfiles
             docker-compose -f compose.prod.yml run backend python manage.py collectstatic --noinput
