@@ -31,20 +31,18 @@ services:
 
   worker:
     container_name: worker
-    image: backend:dev
+    image: backend:prod
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     restart: always
     depends_on:
       - redis
-      - db
     command: python manage.py run_worker
     volumes:
       - ./backend:/app
     env_file:
-      - backend/.env.dev
+      - backend/.env.prod
 
 volumes:
-  postgres_data:
   redis_data:
