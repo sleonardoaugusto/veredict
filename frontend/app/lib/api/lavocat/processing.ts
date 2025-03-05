@@ -1,6 +1,5 @@
 'use client'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
-import { Appointment } from '@/app/lib/api/lavocat/types'
 import { AuthService } from '@/app/lib/auth'
 
 export const processingsApi = baseApi.injectEndpoints({
