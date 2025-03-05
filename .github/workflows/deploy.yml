@@ -63,7 +63,7 @@ jobs:
             git clean -fd
             git pull origin main --force
             
-            # Set environment variables inside the SSH session
+            echo "Setting environment variables..."
             export SECRET_KEY="${SECRET_KEY}"
             export ALLOWED_HOSTS="${ALLOWED_HOSTS}"
             export DATABASE_URL="${DATABASE_URL}"
@@ -75,7 +75,7 @@ jobs:
             export AWS_STORAGE_BUCKET_NAME="${AWS_STORAGE_BUCKET_NAME}"
             export NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL}"
           
-            # Create an empty file (truncate if exists)
+            echo "Writing backend environment file..."
             > backend/.env.prod
             
             # Append environment variables
@@ -90,20 +90,18 @@ jobs:
             echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> backend/.env.prod
             echo "AWS_STORAGE_BUCKET_NAME=$AWS_STORAGE_BUCKET_NAME" >> backend/.env.prod
           
-            # Create an empty file (truncate if exists)
+            echo "Writing frontend environment file..."
             > frontend/.env.production
-            
-            # Append environment variables
             echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> frontend/.env.production
             
-            # Build and deploy with Docker Compose
+            echo "Restarting services with Docker Compose..."
             docker-compose -f compose.prod.yml down
             docker system prune -af
             docker-compose -f compose.prod.yml up -d
             
-            # Collectic staticfiles
+            echo "Collecting static files..."
             docker-compose -f compose.prod.yml run backend python manage.py collectstatic --noinput
             
-            # Run database migrations
+            echo "Running database migrations..."
             docker-compose -f compose.prod.yml run backend python manage.py migrate
           EOF
