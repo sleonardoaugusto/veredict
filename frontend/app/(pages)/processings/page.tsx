@@ -13,8 +13,13 @@ export default function FileUploadForm() {
     image: null,
   }
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: { image: File | null }) => {
     const { id } = await createProcessing().unwrap()
+
+    if (!values.image) {
+      console.error('Image is empty!')
+      return
+    }
 
     await createProcessingImage({
       processingId: id,
