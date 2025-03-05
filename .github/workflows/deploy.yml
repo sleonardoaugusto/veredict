@@ -76,7 +76,7 @@ jobs:
             echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> frontend/.env.production
             
             # Build and deploy with Docker Compose
-            docker-compose -f compose.prod.yml down --volumes --remove-orphans
+            docker-compose -f compose.prod.yml down
             docker system prune -af
             docker-compose -f compose.prod.yml up -d --build
             
