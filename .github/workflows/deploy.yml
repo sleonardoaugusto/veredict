@@ -100,9 +100,7 @@ jobs:
             docker system prune -af
             docker-compose -f compose.prod.yml up -d
           
-            echo "Running database migrations..."
-            docker-compose -f compose.prod.yml exec backend python manage.py migrate
-            
-            echo "Collecting static files..."
-            docker-compose -f compose.prod.yml exec backend python manage.py collectstatic --noinput
+            echo "Running database migrations and collecting static files..."
+            docker-compose -f compose.prod.yml run --rm backend python manage.py migrate && \
+            docker-compose -f compose.prod.yml run --rm backend python manage.py collectstatic --noinput
           EOF
