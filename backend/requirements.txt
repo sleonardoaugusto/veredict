@@ -33,3 +33,4 @@ amazon-textract-textractor==1.8.5
 ruff==0.9.7
 pytest-vcr==1.0.2
 vcrpy==7.0.0
+watchtower==3.4.0

@@ -87,6 +87,7 @@ jobs:
             echo "CELERY_BROKER_URL=$CELERY_BROKER_URL" >> backend/.env.prod
             echo "SENTRY_DSN=$SENTRY_DSN" >> backend/.env.prod
             echo "USE_S3=True" >> backend/.env.prod
+            echo "WATCHTOWER_LOGS=True" >> backend/.env.prod
             echo "AWS_REGION=$AWS_REGION" >> backend/.env.prod
             echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> backend/.env.prod
             echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> backend/.env.prod
