@@ -33,7 +33,7 @@ def _populate_processing_image_metadata(
 
     metadata.save()
     logger.info(
-        f"Document metadata successfully updated for '{processing_image.pk}'. Updated fields: {results}"
+        f"image_processing::Document metadata successfully updated for '{processing_image.pk}'. Updated fields: {results}"
     )
 
 
@@ -76,17 +76,18 @@ def textract_processing_image(
         ),
     ]
 
-    logger.info(f"Starting image metadata extraction '{processing_image.pk}'")
     textractor = TextractorClient(
         doc=processing_image.image,
         features=[TextractFeatures.QUERIES],
         queries=queries,
     )
-    logger.info(f"Retrieved Textract service instance '{processing_image.pk}'.")
+    logger.info(
+        f"image_processing::Retrieved Textract service instance '{processing_image.pk}'."
+    )
 
     document = textractor.run()
     logger.info(
-        f"Analysis completed for '{processing_image.pk}', processing metadata."
+        f"image_processing::Analysis completed for '{processing_image.pk}', processing metadata."
     )
 
     _populate_processing_image_metadata(document.queries, processing_image)
