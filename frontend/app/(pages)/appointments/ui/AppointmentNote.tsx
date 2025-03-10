@@ -48,6 +48,7 @@ export default function AppointmentNote({ appointmentId, note }: NoteProps) {
           <div
             key={note.id}
             className="border p-4 rounded-md shadow-sm bg-gray-100"
+            data-test="note"
           >
             <h3 className="font-semibold text-lg mb-2">{note.header}</h3>
             <Field

@@ -1,9 +1,13 @@
 'use client'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
+import { Appointment } from '@/app/lib/api/lavocat/types'
 
 export const processingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getProcessings: builder.query<Appointment[], void>({
+      query: () => '/processings/',
+    }),
     createProcessing: builder.mutation<{ id: number }, void>({
       query: () => ({
         url: '/processings/',
@@ -47,4 +51,5 @@ export const createProcessingImage = async ({
     throw error
   }
 }
-export const { useCreateProcessingMutation } = processingsApi
+export const { useGetProcessingsQuery, useCreateProcessingMutation } =
+  processingsApi

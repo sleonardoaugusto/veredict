@@ -56,7 +56,7 @@ export default function AppointmentDocuments({
   ]
 
   return (
-    <div className="ag-theme-alpine">
+    <div data-test="documents-grid" className="ag-theme-alpine">
       <AgGridReact
         rowData={mutableDocuments}
         columnDefs={columnDefs}

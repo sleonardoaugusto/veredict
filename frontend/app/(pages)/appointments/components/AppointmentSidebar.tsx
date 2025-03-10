@@ -62,6 +62,7 @@ export default function Sidebar({
         className={`fixed top-0 right-0 h-full overflow-auto w-1/2 bg-white shadow-lg transform transition-transform z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
+        data-test="sidebar"
       >
         {/* Header with Close Icon */}
         <div className="p-4 flex justify-between items-center bg-sky-100 text-gray-900">

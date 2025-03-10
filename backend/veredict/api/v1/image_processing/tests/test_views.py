@@ -8,6 +8,19 @@ from rest_framework import status
 from veredict.image_processing.models import Processing, ProcessingImage
 
 
+@pytest.fixture
+def processing():
+    return Processing.objects.create()
+
+
+def test_get_processings(client, processing):
+    url = reverse("api-v1:processing")
+    response = client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.json()) == 1
+    assert set(response.json()[0]) == {"id", "created_at"}
+
+
 def test_post_processing(client):
     assert not Processing.objects.exists()
 
@@ -17,11 +30,6 @@ def test_post_processing(client):
     assert response.status_code == status.HTTP_201_CREATED
     assert set(response.json()) == {"id"}
     assert Processing.objects.count() == 1
-
-
-@pytest.fixture
-def processing():
-    return Processing.objects.create()
 
 
 @patch("veredict.api.v1.image_processing.views.parse_processing_image")

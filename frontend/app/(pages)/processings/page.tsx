@@ -1,54 +1,25 @@
 'use client'
 
 import React from 'react'
-import { Form, Formik } from 'formik'
-import {
-  createProcessingImage,
-  useCreateProcessingMutation,
-} from '@/app/lib/api/lavocat/processing'
+import { AgGridReact } from 'ag-grid-react'
+import { useProcessingsGrid } from '@/app/(pages)/processings/hooks/useProcessingsGrid'
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
+ModuleRegistry.registerModules([AllCommunityModule])
 
-export default function FileUploadForm() {
-  const [createProcessing] = useCreateProcessingMutation()
-  const initialValues = {
-    image: null,
-  }
-
-  const handleSubmit = async (values: { image: File | null }) => {
-    const { id } = await createProcessing().unwrap()
-
-    if (!values.image) {
-      console.error('Image is empty!')
-      return
-    }
-
-    await createProcessingImage({
-      processingId: id,
-      image: values.image,
-    })
-  }
+export default function Page() {
+  const { processings, columnDefs } = useProcessingsGrid()
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ setFieldValue, isSubmitting, errors, touched }) => (
-        <Form>
-          <div>
-            <input
-              type="file"
-              onChange={(event) => {
-                if (event.currentTarget.files) {
-                  setFieldValue('image', event.currentTarget.files[0])
-                }
-              }}
-            />
-            {errors.image && touched.image && (
-              <p style={{ color: 'red' }}>{errors.image}</p>
-            )}
-          </div>
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Uploading...' : 'Upload'}
-          </button>
-        </Form>
-      )}
-    </Formik>
+    <>
+      <div className="p-4 flex justify-between items-center bg-sky-100 text-gray-900">
+        <h1 className="text-xl font-semibold">Processamentos</h1>
+      </div>
+      <div
+        className="ag-theme-alpine pt-4"
+        style={{ width: '100%', height: '100vh' }}
+      >
+        <AgGridReact rowData={processings} columnDefs={columnDefs} />
+      </div>
+    </>
   )
 }

@@ -34,7 +34,11 @@ export default function AppointmentsGrid() {
   if (error) return <p>Error loading appointments. Please try again later.</p>
 
   return (
-    <div className="ag-theme-alpine" style={{ width: '100%', height: '100vh' }}>
+    <div
+      className="ag-theme-alpine"
+      style={{ width: '100%', height: '100vh' }}
+      data-test="appointments-grid"
+    >
       <AgGridReact
         gridOptions={{
           rowSelection: {
