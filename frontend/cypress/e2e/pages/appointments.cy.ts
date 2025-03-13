@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('Appointments Page', () => {
   beforeEach(() => {
     cy.intercept(
       {

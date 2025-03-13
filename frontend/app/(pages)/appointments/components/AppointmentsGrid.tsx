@@ -6,7 +6,7 @@ import {
   ModuleRegistry,
   RowClickedEvent,
 } from 'ag-grid-community'
-import Sidebar from '@/app/(pages)/appointments/components/AppointmentSidebar'
+import AppointmentSidebar from '@/app/(pages)/appointments/components/AppointmentSidebar'
 import { useState } from 'react'
 import { useAppointmentsGrid } from '@/app/(pages)/appointments/hooks/useAppointmentsGrid'
 import { Appointment } from '@/app/lib/api/lavocat/types'
@@ -52,7 +52,7 @@ export default function AppointmentsGrid() {
         onRowClicked={onRowClicked}
       />
       {selectedRow && (
-        <Sidebar
+        <AppointmentSidebar
           isOpen={sidebarOpen}
           appointment={selectedRow}
           onCloseAction={closeSidebar}

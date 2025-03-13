@@ -19,3 +19,8 @@ export type Note = {
   header: string
   content: string
 }
+
+export type Processing = {
+  created_at: string
+  id: string
+}
