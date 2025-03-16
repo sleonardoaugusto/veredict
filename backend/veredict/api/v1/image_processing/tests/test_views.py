@@ -3,9 +3,14 @@ from unittest.mock import patch
 import pytest
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse
+from model_bakery import baker
 from rest_framework import status
 
-from veredict.image_processing.models import Processing, ProcessingImage
+from veredict.image_processing.models import (
+    Processing,
+    ProcessingImage,
+    ImageMetadata,
+)
 
 
 @pytest.fixture
@@ -68,5 +73,21 @@ def test_get_processing_images(client, processing_image):
         kwargs={"processing_pk": processing_image.processing.pk},
     )
     response = client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.json()) == 1
+
+
+@pytest.fixture
+def image_metadata(processing_image):
+    return ImageMetadata.objects.create(processing_image=processing_image)
+
+
+def test_get_processing_image_metadata(client, image_metadata):
+    url = reverse(
+        "api-v1:image-metadata",
+        kwargs={"processing_image_pk": image_metadata.processing_image.pk},
+    )
+    response = client.get(url)
+
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) == 1

@@ -72,5 +72,6 @@ export const createProcessingImage = async ({
 export const {
   useGetProcessingsQuery,
   useGetProcessingImagesQuery,
+  useGetProcessingImageMetadataQuery,
   useCreateProcessingMutation,
 } = processingsApi

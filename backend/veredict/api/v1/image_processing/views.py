@@ -8,8 +8,13 @@ from veredict.api.v1.image_processing.serializers import (
     ProcessingImageOutputSerializer,
     ProcessingOutputSerializer,
     ProcessingImageOutputSerializer,
+    ImageMetadataOutputSerializer,
 )
-from veredict.image_processing.models import Processing, ProcessingImage
+from veredict.image_processing.models import (
+    Processing,
+    ProcessingImage,
+    ImageMetadata,
+)
 from veredict.image_processing.tasks import parse_processing_image
 
 
@@ -43,4 +48,15 @@ class ProcessingImageListCreateView(APIView):
         queryset = ProcessingImage.objects.filter(processing=processing)
 
         output_serializer = ProcessingImageOutputSerializer(queryset, many=True)
+        return Response(output_serializer.data, status=status.HTTP_200_OK)
+
+
+class ImageMetadataListView(APIView):
+    def get(self, request, processing_image_pk, *args, **kwargs):
+        processing_image = ProcessingImage.objects.get(pk=processing_image_pk)
+        queryset = ImageMetadata.objects.filter(
+            processing_image=processing_image
+        )
+
+        output_serializer = ImageMetadataOutputSerializer(queryset, many=True)
         return Response(output_serializer.data, status=status.HTTP_200_OK)
