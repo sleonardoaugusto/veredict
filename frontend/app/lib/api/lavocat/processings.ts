@@ -1,7 +1,11 @@
 'use client'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
-import { Processing, ProcessingImage } from '@/app/lib/api/lavocat/types'
+import {
+  Processing,
+  ProcessingImage,
+  ProcessingImageMetadata,
+} from '@/app/lib/api/lavocat/types'
 
 export const processingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -20,6 +24,13 @@ export const processingsApi = baseApi.injectEndpoints({
     >({
       query: ({ processingId }) =>
         `/processings/${processingId}/processing-images/`,
+    }),
+    getProcessingImageMetadata: builder.query<
+      ProcessingImageMetadata,
+      { processingImageId: number }
+    >({
+      query: ({ processingImageId }) =>
+        `/processing-images/${processingImageId}/metadata/`,
     }),
   }),
 })

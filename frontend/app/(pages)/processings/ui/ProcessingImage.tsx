@@ -14,14 +14,12 @@ export default function ProcessingImage({
 }: ProcessingImageProps) {
   return (
     <Collapse key={processingImage.id} title="Processamento">
-      <div>
-        <Image
-          src={processingImage.image}
-          width={500}
-          height={500}
-          alt="Foto do processamento"
-        />
-      </div>
+      <Image
+        src={processingImage.image}
+        width={500}
+        height={500}
+        alt="Foto do processamento"
+      />
     </Collapse>
   )
 }
