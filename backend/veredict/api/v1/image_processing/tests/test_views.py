@@ -1,3 +1,4 @@
+import json
 from unittest.mock import patch
 
 import pytest
@@ -90,4 +91,47 @@ def test_get_processing_image_metadata(client, image_metadata):
     response = client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.json()) == 1
+    assert set(response.json()) == {
+        "city_1",
+        "city_2",
+        "city_3",
+        "date_1",
+        "date_2",
+        "date_3",
+        "ocr_code_1",
+        "ocr_code_2",
+        "ocr_code_3",
+        "processing_image",
+    }
+
+
+@pytest.mark.parametrize(
+    "field, value",
+    [
+        ("ocr_code_1", "12345"),
+        ("date_1", "2024-03-10"),
+        ("city_1", "New York"),
+        ("ocr_code_2", "67890"),
+        ("date_2", "2024-03-11"),
+        ("city_2", "Los Angeles"),
+        ("ocr_code_3", "ABCDE"),
+        ("date_3", "2024-03-12"),
+        ("city_3", "Chicago"),
+    ],
+)
+def test_patch_processing_image_metadata(client, image_metadata, field, value):
+    url = reverse(
+        "api-v1:image-metadata",
+        kwargs={"processing_image_pk": image_metadata.processing_image.pk},
+    )
+
+    data = {field: value}
+
+    response = client.patch(
+        url, data=json.dumps(data), content_type="application/json"
+    )
+
+    image_metadata.refresh_from_db()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert getattr(image_metadata, field) == value

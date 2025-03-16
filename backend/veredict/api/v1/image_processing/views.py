@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
@@ -5,10 +6,10 @@ from rest_framework.views import APIView
 
 from veredict.api.v1.image_processing.serializers import (
     ProcessingImageInputSerializer,
-    ProcessingImageOutputSerializer,
     ProcessingOutputSerializer,
     ProcessingImageOutputSerializer,
     ImageMetadataOutputSerializer,
+    ImageMetadataInputSerializer,
 )
 from veredict.image_processing.models import (
     Processing,
@@ -53,10 +54,30 @@ class ProcessingImageListCreateView(APIView):
 
 class ImageMetadataListView(APIView):
     def get(self, request, processing_image_pk, *args, **kwargs):
-        processing_image = ProcessingImage.objects.get(pk=processing_image_pk)
-        queryset = ImageMetadata.objects.filter(
-            processing_image=processing_image
+        """Retrieve ImageMetadata for a given ProcessingImage"""
+        processing_image = get_object_or_404(
+            ProcessingImage.objects.all(), pk=processing_image_pk
+        )
+        image_metadata = get_object_or_404(
+            ImageMetadata.objects.all(), processing_image=processing_image
         )
 
-        output_serializer = ImageMetadataOutputSerializer(queryset, many=True)
-        return Response(output_serializer.data, status=status.HTTP_200_OK)
+        serializer = ImageMetadataOutputSerializer(image_metadata)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def patch(self, request, processing_image_pk, *args, **kwargs):
+        """Partially update ImageMetadata fields"""
+        processing_image = get_object_or_404(
+            ProcessingImage.objects.all(), pk=processing_image_pk
+        )
+        instance = get_object_or_404(
+            ImageMetadata.objects.all(), processing_image=processing_image
+        )
+
+        serializer = ImageMetadataInputSerializer(
+            instance, data=request.data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
