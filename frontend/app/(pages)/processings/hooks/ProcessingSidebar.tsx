@@ -2,6 +2,7 @@
 import React from 'react'
 import Sidebar from '@/app/ui/Sidebar'
 import { Processing } from '@/app/lib/api/lavocat/types'
+import ProcessingList from '@/app/(pages)/processings/ui/ProcessingList'
 
 interface ProcessingSidebarProps {
   isOpen: boolean
@@ -20,7 +21,7 @@ export default function ProcessingSidebar({
         onCloseAction={onCloseAction}
         title="Detalhes do Processamento"
       >
-        <div></div>
+        <ProcessingList processingId={processing.id} />
       </Sidebar>
     </>
   )

@@ -1,11 +1,11 @@
 'use client'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import { Processing, ProcessingImage } from '@/app/lib/api/lavocat/types'
 
 export const processingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getProcessings: builder.query<Appointment[], void>({
+    getProcessings: builder.query<Processing[], void>({
       query: () => '/processings/',
     }),
     createProcessing: builder.mutation<{ id: number }, void>({
@@ -13,6 +13,13 @@ export const processingsApi = baseApi.injectEndpoints({
         url: '/processings/',
         method: 'POST',
       }),
+    }),
+    getProcessingImages: builder.query<
+      ProcessingImage[],
+      { processingId: number }
+    >({
+      query: ({ processingId }) =>
+        `/processings/${processingId}/processing-images/`,
     }),
   }),
 })
@@ -33,7 +40,7 @@ export const createProcessingImage = async ({
     if (token == null) return
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/processings/${processingId}/images/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/processings/${processingId}/processing-images/`,
       {
         method: 'POST',
         body: formData,
@@ -51,5 +58,8 @@ export const createProcessingImage = async ({
     throw error
   }
 }
-export const { useGetProcessingsQuery, useCreateProcessingMutation } =
-  processingsApi
+export const {
+  useGetProcessingsQuery,
+  useGetProcessingImagesQuery,
+  useCreateProcessingMutation,
+} = processingsApi

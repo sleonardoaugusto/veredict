@@ -21,6 +21,12 @@ export type Note = {
 }
 
 export type Processing = {
+  id: number
   created_at: string
-  id: string
+}
+
+export type ProcessingImage = {
+  id: number
+  processing: number
+  image: string
 }

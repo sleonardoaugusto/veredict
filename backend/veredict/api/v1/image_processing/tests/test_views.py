@@ -41,7 +41,7 @@ def test_post_processing_image(
     assert not ProcessingImage.objects.exists()
 
     url = reverse(
-        "api-v1:processing-image", kwargs={"processing_pk": processing.id}
+        "api-v1:processing-image", kwargs={"processing_pk": processing.pk}
     )
     data = {"image": file}
     response = client.post(url, data)
@@ -54,3 +54,19 @@ def test_post_processing_image(
     mock_parse_processing_image.delay_on_commit.assert_called_once_with(
         record.pk
     )
+
+
+@pytest.fixture
+def processing_image(processing, file):
+    ProcessingImage.image.field.storage = FileSystemStorage()
+    return ProcessingImage.objects.create(processing=processing, image=file)
+
+
+def test_get_processing_images(client, processing_image):
+    url = reverse(
+        "api-v1:processing-image",
+        kwargs={"processing_pk": processing_image.processing.pk},
+    )
+    response = client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.json()) == 1

@@ -15,10 +15,6 @@ import textractor.entities.query as e
 logger = get_logger()
 
 
-def get_processing(pk: int):
-    return Processing.objects.get(pk=pk)
-
-
 def _populate_processing_image_metadata(
     results: List[e.Query],
     processing_image: ProcessingImage,
