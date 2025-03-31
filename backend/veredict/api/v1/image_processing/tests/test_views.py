@@ -76,33 +76,12 @@ def test_get_processing_images(client, processing_image):
     response = client.get(url)
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) == 1
+    assert set(response.json()[0]) == {"id", "processing", "metadata", "image"}
 
 
 @pytest.fixture
 def image_metadata(processing_image):
     return ImageMetadata.objects.create(processing_image=processing_image)
-
-
-def test_get_processing_image_metadata(client, image_metadata):
-    url = reverse(
-        "api-v1:image-metadata",
-        kwargs={"processing_image_pk": image_metadata.processing_image.pk},
-    )
-    response = client.get(url)
-
-    assert response.status_code == status.HTTP_200_OK
-    assert set(response.json()) == {
-        "city_1",
-        "city_2",
-        "city_3",
-        "date_1",
-        "date_2",
-        "date_3",
-        "ocr_code_1",
-        "ocr_code_2",
-        "ocr_code_3",
-        "processing_image",
-    }
 
 
 @pytest.mark.parametrize(

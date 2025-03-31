@@ -21,19 +21,11 @@ class ProcessingImageInputSerializer(serializers.ModelSerializer):
         fields = ("id", "image")
 
 
-class ProcessingImageOutputSerializer(serializers.ModelSerializer):
-    class Meta:
-        ref_name = "ProcessingImageOutput"
-        model = ProcessingImage
-        fields = ("id", "processing", "image")
-
-
 class ImageMetadataOutputSerializer(serializers.ModelSerializer):
     class Meta:
         ref_name = "ImageMetadataOutput"
         model = ImageMetadata
         fields = (
-            "processing_image",
             "ocr_code_1",
             "date_1",
             "city_1",
@@ -61,3 +53,19 @@ class ImageMetadataInputSerializer(serializers.ModelSerializer):
             "date_3",
             "city_3",
         )
+
+
+class ProcessingImageCreateOutputSerializer(serializers.ModelSerializer):
+    class Meta:
+        ref_name = "ProcessingImageOutput"
+        model = ProcessingImage
+        fields = ("id", "processing", "image")
+
+
+class ProcessingImageListOutputSerializer(serializers.ModelSerializer):
+    metadata = ImageMetadataOutputSerializer(read_only=True)
+
+    class Meta:
+        ref_name = "ProcessingImageOutput"
+        model = ProcessingImage
+        fields = ("id", "processing", "image", "metadata")

@@ -7,9 +7,10 @@ from rest_framework.views import APIView
 from veredict.api.v1.image_processing.serializers import (
     ProcessingImageInputSerializer,
     ProcessingOutputSerializer,
-    ProcessingImageOutputSerializer,
     ImageMetadataOutputSerializer,
     ImageMetadataInputSerializer,
+    ProcessingImageCreateOutputSerializer,
+    ProcessingImageListOutputSerializer,
 )
 from veredict.image_processing.models import (
     Processing,
@@ -41,14 +42,18 @@ class ProcessingImageListCreateView(APIView):
 
         parse_processing_image.delay_on_commit(instance.pk)
 
-        output_serializer = ProcessingImageOutputSerializer(instance=instance)
+        output_serializer = ProcessingImageCreateOutputSerializer(
+            instance=instance
+        )
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self, request, processing_pk, *args, **kwargs):
         processing = Processing.objects.get(pk=processing_pk)
         queryset = ProcessingImage.objects.filter(processing=processing)
 
-        output_serializer = ProcessingImageOutputSerializer(queryset, many=True)
+        output_serializer = ProcessingImageListOutputSerializer(
+            queryset, many=True
+        )
         return Response(output_serializer.data, status=status.HTTP_200_OK)
 
 
