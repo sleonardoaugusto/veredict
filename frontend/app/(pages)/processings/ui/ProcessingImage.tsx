@@ -14,7 +14,10 @@ export default function ProcessingImage({
   processingImage,
 }: ProcessingImageProps) {
   return (
-    <Collapse key={processingImage.id} title="Processamento">
+    <Collapse
+      key={processingImage.id}
+      title={`Processamento (${processingImage.id})`}
+    >
       <div className="flex flex-row gap-2">
         <Image
           src={processingImage.image}

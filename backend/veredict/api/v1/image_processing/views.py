@@ -57,7 +57,7 @@ class ProcessingImageListCreateView(APIView):
         return Response(output_serializer.data, status=status.HTTP_200_OK)
 
 
-class ImageMetadataListView(APIView):
+class ImageMetadataListUpdateView(APIView):
     def get(self, request, processing_image_pk, *args, **kwargs):
         """Retrieve ImageMetadata for a given ProcessingImage"""
         processing_image = get_object_or_404(

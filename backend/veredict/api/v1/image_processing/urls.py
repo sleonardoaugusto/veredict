@@ -3,7 +3,7 @@ from django.urls import path
 from veredict.api.v1.image_processing.views import (
     ProcessingListView,
     ProcessingImageListCreateView,
-    ImageMetadataListView,
+    ImageMetadataListUpdateView,
 )
 
 urlpatterns = [
@@ -19,7 +19,7 @@ urlpatterns = [
     ),
     path(
         "processing-images/<int:processing_image_pk>/metadata/",
-        ImageMetadataListView.as_view(),
+        ImageMetadataListUpdateView.as_view(),
         name="image-metadata",
     ),
 ]

@@ -2,6 +2,7 @@
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
 import {
+  Appointment,
   Processing,
   ProcessingImage,
   ProcessingImageMetadata,
@@ -31,6 +32,16 @@ export const processingsApi = baseApi.injectEndpoints({
     >({
       query: ({ processingImageId }) =>
         `/processing-images/${processingImageId}/metadata/`,
+    }),
+    patchProcessingImageMetadata: builder.mutation<
+      Partial<ProcessingImageMetadata>,
+      { processingImageId: number; data: Partial<ProcessingImageMetadata> }
+    >({
+      query: ({ processingImageId, data }) => ({
+        url: `/processing-images/${processingImageId}/metadata/`,
+        method: 'PATCH',
+        body: data,
+      }),
     }),
   }),
 })
@@ -74,4 +85,5 @@ export const {
   useGetProcessingImagesQuery,
   useGetProcessingImageMetadataQuery,
   useCreateProcessingMutation,
+  usePatchProcessingImageMetadataMutation,
 } = processingsApi
