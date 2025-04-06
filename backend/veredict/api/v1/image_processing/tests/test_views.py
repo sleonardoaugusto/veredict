@@ -4,19 +4,12 @@ from unittest.mock import patch
 import pytest
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse
-from model_bakery import baker
 from rest_framework import status
 
 from veredict.image_processing.models import (
     Processing,
     ProcessingImage,
-    ImageMetadata,
 )
-
-
-@pytest.fixture
-def processing():
-    return Processing.objects.create()
 
 
 def test_get_processings(client, processing):
@@ -62,12 +55,6 @@ def test_post_processing_image(
     )
 
 
-@pytest.fixture
-def processing_image(processing, file):
-    ProcessingImage.image.field.storage = FileSystemStorage()
-    return ProcessingImage.objects.create(processing=processing, image=file)
-
-
 def test_get_processing_images(client, processing_image):
     url = reverse(
         "api-v1:processing-image",
@@ -77,11 +64,6 @@ def test_get_processing_images(client, processing_image):
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) == 1
     assert set(response.json()[0]) == {"id", "processing", "metadata", "image"}
-
-
-@pytest.fixture
-def image_metadata(processing_image):
-    return ImageMetadata.objects.create(processing_image=processing_image)
 
 
 @pytest.mark.parametrize(

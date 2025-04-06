@@ -2,17 +2,11 @@ from pathlib import Path
 
 import pytest
 from django.conf import settings
-from model_bakery import baker
 
 from veredict.image_processing.models import ImageMetadata
 from veredict.image_processing.services.processing import (
     textract_processing_image,
 )
-
-
-@pytest.fixture
-def processing_image(file):
-    return baker.make("ProcessingImage", image=file)
 
 
 @pytest.fixture

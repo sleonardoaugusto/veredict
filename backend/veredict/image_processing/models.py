@@ -1,3 +1,4 @@
+import enum
 import uuid
 
 from django.db import models
@@ -43,3 +44,37 @@ class ImageMetadata(ModelBase):
     ocr_code_3 = models.CharField(max_length=256, null=True, blank=True)
     date_3 = models.CharField(max_length=256, null=True, blank=True)
     city_3 = models.CharField(max_length=256, null=True, blank=True)
+
+    class AlertTypes(str, enum.Enum):
+        WARNING = "warning"
+        ERROR = "error"
+
+    @property
+    def ocr_code_1_flag(self):
+        if self.ocr_code_1 in [self.ocr_code_2, self.ocr_code_3]:
+            return self.AlertTypes.ERROR
+
+    @property
+    def ocr_code_2_flag(self):
+        if self.ocr_code_1 in [self.ocr_code_1, self.ocr_code_3]:
+            return self.AlertTypes.ERROR
+
+    @property
+    def ocr_code_3_flag(self):
+        if self.ocr_code_1 in [self.ocr_code_1, self.ocr_code_2]:
+            return self.AlertTypes.ERROR
+
+    @property
+    def city_1_flag(self):
+        if self.city_1 == self.city_2 or self.city_1 == self.city_3:
+            return self.AlertTypes.WARNING
+
+    @property
+    def city_2_flag(self):
+        if self.city_2 == self.city_1 or self.city_2 == self.city_3:
+            return self.AlertTypes.WARNING
+
+    @property
+    def city_3_flag(self):
+        if self.city_3 == self.city_1 or self.city_3 == self.city_2:
+            return self.AlertTypes.WARNING
