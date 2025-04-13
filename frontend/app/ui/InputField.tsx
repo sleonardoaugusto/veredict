@@ -1,12 +1,12 @@
 import { Field } from 'formik'
 
-type StyledFieldProps = {
+type InputFieldProps = {
   name: string
   placeholder: string
   onBlur: () => void
 }
 
-export function InputField({ name, placeholder, onBlur }: StyledFieldProps) {
+export function InputField({ name, placeholder, onBlur }: InputFieldProps) {
   return (
     <Field
       name={name}
