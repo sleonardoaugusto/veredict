@@ -7,6 +7,7 @@ import {
 } from '@/app/lib/api/lavocat/processings'
 import { Field, Form, Formik } from 'formik'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
+import { InputField } from '@/app/ui/InputField'
 
 interface ProcessingImageFormProps {
   processingImageId: number
@@ -62,74 +63,65 @@ export default function ProcessingImageForm({
     >
       {({ handleSubmit }) => (
         <Form className="flex flex-col justify-between">
-          <Field
+          <InputField
             name="ocr_code_1"
             placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="date_1"
-            placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
+            placeholder="Data"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="city_1"
-            placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
+            placeholder="Cidade"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="ocr_code_2"
             placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="date_2"
-            placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
+            placeholder="Data"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="city_2"
-            placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
+            placeholder="Cidade"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="ocr_code_3"
             placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="date_3"
-            placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
+            placeholder="Data"
             onBlur={() => {
               handleSubmit()
             }}
           />
-          <Field
+          <InputField
             name="city_3"
-            placeholder="Código"
-            className="w-full border border-gray-300 rounded-md p-2 resize-none"
+            placeholder="Cidade"
             onBlur={() => {
               handleSubmit()
             }}
