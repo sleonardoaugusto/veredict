@@ -32,6 +32,7 @@ export const processingsApi = baseApi.injectEndpoints({
     >({
       query: ({ processingImageId }) =>
         `/processing-images/${processingImageId}/metadata/`,
+      providesTags: ['ProcessingImageMetadata'],
     }),
     patchProcessingImageMetadata: builder.mutation<
       Partial<ProcessingImageMetadata>,
@@ -42,6 +43,7 @@ export const processingsApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['ProcessingImageMetadata'],
     }),
   }),
 })

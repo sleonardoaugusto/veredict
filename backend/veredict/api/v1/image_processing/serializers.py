@@ -26,6 +26,7 @@ class ImageMetadataOutputSerializer(serializers.ModelSerializer):
         ref_name = "ImageMetadataOutput"
         model = ImageMetadata
         fields = (
+            "id",
             "ocr_code_1",
             "date_1",
             "city_1",
@@ -35,6 +36,12 @@ class ImageMetadataOutputSerializer(serializers.ModelSerializer):
             "ocr_code_3",
             "date_3",
             "city_3",
+            "ocr_code_1_flag",
+            "ocr_code_2_flag",
+            "ocr_code_3_flag",
+            "city_1_flag",
+            "city_2_flag",
+            "city_3_flag",
         )
 
 
@@ -63,9 +70,7 @@ class ProcessingImageCreateOutputSerializer(serializers.ModelSerializer):
 
 
 class ProcessingImageListOutputSerializer(serializers.ModelSerializer):
-    metadata = ImageMetadataOutputSerializer(read_only=True)
-
     class Meta:
         ref_name = "ProcessingImageOutput"
         model = ProcessingImage
-        fields = ("id", "processing", "image", "metadata")
+        fields = ("id", "processing", "image")

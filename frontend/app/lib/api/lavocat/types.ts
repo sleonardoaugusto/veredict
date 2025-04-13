@@ -43,4 +43,10 @@ export type ProcessingImageMetadata = {
   ocr_code_3: string
   date_3: string
   city_3: string
+  ocr_code_1_flag: 'error' | 'warning' | null
+  ocr_code_2_flag: 'error' | 'warning' | null
+  ocr_code_3_flag: 'error' | 'warning' | null
+  city_1_flag: 'error' | 'warning' | null
+  city_2_flag: 'error' | 'warning' | null
+  city_3_flag: 'error' | 'warning' | null
 }

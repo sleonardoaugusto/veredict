@@ -84,5 +84,6 @@ class ImageMetadataListUpdateView(APIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        output_serializer = ImageMetadataOutputSerializer(instance)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(output_serializer.data, status=status.HTTP_200_OK)

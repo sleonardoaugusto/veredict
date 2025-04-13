@@ -51,30 +51,48 @@ class ImageMetadata(ModelBase):
 
     @property
     def ocr_code_1_flag(self):
-        if self.ocr_code_1 in [self.ocr_code_2, self.ocr_code_3]:
+        if not self.ocr_code_1 or self.ocr_code_1 in [
+            self.ocr_code_2,
+            self.ocr_code_3,
+        ]:
             return self.AlertTypes.ERROR
 
     @property
     def ocr_code_2_flag(self):
-        if self.ocr_code_1 in [self.ocr_code_1, self.ocr_code_3]:
+        if not self.ocr_code_2 or self.ocr_code_2 in [
+            self.ocr_code_1,
+            self.ocr_code_3,
+        ]:
             return self.AlertTypes.ERROR
 
     @property
     def ocr_code_3_flag(self):
-        if self.ocr_code_1 in [self.ocr_code_1, self.ocr_code_2]:
+        if not self.ocr_code_3 or self.ocr_code_3 in [
+            self.ocr_code_1,
+            self.ocr_code_2,
+        ]:
             return self.AlertTypes.ERROR
 
     @property
     def city_1_flag(self):
+        if not self.city_1:
+            return self.AlertTypes.ERROR
+
         if self.city_1 == self.city_2 or self.city_1 == self.city_3:
             return self.AlertTypes.WARNING
 
     @property
     def city_2_flag(self):
+        if not self.city_2:
+            return self.AlertTypes.ERROR
+
         if self.city_2 == self.city_1 or self.city_2 == self.city_3:
             return self.AlertTypes.WARNING
 
     @property
     def city_3_flag(self):
+        if not self.city_3:
+            return self.AlertTypes.ERROR
+
         if self.city_3 == self.city_1 or self.city_3 == self.city_2:
             return self.AlertTypes.WARNING
