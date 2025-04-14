@@ -13,7 +13,6 @@
   },
   "ignores": [
     ".next",
-    "**/*.d.ts",
-    "tailwind.config.ts"
+    "**/*.d.ts"
   ]
 }

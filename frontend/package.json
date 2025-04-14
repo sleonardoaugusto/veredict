@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "format": "prettier --write .",
-    "lint": "eslint . --max-warnings=0"
+    "lint": "eslint . --ignore-pattern tailwind.config.ts --max-warnings=0"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
