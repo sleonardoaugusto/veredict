@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_IMAGE_HOSTNAME || '',
+        hostname: process.env.NEXT_PUBLIC_IMAGE_HOSTNAME || '',
       },
     ], // Allow images from this domain
   },
