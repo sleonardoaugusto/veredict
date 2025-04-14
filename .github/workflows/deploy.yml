@@ -24,7 +24,7 @@ jobs:
         working-directory: frontend
         run: npm install
 
-      - name: Run ESLint
+      - name: Run ESLint (frontend only)
         working-directory: frontend
         run: npm run lint
 
@@ -78,8 +78,6 @@ jobs:
           
             echo "Writing backend environment file..."
             > backend/.env.prod
-            
-            # Append environment variables
             echo "DEBUG=False" >> backend/.env.prod
             echo "SECRET_KEY=$SECRET_KEY" >> backend/.env.prod
             echo "ALLOWED_HOSTS=$ALLOWED_HOSTS" >> backend/.env.prod

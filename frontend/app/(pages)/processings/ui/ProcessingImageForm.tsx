@@ -41,13 +41,9 @@ export default function ProcessingImageForm({
   const [patchProcessingImage] = usePatchProcessingImageMetadataMutation()
 
   useEffect(() => {
-    calculateErrorsAndWarnings()
-  }, [imageMetadata])
-
-  function calculateErrorsAndWarnings() {
     const result = { errors: 0, warnings: 0 }
 
-    if (!imageMetadata) return result
+    if (!imageMetadata) return
 
     for (const [key, value] of Object.entries(imageMetadata)) {
       if (key.endsWith('_flag')) {
@@ -57,7 +53,7 @@ export default function ProcessingImageForm({
     }
 
     setErrorsAndWarningsAction(result)
-  }
+  }, [imageMetadata, setErrorsAndWarningsAction])
 
   function getBorderColor(
     status: 'error' | 'warning' | null | undefined
@@ -93,7 +89,7 @@ export default function ProcessingImageForm({
       onSubmit={handleSubmit}
       enableReinitialize={true}
     >
-      {({ handleSubmit, values }) => (
+      {({ handleSubmit }) => (
         <Form className="flex flex-col justify-between">
           <InputField
             name="ocr_code_1"
