@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   useGetProcessingImageMetadataQuery,
   usePatchProcessingImageMetadataMutation,
@@ -11,6 +11,10 @@ import { InputField } from '@/app/ui/InputField'
 
 interface ProcessingImageFormProps {
   processingImageId: number
+  setErrorsAndWarningsAction: (obj: {
+    errors: number
+    warnings: number
+  }) => void
 }
 
 interface FormValues {
@@ -27,6 +31,7 @@ interface FormValues {
 
 export default function ProcessingImageForm({
   processingImageId,
+  setErrorsAndWarningsAction,
 }: ProcessingImageFormProps) {
   const { data: imageMetadata } = useGetProcessingImageMetadataQuery(
     { processingImageId },
@@ -34,6 +39,25 @@ export default function ProcessingImageForm({
   )
 
   const [patchProcessingImage] = usePatchProcessingImageMetadataMutation()
+
+  useEffect(() => {
+    calculateErrorsAndWarnings()
+  }, [imageMetadata])
+
+  function calculateErrorsAndWarnings() {
+    let result = { errors: 0, warnings: 0 }
+
+    if (!imageMetadata) return result
+
+    for (const [key, value] of Object.entries(imageMetadata)) {
+      if (key.endsWith('_flag')) {
+        if (value === 'error') result.errors++
+        if (value === 'warning') result.warnings++
+      }
+    }
+
+    setErrorsAndWarningsAction(result)
+  }
 
   function getBorderColor(
     status: 'error' | 'warning' | null | undefined
