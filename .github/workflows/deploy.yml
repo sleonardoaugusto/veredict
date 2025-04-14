@@ -103,6 +103,5 @@ jobs:
             docker-compose -f compose.prod.yml up -d
           
             echo "Running database migrations and collecting static files..."
-            docker-compose -f compose.prod.yml run --rm backend python manage.py migrate && \
-            docker-compose -f compose.prod.yml run --rm backend python manage.py collectstatic --noinput --verbosity 2
+            docker-compose -f compose.prod.yml run --rm backend python manage.py migrate
           EOF
