@@ -5,7 +5,7 @@ import {
   useGetProcessingImageMetadataQuery,
   usePatchProcessingImageMetadataMutation,
 } from '@/app/lib/api/lavocat/processings'
-import { Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
 import { InputField } from '@/app/ui/InputField'
 
@@ -45,7 +45,7 @@ export default function ProcessingImageForm({
   }, [imageMetadata])
 
   function calculateErrorsAndWarnings() {
-    let result = { errors: 0, warnings: 0 }
+    const result = { errors: 0, warnings: 0 }
 
     if (!imageMetadata) return result
 

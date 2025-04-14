@@ -10,6 +10,7 @@ import {
 } from 'ag-grid-community'
 import ProcessingSidebar from '@/app/(pages)/processings/hooks/ProcessingSidebar'
 import { Processing } from '@/app/lib/api/lavocat/types'
+import ProcessingImagesButton from '@/app/(pages)/processings/ui/ProcessingImagesButton'
 ModuleRegistry.registerModules([AllCommunityModule])
 
 export default function Page() {
@@ -30,19 +31,23 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-4 flex justify-between items-center bg-sky-100 text-gray-900">
+      <div className="p-4 flex justify-between items-center bg-sky-100 text-gray-900 mb-4">
         <h1 className="text-xl font-semibold">Processamentos</h1>
       </div>
-      <div
-        className="ag-theme-alpine pt-4"
-        style={{ width: '100%', height: '100vh' }}
-        data-test="processings-grid"
-      >
-        <AgGridReact
-          rowData={processings}
-          columnDefs={columnDefs}
-          onRowClicked={onRowClicked}
-        />
+      <div className="relative ag-theme-alpine" data-test="processings-grid">
+        <div className="relative z-30">
+          <ProcessingImagesButton />
+        </div>
+        <div
+          className="relative z-0"
+          style={{ width: '100%', height: '100vh' }}
+        >
+          <AgGridReact
+            rowData={processings}
+            columnDefs={columnDefs}
+            onRowClicked={onRowClicked}
+          />
+        </div>
         {selectedRow && (
           <ProcessingSidebar
             isOpen={sidebarOpen}

@@ -2,7 +2,6 @@
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
 import {
-  Appointment,
   Processing,
   ProcessingImage,
   ProcessingImageMetadata,
