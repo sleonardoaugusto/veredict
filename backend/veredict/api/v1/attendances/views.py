@@ -21,7 +21,12 @@ class BaseNestedRouteViewSet(viewsets.ModelViewSet):
     nested_lookup = None
 
     def get_queryset(self):
-        return self.queryset.filter(attendance=self.kwargs[self.nested_lookup])
+        if "attendance_pk" in self.kwargs:
+            return self.queryset.filter(
+                attendance=self.kwargs[self.nested_lookup]
+            )
+
+        return super().get_queryset()
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):
