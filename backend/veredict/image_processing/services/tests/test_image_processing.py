@@ -4,7 +4,7 @@ import pytest
 from django.conf import settings
 
 from veredict.image_processing.models import ImageMetadata
-from veredict.image_processing.services.processing import (
+from veredict.image_processing.services.image_processing import (
     textract_processing_image,
 )
 
@@ -28,15 +28,17 @@ def test_textract_processing_image(monkeypatch, processing_image, file_source):
     )
 
     textract_processing_image(processing_image)
-    metadata = ImageMetadata.objects.get()
+    processing_image.refresh_from_db()
 
-    assert metadata.processing_image == processing_image
-    assert metadata.ocr_code_1 == "3026"
-    assert metadata.date_1 == "27/01/2025"
-    assert metadata.city_1 == "SAO ROQUE"
-    assert metadata.ocr_code_2 == "3066"
-    assert metadata.date_2 == "27/01/2025"
-    assert metadata.city_2 == "IBIUNA"
-    assert metadata.ocr_code_3 == "3095"
-    assert metadata.date_3 == "27/01/2025"
-    assert metadata.city_3 == "GUARULHOS"
+    metadata = processing_image.metadata
+
+    assert metadata.count() == 3
+    assert metadata.filter(
+        ocr_code="3026", date="27/01/2025", city="SAO ROQUE"
+    ).exists()
+    assert metadata.filter(
+        ocr_code="3066", date="27/01/2025", city="IBIUNA"
+    ).exists()
+    assert metadata.filter(
+        ocr_code="3095", date="27/01/2025", city="GUARULHOS"
+    ).exists()

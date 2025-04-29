@@ -26,7 +26,7 @@ export const processingsApi = baseApi.injectEndpoints({
         `/processings/${processingId}/processing-images/`,
     }),
     getProcessingImageMetadata: builder.query<
-      ProcessingImageMetadata,
+      ProcessingImageMetadata[],
       { processingImageId: number }
     >({
       query: ({ processingImageId }) =>
@@ -35,14 +35,17 @@ export const processingsApi = baseApi.injectEndpoints({
     }),
     patchProcessingImageMetadata: builder.mutation<
       Partial<ProcessingImageMetadata>,
-      { processingImageId: number; data: Partial<ProcessingImageMetadata> }
+      {
+        processingImageId: number
+        imageMetadataId: number
+        data: Partial<ProcessingImageMetadata>
+      }
     >({
-      query: ({ processingImageId, data }) => ({
-        url: `/processing-images/${processingImageId}/metadata/`,
+      query: ({ processingImageId, imageMetadataId, data }) => ({
+        url: `/processing-images/${processingImageId}/metadata/${imageMetadataId}/`,
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['ProcessingImageMetadata'],
     }),
   }),
 })

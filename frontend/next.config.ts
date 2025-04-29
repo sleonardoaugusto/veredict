@@ -7,7 +7,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_IMAGE_HOSTNAME || '',
+        hostname:
+          process.env.NEXT_PUBLIC_IMAGE_HOSTNAME ||
+          'lavocat-dev.s3.amazonaws.com',
       },
     ], // Allow images from this domain
   },

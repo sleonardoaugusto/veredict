@@ -9,6 +9,7 @@ from rest_framework import status
 from veredict.image_processing.models import (
     Processing,
     ProcessingImage,
+    ImageMetadata,
 )
 
 
@@ -68,25 +69,22 @@ class TestProcessingImageListCreateView:
 
 class TestImageMetadataListUpdateView:
     @pytest.mark.parametrize(
-        "field, value",
+        "field, value, expected",
         [
-            ("ocr_code_1", "12345"),
-            ("date_1", "2024-03-10"),
-            ("city_1", "New York"),
-            ("ocr_code_2", "67890"),
-            ("date_2", "2024-03-11"),
-            ("city_2", "Los Angeles"),
-            ("ocr_code_3", "ABCDE"),
-            ("date_3", "2024-03-12"),
-            ("city_3", "Chicago"),
+            ("ocr_code", "12345", "12345"),
+            ("date", "10/03/2024", "10/03/2024"),
+            ("city", "New York", "NEW YORK"),
         ],
     )
     def test_patch_processing_image_metadata(
-        self, client, image_metadata, field, value
+        self, client, image_metadata, field, value, expected
     ):
         url = reverse(
-            "api-v1:image-metadata",
-            kwargs={"processing_image_pk": image_metadata.processing_image.pk},
+            "api-v1:image-metadata-update",
+            kwargs={
+                "processing_image_pk": image_metadata.processing_image.pk,
+                "image_metadata_pk": image_metadata.pk,
+            },
         )
 
         data = {field: value}
@@ -98,50 +96,35 @@ class TestImageMetadataListUpdateView:
         image_metadata.refresh_from_db()
 
         assert response.status_code == status.HTTP_200_OK
-        assert getattr(image_metadata, field) == value
+        assert getattr(image_metadata, field) == expected
         assert set(response.json()) == {
             "id",
-            "city_1",
-            "city_2",
-            "city_3",
-            "date_1",
-            "date_2",
-            "date_3",
-            "ocr_code_1",
-            "ocr_code_2",
-            "ocr_code_3",
-            "ocr_code_1_flag",
-            "ocr_code_2_flag",
-            "ocr_code_3_flag",
-            "city_1_flag",
-            "city_2_flag",
-            "city_3_flag",
+            "city",
+            "date",
+            "ocr_code",
+            "ocr_code_flag",
+            "city_flag",
         }
 
-    def test_get_processing_image_metadata(self, client, image_metadata):
+    def test_get_processing_image_metadata(self, client, processing_image):
+        [
+            ImageMetadata.objects.create(processing_image=processing_image)
+            for _ in range(2)
+        ]
         url = reverse(
-            "api-v1:image-metadata",
-            kwargs={"processing_image_pk": image_metadata.processing_image.pk},
+            "api-v1:image-metadata-list",
+            kwargs={"processing_image_pk": processing_image.pk},
         )
 
         response = client.get(url)
 
         assert response.status_code == status.HTTP_200_OK
-        assert set(response.json()) == {
+        assert len(response.json()) == 2
+        assert set(response.json()[0]) == {
+            "ocr_code",
+            "city_flag",
+            "city",
+            "date",
+            "ocr_code_flag",
             "id",
-            "city_1",
-            "city_2",
-            "city_3",
-            "date_1",
-            "date_2",
-            "date_3",
-            "ocr_code_1",
-            "ocr_code_2",
-            "ocr_code_3",
-            "ocr_code_1_flag",
-            "ocr_code_2_flag",
-            "ocr_code_3_flag",
-            "city_1_flag",
-            "city_2_flag",
-            "city_3_flag",
         }

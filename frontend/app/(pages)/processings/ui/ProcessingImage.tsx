@@ -38,12 +38,14 @@ export default function ProcessingImage({
       }
     >
       <div className="flex flex-row gap-2">
-        <Image
-          src={processingImage.image}
-          width={500}
-          height={500}
-          alt="Foto do processamento"
-        />
+        {processingImage.image && (
+          <Image
+            src={processingImage.image}
+            width={500}
+            height={500}
+            alt="Foto do processamento"
+          />
+        )}
         <ProcessingImageForm
           processingImageId={processingImage.id}
           setErrorsAndWarningsAction={setErrorsAndWarningsFlags}

@@ -34,19 +34,10 @@ export type ProcessingImage = {
 export type ProcessingImageMetadata = {
   id: number
   processing_image: number
-  ocr_code_1: string
-  date_1: string
-  city_1: string
-  ocr_code_2: string
-  date_2: string
-  city_2: string
-  ocr_code_3: string
-  date_3: string
-  city_3: string
-  ocr_code_1_flag: 'error' | 'warning' | null
-  ocr_code_2_flag: 'error' | 'warning' | null
-  ocr_code_3_flag: 'error' | 'warning' | null
-  city_1_flag: 'error' | 'warning' | null
-  city_2_flag: 'error' | 'warning' | null
-  city_3_flag: 'error' | 'warning' | null
+  ocr_code: string
+  date: string
+  city: string
+  ocr_code_flag: 'error' | 'warning' | null
+  city_flag: 'error' | 'warning' | null
+  date_flag: 'error' | 'warning' | null
 }

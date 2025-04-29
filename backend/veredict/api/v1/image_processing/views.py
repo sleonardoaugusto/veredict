@@ -57,27 +57,29 @@ class ProcessingImageListCreateView(APIView):
         return Response(output_serializer.data, status=status.HTTP_200_OK)
 
 
-class ImageMetadataListUpdateView(APIView):
+class ImageMetadataListView(APIView):
     def get(self, request, processing_image_pk, *args, **kwargs):
         """Retrieve ImageMetadata for a given ProcessingImage"""
         processing_image = get_object_or_404(
             ProcessingImage.objects.all(), pk=processing_image_pk
         )
-        image_metadata = get_object_or_404(
-            ImageMetadata.objects.all(), processing_image=processing_image
+        image_metadata = ImageMetadata.objects.filter(
+            processing_image=processing_image
         )
 
-        serializer = ImageMetadataOutputSerializer(image_metadata)
+        serializer = ImageMetadataOutputSerializer(image_metadata, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def patch(self, request, processing_image_pk, *args, **kwargs):
+
+class ImageMetadataUpdateView(APIView):
+    def patch(
+        self, request, processing_image_pk, image_metadata_pk, *args, **kwargs
+    ):
         """Partially update ImageMetadata fields"""
         processing_image = get_object_or_404(
             ProcessingImage.objects.all(), pk=processing_image_pk
         )
-        instance = get_object_or_404(
-            ImageMetadata.objects.all(), processing_image=processing_image
-        )
+        instance = processing_image.metadata.get(pk=image_metadata_pk)
 
         serializer = ImageMetadataInputSerializer(
             instance, data=request.data, partial=True

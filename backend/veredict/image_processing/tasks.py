@@ -1,6 +1,8 @@
 from veredict.celery.app import celery_app
 from veredict.image_processing.models import ProcessingImage
-from veredict.image_processing.services.processing import textract_processing_image
+from veredict.image_processing.services.image_processing import (
+    textract_processing_image,
+)
 from veredict.utils.logger import get_logger
 
 logger = get_logger()

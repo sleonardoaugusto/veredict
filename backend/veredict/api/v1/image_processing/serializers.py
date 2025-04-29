@@ -27,21 +27,11 @@ class ImageMetadataOutputSerializer(serializers.ModelSerializer):
         model = ImageMetadata
         fields = (
             "id",
-            "ocr_code_1",
-            "date_1",
-            "city_1",
-            "ocr_code_2",
-            "date_2",
-            "city_2",
-            "ocr_code_3",
-            "date_3",
-            "city_3",
-            "ocr_code_1_flag",
-            "ocr_code_2_flag",
-            "ocr_code_3_flag",
-            "city_1_flag",
-            "city_2_flag",
-            "city_3_flag",
+            "ocr_code",
+            "date",
+            "city",
+            "ocr_code_flag",
+            "city_flag",
         )
 
 
@@ -50,15 +40,9 @@ class ImageMetadataInputSerializer(serializers.ModelSerializer):
         ref_name = "ImageMetadataInput"
         model = ImageMetadata
         fields = (
-            "ocr_code_1",
-            "date_1",
-            "city_1",
-            "ocr_code_2",
-            "date_2",
-            "city_2",
-            "ocr_code_3",
-            "date_3",
-            "city_3",
+            "ocr_code",
+            "date",
+            "city",
         )
 
 

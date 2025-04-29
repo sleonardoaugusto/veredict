@@ -5,6 +5,11 @@ from django.db import models
 
 from storage_backends import MediaStorage
 from veredict.core.models import ModelBase
+from veredict.image_processing.services.token_processing import (
+    convert_date_format,
+    map_city_code,
+    parse_ocr,
+)
 
 
 def upload_to(instance, filename):
@@ -29,70 +34,61 @@ class ProcessingImage(ModelBase):
 
 
 class ImageMetadata(ModelBase):
-    processing_image = models.OneToOneField(
+    processing_image = models.ForeignKey(
         ProcessingImage,
-        null=False,
         on_delete=models.CASCADE,
         related_name="metadata",
     )
-    ocr_code_1 = models.CharField(max_length=256, null=True, blank=True)
-    date_1 = models.CharField(max_length=256, null=True, blank=True)
-    city_1 = models.CharField(max_length=256, null=True, blank=True)
-    ocr_code_2 = models.CharField(max_length=256, null=True, blank=True)
-    date_2 = models.CharField(max_length=256, null=True, blank=True)
-    city_2 = models.CharField(max_length=256, null=True, blank=True)
-    ocr_code_3 = models.CharField(max_length=256, null=True, blank=True)
-    date_3 = models.CharField(max_length=256, null=True, blank=True)
-    city_3 = models.CharField(max_length=256, null=True, blank=True)
+    ocr_code = models.CharField(max_length=256, null=True, blank=True)
+    date = models.CharField(max_length=256, null=True, blank=True)
+    city = models.CharField(max_length=256, null=True, blank=True)
 
     class AlertTypes(str, enum.Enum):
         WARNING = "warning"
         ERROR = "error"
 
     @property
-    def ocr_code_1_flag(self):
-        if not self.ocr_code_1 or self.ocr_code_1 in [
-            self.ocr_code_2,
-            self.ocr_code_3,
-        ]:
+    def ocr_code_flag(self):
+        if (
+            not self.ocr_code
+            or self.processing_image.metadata.filter(
+                ocr_code=self.ocr_code
+            ).count()
+            > 1
+        ):
             return self.AlertTypes.ERROR
 
     @property
-    def ocr_code_2_flag(self):
-        if not self.ocr_code_2 or self.ocr_code_2 in [
-            self.ocr_code_1,
-            self.ocr_code_3,
-        ]:
+    def ocr_date_flag(self):
+        if not self.date:
             return self.AlertTypes.ERROR
 
     @property
-    def ocr_code_3_flag(self):
-        if not self.ocr_code_3 or self.ocr_code_3 in [
-            self.ocr_code_1,
-            self.ocr_code_2,
-        ]:
+    def city_flag(self):
+        if not self.city:
             return self.AlertTypes.ERROR
 
-    @property
-    def city_1_flag(self):
-        if not self.city_1:
-            return self.AlertTypes.ERROR
-
-        if self.city_1 == self.city_2 or self.city_1 == self.city_3:
+        if self.processing_image.metadata.filter(city=self.city).count() > 1:
             return self.AlertTypes.WARNING
 
     @property
-    def city_2_flag(self):
-        if not self.city_2:
-            return self.AlertTypes.ERROR
+    def token(self):
+        try:
+            date = convert_date_format(self.date)
+            city_code = map_city_code(self.city)
+            ocr = parse_ocr(self.ocr_code)
 
-        if self.city_2 == self.city_1 or self.city_2 == self.city_3:
-            return self.AlertTypes.WARNING
+            return f"BO{date}{city_code}{ocr}"
 
-    @property
-    def city_3_flag(self):
-        if not self.city_3:
-            return self.AlertTypes.ERROR
+        except Exception:
+            ...
 
-        if self.city_3 == self.city_1 or self.city_3 == self.city_2:
-            return self.AlertTypes.WARNING
+    def _format_city(self):
+        if self.city:
+            return self.city.upper()
+
+        return self.city
+
+    def save(self, *args, **kwargs):
+        self.city = self._format_city()
+        super().save(*args, **kwargs)
