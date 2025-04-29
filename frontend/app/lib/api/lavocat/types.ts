@@ -40,4 +40,5 @@ export type ProcessingImageMetadata = {
   ocr_code_flag: 'error' | 'warning' | null
   city_flag: 'error' | 'warning' | null
   date_flag: 'error' | 'warning' | null
+  position: 'top' | 'middle' | 'bottom'
 }

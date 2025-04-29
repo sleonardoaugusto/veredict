@@ -40,9 +40,9 @@ def _parse_results(results: List[e.Query]) -> List[dict]:
         List[dict]: List of metadata dictionaries with cleaned keys and corresponding results.
     """
     lookup_groups = [
-        ("ocr_code_1", "date_1", "city_1"),
-        ("ocr_code_2", "date_2", "city_2"),
-        ("ocr_code_3", "date_3", "city_3"),
+        ("ocr_code_1", "date_1", "city_1", "top"),
+        ("ocr_code_2", "date_2", "city_2", "middle"),
+        ("ocr_code_3", "date_3", "city_3", "bottom"),
     ]
 
     parsed_metadata = []
@@ -51,6 +51,9 @@ def _parse_results(results: List[e.Query]) -> List[dict]:
         metadata = {}
         for lookup_key in lookup_group:
             for query in results:
+                if lookup_key in ("top", "middle", "bottom"):
+                    metadata["position"] = lookup_key
+
                 if query.alias == lookup_key:
                     cleaned_key = _remove_suffix(query.alias)
                     metadata[cleaned_key] = query.result.text
@@ -66,6 +69,7 @@ def _create_image_metadata(processing_image: ProcessingImage, result: dict):
     metadata.ocr_code = result["ocr_code"]
     metadata.date = result["date"]
     metadata.city = result["city"]
+    metadata.position = result["position"]
 
     metadata.save()
 

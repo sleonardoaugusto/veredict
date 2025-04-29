@@ -34,11 +34,11 @@ def test_textract_processing_image(monkeypatch, processing_image, file_source):
 
     assert metadata.count() == 3
     assert metadata.filter(
-        ocr_code="3026", date="27/01/2025", city="SAO ROQUE"
+        ocr_code="3026", date="27/01/2025", city="SAO ROQUE", position="top"
     ).exists()
     assert metadata.filter(
-        ocr_code="3066", date="27/01/2025", city="IBIUNA"
+        ocr_code="3066", date="27/01/2025", city="IBIUNA", position="middle"
     ).exists()
     assert metadata.filter(
-        ocr_code="3095", date="27/01/2025", city="GUARULHOS"
+        ocr_code="3095", date="27/01/2025", city="GUARULHOS", position="bottom"
     ).exists()

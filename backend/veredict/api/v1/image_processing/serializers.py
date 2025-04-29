@@ -32,6 +32,7 @@ class ImageMetadataOutputSerializer(serializers.ModelSerializer):
             "city",
             "ocr_code_flag",
             "city_flag",
+            "position",
         )
 
 

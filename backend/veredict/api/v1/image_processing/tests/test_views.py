@@ -104,6 +104,7 @@ class TestImageMetadataListUpdateView:
             "ocr_code",
             "ocr_code_flag",
             "city_flag",
+            "position",
         }
 
     def test_get_processing_image_metadata(self, client, processing_image):
@@ -121,10 +122,11 @@ class TestImageMetadataListUpdateView:
         assert response.status_code == status.HTTP_200_OK
         assert len(response.json()) == 2
         assert set(response.json()[0]) == {
+            "id",
             "ocr_code",
             "city_flag",
             "city",
             "date",
             "ocr_code_flag",
-            "id",
+            "position",
         }

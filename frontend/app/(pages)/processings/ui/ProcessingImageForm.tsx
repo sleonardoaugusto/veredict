@@ -127,9 +127,31 @@ export default function ProcessingImageForm({
     setErrorsAndWarningsAction(result)
   }, [imageMetadata, setErrorsAndWarningsAction])
 
+  const topMetadata =
+    imageMetadata?.filter((metadata) => metadata.position === 'top') || []
+  const middleMetadata =
+    imageMetadata?.filter((metadata) => metadata.position === 'middle') || []
+  const bottomMetadata =
+    imageMetadata?.filter((metadata) => metadata.position === 'bottom') || []
   return (
-    <div className="flex flex-col justify-between">
-      {imageMetadata?.map((metadata) => (
+    <div className="flex flex-col gap-6">
+      {topMetadata.map((metadata) => (
+        <ImageMetadataForm
+          key={metadata.id}
+          processingImageId={processingImageId}
+          imageMetadata={metadata}
+        />
+      ))}
+
+      {middleMetadata.map((metadata) => (
+        <ImageMetadataForm
+          key={metadata.id}
+          processingImageId={processingImageId}
+          imageMetadata={metadata}
+        />
+      ))}
+
+      {bottomMetadata.map((metadata) => (
         <ImageMetadataForm
           key={metadata.id}
           processingImageId={processingImageId}

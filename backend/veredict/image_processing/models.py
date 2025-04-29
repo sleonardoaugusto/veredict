@@ -42,6 +42,7 @@ class ImageMetadata(ModelBase):
     ocr_code = models.CharField(max_length=256, null=True, blank=True)
     date = models.CharField(max_length=256, null=True, blank=True)
     city = models.CharField(max_length=256, null=True, blank=True)
+    position = models.CharField(max_length=256, null=True, blank=True)
 
     class AlertTypes(str, enum.Enum):
         WARNING = "warning"
