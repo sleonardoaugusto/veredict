@@ -3,7 +3,6 @@ from pathlib import Path
 import pytest
 from django.conf import settings
 
-from veredict.image_processing.models import ImageMetadata
 from veredict.image_processing.services.image_processing import (
     textract_processing_image,
 )

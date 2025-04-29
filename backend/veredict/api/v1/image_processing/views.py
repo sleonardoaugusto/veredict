@@ -22,7 +22,7 @@ from veredict.image_processing.tasks import parse_processing_image
 
 class ProcessingListView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Processing.objects.all()
+        queryset = Processing.objects.all().order_by("-created_at")
         serializer = ProcessingOutputSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
