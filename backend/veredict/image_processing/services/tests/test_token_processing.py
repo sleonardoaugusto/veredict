@@ -205,7 +205,7 @@ from veredict.image_processing.services.token_processing import (
         ("MONTE ALTO", ["12"]),
         ("GUAIRA", ["12"]),
         ("MATÃO", ["12"]),
-        ("BATATAIS ", ["12"]),
+        ("BATATAIS", ["12"]),
         ("ITAPOLIS", ["12"]),
         ("BEBEDOURO", ["12"]),
         ("RIBEIRAO CORRENTE", ["12"]),

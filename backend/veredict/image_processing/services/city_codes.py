@@ -216,7 +216,7 @@ CITY_CODE_MAPPING = {
         "MATÃO",
         "AVARE",
         "SERTAOZINHO",
-        "BATATAIS ",
+        "BATATAIS",
         "ITAPOLIS",
         "BEBEDOURO",
         "RIBEIRAO CORRENTE",
