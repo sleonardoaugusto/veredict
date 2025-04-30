@@ -21,6 +21,7 @@ interface ProcessingImageFormProps {
 interface ImageMetadataFormProps {
   processingImageId: number
   imageMetadata: ProcessingImageMetadata
+  refetchImageMetadata: () => void
 }
 
 interface FormValues {
@@ -33,9 +34,40 @@ export default function ProcessingImageForm({
   processingImageId,
   setErrorsAndWarningsAction,
 }: ProcessingImageFormProps) {
+  const { data: imageMetadata, refetch: refetchImageMetadata } =
+    useGetProcessingImageMetadataQuery(
+      { processingImageId },
+      { skip: !processingImageId }
+    )
+
+  useEffect(() => {
+    const result = { errors: 0, warnings: 0 }
+
+    if (!imageMetadata) return
+
+    imageMetadata.map((metadata) => {
+      for (const [key, value] of Object.entries(metadata)) {
+        if (key.endsWith('_flag')) {
+          if (value === 'error') result.errors++
+          if (value === 'warning') result.warnings++
+        }
+      }
+    })
+
+    setErrorsAndWarningsAction(result)
+  }, [imageMetadata, setErrorsAndWarningsAction])
+
+  const topMetadata =
+    imageMetadata?.filter((metadata) => metadata.position === 'top') || []
+  const middleMetadata =
+    imageMetadata?.filter((metadata) => metadata.position === 'middle') || []
+  const bottomMetadata =
+    imageMetadata?.filter((metadata) => metadata.position === 'bottom') || []
+
   function ImageMetadataForm({
     processingImageId,
     imageMetadata,
+    refetchImageMetadata,
   }: ImageMetadataFormProps) {
     const [patchProcessingImageMetadata] =
       usePatchProcessingImageMetadataMutation()
@@ -49,7 +81,7 @@ export default function ProcessingImageForm({
     }
 
     const handleSubmit = async (values: FormValues) => {
-      return await makeRequest(
+      const response = await makeRequest(
         () =>
           patchProcessingImageMetadata({
             processingImageId,
@@ -59,6 +91,12 @@ export default function ProcessingImageForm({
         'Dados salvos',
         'Um erro ocorreu'
       )
+
+      if (response) {
+        refetchImageMetadata()
+      }
+
+      return response
     }
 
     const initialValues = {
@@ -105,34 +143,6 @@ export default function ProcessingImageForm({
     )
   }
 
-  const { data: imageMetadata } = useGetProcessingImageMetadataQuery(
-    { processingImageId },
-    { skip: !processingImageId }
-  )
-
-  useEffect(() => {
-    const result = { errors: 0, warnings: 0 }
-
-    if (!imageMetadata) return
-
-    imageMetadata.map((metadata) => {
-      for (const [key, value] of Object.entries(metadata)) {
-        if (key.endsWith('_flag')) {
-          if (value === 'error') result.errors++
-          if (value === 'warning') result.warnings++
-        }
-      }
-    })
-
-    setErrorsAndWarningsAction(result)
-  }, [imageMetadata, setErrorsAndWarningsAction])
-
-  const topMetadata =
-    imageMetadata?.filter((metadata) => metadata.position === 'top') || []
-  const middleMetadata =
-    imageMetadata?.filter((metadata) => metadata.position === 'middle') || []
-  const bottomMetadata =
-    imageMetadata?.filter((metadata) => metadata.position === 'bottom') || []
   return (
     <div className="flex flex-col gap-6">
       {topMetadata.map((metadata) => (
@@ -140,6 +150,7 @@ export default function ProcessingImageForm({
           key={metadata.id}
           processingImageId={processingImageId}
           imageMetadata={metadata}
+          refetchImageMetadata={refetchImageMetadata}
         />
       ))}
 
@@ -148,6 +159,7 @@ export default function ProcessingImageForm({
           key={metadata.id}
           processingImageId={processingImageId}
           imageMetadata={metadata}
+          refetchImageMetadata={refetchImageMetadata}
         />
       ))}
 
@@ -156,6 +168,7 @@ export default function ProcessingImageForm({
           key={metadata.id}
           processingImageId={processingImageId}
           imageMetadata={metadata}
+          refetchImageMetadata={refetchImageMetadata}
         />
       ))}
     </div>

@@ -46,7 +46,6 @@ export const processingsApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['ProcessingImageMetadata'],
     }),
   }),
 })
