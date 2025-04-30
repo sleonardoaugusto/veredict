@@ -49,10 +49,10 @@ class TestCityFlag:
         as a WARNING.
         """
         image_metadata_1 = ImageMetadata.objects.create(
-            processing_image=processing_image, city="SAO ROQUE"
+            processing_image=processing_image, city="SAO SEBASTIAO"
         )
         image_metadata_2 = ImageMetadata.objects.create(
-            processing_image=processing_image, city="SAO ROQUE"
+            processing_image=processing_image, city="SAO SEBASTIAO"
         )
 
         assert image_metadata_1.city_flag == ImageMetadata.AlertTypes.WARNING
