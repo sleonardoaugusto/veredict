@@ -22,6 +22,8 @@ CITY_CODE_MAPPING = {
         "FERRAZ DE VASCONCELLOS",
         "ARUJA",
         "TABOAO DA SERRA",
+        "ITAPEVI",
+        "JANDIRA",
     ],
     "02": [
         "NOVA GRANADA",
@@ -54,6 +56,9 @@ CITY_CODE_MAPPING = {
         "TATUI",
         "BOITUVA",
         "ARACARIGUAMA",
+        "SAO ROQUE",
+        "IPERO",
+        "LARANJAL PAULISTA",
     ],
     "05": [
         "SAO JOSE DOS CAMPOS",
@@ -75,6 +80,7 @@ CITY_CODE_MAPPING = {
         "TREMEMBE",
         "RIBEIRÃO PIRES",
         "CAMPOS DO JORDAO",
+        "CRUZEIRO",
     ],
     "06": [
         "BAURU",
@@ -144,6 +150,10 @@ CITY_CODE_MAPPING = {
         "APARECIDA",
         "CEDRAL",
         "TRES FRONTEIRAS",
+        "BADY BASSITT",
+        "FERNANDOPOLIS",
+        "URUPES",
+        "MACEDONIA",
     ],
     "10": [
         "CAMPINAS",
@@ -206,6 +216,11 @@ CITY_CODE_MAPPING = {
         "MATÃO",
         "AVARE",
         "SERTAOZINHO",
+        "BATATAIS ",
+        "ITAPOLIS",
+        "BEBEDOURO",
+        "RIBEIRAO CORRENTE",
+        "MATAO",
     ],
     "13": [
         "ARACATUBA",
@@ -253,6 +268,7 @@ CITY_CODE_MAPPING = {
         "PRESIDENTE VENCESLAU",
         "PACAEMBU",
         "PRESIDENTE BERNARDES",
+        "PRESIDENTE EPITACIO",
     ],
     "26": [
         "MOMBUCA",
