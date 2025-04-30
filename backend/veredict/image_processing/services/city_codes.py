@@ -204,6 +204,8 @@ CITY_CODE_MAPPING = {
         "MONTE ALTO",
         "GUAIRA",
         "MATÃO",
+        "AVARE",
+        "SERTAOZINHO",
     ],
     "13": [
         "ARACATUBA",
