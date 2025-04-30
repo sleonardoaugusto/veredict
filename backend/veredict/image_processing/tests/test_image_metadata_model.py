@@ -1,3 +1,5 @@
+import pytest
+
 from veredict.image_processing.models import ImageMetadata
 
 
@@ -59,13 +61,20 @@ class TestCityFlag:
         assert image_metadata_2.city_flag == ImageMetadata.AlertTypes.WARNING
 
 
-class TestToken:
-    def test_token(self, processing_image):
+class TestTokens:
+    @pytest.mark.parametrize(
+        "city, tokens",
+        [
+            ("SOROCABA", ["BO202512310400001"]),
+            ("ARARAS", ["BO202512310200001", "BO202512312600001"]),
+        ],
+    )
+    def test_tokens(self, city, tokens, processing_image):
         image_metadata = ImageMetadata.objects.create(
             processing_image=processing_image,
             ocr_code="1",
-            city="SOROCABA",
+            city=city,
             date="31/12/2025",
         )
 
-        assert image_metadata.token == ["BO202512310400001"]
+        assert image_metadata.tokens == tokens

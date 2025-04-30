@@ -78,7 +78,7 @@ class ImageMetadata(ModelBase):
             return self.AlertTypes.WARNING
 
     @property
-    def token(self):
+    def tokens(self):
         try:
             city_codes = map_city_code(self.city)
             date = convert_date_format(self.date)
