@@ -80,11 +80,11 @@ class ImageMetadata(ModelBase):
     @property
     def token(self):
         try:
+            city_codes = map_city_code(self.city)
             date = convert_date_format(self.date)
-            city_code = map_city_code(self.city)
             ocr = parse_ocr(self.ocr_code)
 
-            return f"BO{date}{city_code}{ocr}"
+            return [f"BO{date}{code}{ocr}" for code in city_codes]
 
         except Exception:
             ...

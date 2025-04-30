@@ -4,9 +4,13 @@ from veredict.image_processing.services.city_codes import CITY_CODE_MAPPING
 
 
 def map_city_code(city_name: str):
+    codes = []
     for code, cities in CITY_CODE_MAPPING.items():
         if city_name.upper() in cities:
-            return code
+            codes.append(code)
+
+    if codes:
+        return codes
 
     raise ValueError(f"No codes found for {city_name}")
 

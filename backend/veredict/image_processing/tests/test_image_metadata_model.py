@@ -68,4 +68,4 @@ class TestToken:
             date="31/12/2025",
         )
 
-        assert image_metadata.token == "BO202512310400001"
+        assert image_metadata.token == ["BO202512310400001"]
