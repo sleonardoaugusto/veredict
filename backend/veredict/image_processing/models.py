@@ -69,6 +69,11 @@ class ImageMetadata(ModelBase):
         if not self.city:
             return self.AlertTypes.ERROR
 
+        try:
+            map_city_code(self.city)
+        except ValueError:
+            return self.AlertTypes.ERROR
+
         if self.processing_image.metadata.filter(city=self.city).count() > 1:
             return self.AlertTypes.WARNING
 
