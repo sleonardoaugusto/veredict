@@ -90,7 +90,7 @@ class ImageMetadata(ModelBase):
             return [f"BO{date}{code}{ocr}" for code in city_codes]
 
         except Exception:
-            return []
+            return None
 
     def _format_city(self):
         if self.city:

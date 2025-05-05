@@ -147,7 +147,8 @@ def get_processing_tokens(processing: Processing):
 
     for image in processing.processing_images.all():
         for metadata in image.metadata.all():
-            for token in metadata.tokens:
-                tokens.append(token)
+            if metadata.tokens:
+                for token in metadata.tokens:
+                    tokens.append(token)
 
     return tokens
