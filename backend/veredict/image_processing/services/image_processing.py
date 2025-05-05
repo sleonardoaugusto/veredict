@@ -5,6 +5,7 @@ from textractor.data.constants import TextractFeatures
 from veredict.image_processing.models import (
     ProcessingImage,
     ImageMetadata,
+    Processing,
 )
 
 from veredict.textractor.client import TextractorClient
@@ -139,3 +140,14 @@ def textract_processing_image(
     _populate_processing_image_metadata(
         results=document.queries, processing_image=processing_image
     )
+
+
+def get_processing_tokens(processing: Processing):
+    tokens = []
+
+    for image in processing.processing_images.all():
+        for metadata in image.metadata.all():
+            for token in metadata.tokens:
+                tokens.append(token)
+
+    return tokens

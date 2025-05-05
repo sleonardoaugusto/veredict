@@ -1,4 +1,6 @@
 'use client'
+
+import { saveAs } from 'file-saver'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
 import {
@@ -63,8 +65,6 @@ export const createProcessingImage = async ({
   try {
     const token = AuthService.getToken()
 
-    if (token == null) return
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/processings/${processingId}/processing-images/`,
       {
@@ -84,6 +84,31 @@ export const createProcessingImage = async ({
     throw error
   }
 }
+
+export const downloadTokens = async ({
+  processingId,
+}: {
+  processingId: number
+}) => {
+  const token = AuthService.getToken()
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/processings/${processingId}/tokens/`,
+    {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error('Failed to download file.')
+  }
+
+  const blob = await response.blob()
+
+  saveAs(blob, 'tokens.txt')
+}
+
 export const {
   useGetProcessingsQuery,
   useGetProcessingImagesQuery,

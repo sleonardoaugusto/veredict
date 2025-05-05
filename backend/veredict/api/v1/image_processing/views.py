@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -17,6 +18,9 @@ from veredict.image_processing.models import (
     ProcessingImage,
     ImageMetadata,
 )
+from veredict.image_processing.services.image_processing import (
+    get_processing_tokens,
+)
 from veredict.image_processing.tasks import parse_processing_image
 
 
@@ -29,6 +33,15 @@ class ProcessingListView(APIView):
     def post(self, request):
         instance = Processing.objects.create()
         return Response({"id": instance.pk}, status=status.HTTP_201_CREATED)
+
+
+class ProcessingTokensListView(APIView):
+    def get(self, request, processing_pk, *args, **kwargs):
+        processing = Processing.objects.get(pk=processing_pk)
+        tokens = get_processing_tokens(processing)
+        content = "\n".join(tokens)
+
+        return HttpResponse(content, content_type="text/plain")
 
 
 class ProcessingImageListCreateView(APIView):

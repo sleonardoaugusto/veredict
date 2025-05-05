@@ -26,7 +26,10 @@ class ProcessingImage(ModelBase):
     DOCUMENT_ROOT_FOLDER = "processings"
 
     processing = models.ForeignKey(
-        Processing, null=False, on_delete=models.CASCADE
+        Processing,
+        null=False,
+        on_delete=models.CASCADE,
+        related_name="processing_images",
     )
     image = models.FileField(
         null=False, blank=False, upload_to=upload_to, storage=MediaStorage()
@@ -87,7 +90,7 @@ class ImageMetadata(ModelBase):
             return [f"BO{date}{code}{ocr}" for code in city_codes]
 
         except Exception:
-            ...
+            return []
 
     def _format_city(self):
         if self.city:

@@ -5,6 +5,7 @@ from veredict.api.v1.image_processing.views import (
     ProcessingImageListCreateView,
     ImageMetadataUpdateView,
     ImageMetadataListView,
+    ProcessingTokensListView,
 )
 
 urlpatterns = [
@@ -12,6 +13,11 @@ urlpatterns = [
         "processings/",
         ProcessingListView.as_view(),
         name="processing",
+    ),
+    path(
+        "processings/<int:processing_pk>/tokens/",
+        ProcessingTokensListView.as_view(),
+        name="processing-tokens",
     ),
     path(
         "processings/<int:processing_pk>/processing-images/",
