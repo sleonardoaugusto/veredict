@@ -94,16 +94,14 @@ export default function FileUploadForm({ isOpen }: { isOpen: boolean }) {
                 <div className="text-sm text-gray-700">
                   <p>{values.image.length} imagem(ns) selecionada(s)</p>
 
-                  <ul className="list-disc ml-5 mt-1 space-y-0.5 text-gray-600 text-xs max-h-64 overflow-auto">
-                    {values.image
-                      .slice(0, 10)
-                      .map((file: File, idx: number) => (
-                        <li key={idx} className="truncate">
-                          {file.name}
-                        </li>
-                      ))}
-                    {values.image.length > 10 && (
-                      <li>+ {values.image.length - 10} mais</li>
+                  <ul className="list-disc ml-5 mt-1 space-y-0.5 text-gray-600 text-xs max-h-32 overflow-auto">
+                    {values.image.slice(0, 5).map((file: File, idx: number) => (
+                      <li key={idx} className="truncate">
+                        {file.name}
+                      </li>
+                    ))}
+                    {values.image.length > 5 && (
+                      <li>+ {values.image.length - 5} mais</li>
                     )}
                   </ul>
                 </div>
