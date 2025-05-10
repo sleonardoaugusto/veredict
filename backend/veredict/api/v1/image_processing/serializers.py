@@ -11,7 +11,7 @@ class ProcessingOutputSerializer(serializers.ModelSerializer):
     class Meta:
         ref_name = "ProcessingImageOutput"
         model = Processing
-        fields = ("created_at", "id")
+        fields = ("created_at", "id", "status")
 
 
 class ProcessingImageInputSerializer(serializers.ModelSerializer):
