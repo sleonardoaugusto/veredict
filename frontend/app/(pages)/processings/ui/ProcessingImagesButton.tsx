@@ -19,7 +19,7 @@ export default function ProcessingImagesButton() {
       <Sidebar
         isOpen={isOpen}
         onCloseAction={closeSidebar}
-        title="Detalhes do Processamento"
+        title="Processar Imagens"
       >
         <FileUploadForm />
       </Sidebar>
