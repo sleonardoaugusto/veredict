@@ -4,6 +4,8 @@ import Sidebar from '@/app/ui/Sidebar'
 import { Processing } from '@/app/lib/api/lavocat/types'
 import ProcessingList from '@/app/(pages)/processings/ui/ProcessingList'
 import { downloadTokens } from '@/app/lib/api/lavocat/processings'
+import { ArrowDownTrayIcon } from '@heroicons/react/16/solid'
+import Button from '@/app/ui/Button'
 
 interface ProcessingSidebarProps {
   isOpen: boolean
@@ -22,12 +24,12 @@ export default function ProcessingSidebar({
         onCloseAction={onCloseAction}
         title="Detalhes do Processamento"
       >
-        <button
-          className="px-3 py-1 bg-gray-100 text-gray-700 text-sm border border-gray-300 rounded hover:bg-gray-200 transition"
-          onClick={() => downloadTokens({ processingId: processing.id })}
+        <Button
+          onClickAction={() => downloadTokens({ processingId: processing.id })}
         >
+          <ArrowDownTrayIcon className="w-4 h-4" />
           Baixar Tokens
-        </button>
+        </Button>
         <ProcessingList processingId={processing.id} />
       </Sidebar>
     </>

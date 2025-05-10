@@ -1,10 +1,11 @@
 import React, { useEffect, ReactNode } from 'react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
+import Header from '@/app/ui/Header'
 
 interface SidebarProps {
   isOpen: boolean
   onCloseAction: () => void
-  title?: string
+  title: string
   children: ReactNode
 }
 
@@ -37,7 +38,7 @@ export default function Sidebar({
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         onClick={onCloseAction}
-      ></div>
+      />
 
       {/* Sidebar */}
       <div
@@ -46,16 +47,10 @@ export default function Sidebar({
         }`}
         data-test="sidebar"
       >
-        {/* Header with Close Icon */}
-        <div className="p-4 flex justify-between items-center bg-sky-100 text-gray-900">
-          {title && <h2 className="text-lg font-semibold">{title}</h2>}
-          <button onClick={onCloseAction} className="hover:text-gray-600">
-            <XMarkIcon className="h-6 w-6" />
-          </button>
-        </div>
+        <Header title={title} onCloseAction={onCloseAction} />
 
         {/* Sidebar Content */}
-        <div className="p-6 space-y-6">{children}</div>
+        <div className="p-6 space-y-6 text-gray-800">{children}</div>
       </div>
     </>
   )

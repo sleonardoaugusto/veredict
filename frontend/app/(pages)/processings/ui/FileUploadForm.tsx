@@ -6,6 +6,8 @@ import {
   createProcessingImage,
   useCreateProcessingMutation,
 } from '@/app/lib/api/lavocat/processings'
+import Button from '@/app/ui/Button'
+import { ArrowUpTrayIcon } from '@heroicons/react/16/solid'
 
 export default function FileUploadForm() {
   const [createProcessing] = useCreateProcessingMutation()
@@ -22,12 +24,14 @@ export default function FileUploadForm() {
 
     const { id } = await createProcessing().unwrap()
 
-    for (const file of values.image) {
-      await createProcessingImage({
-        processingId: id,
-        image: file,
-      })
-    }
+    Promise.all(
+      values.image.map((file) =>
+        createProcessingImage({
+          processingId: id,
+          image: file,
+        })
+      )
+    ).then(() => {})
   }
 
   return (
@@ -46,9 +50,19 @@ export default function FileUploadForm() {
               }}
             />
           </div>
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Uploading...' : 'Upload'}
-          </button>
+          <Button type="submit">
+            {isSubmitting ? (
+              <>
+                Enviado...
+                <div className="w-4 h-4 border-2 border-t-transparent border-indigo-700 rounded-full animate-spin" />
+              </>
+            ) : (
+              <>
+                <ArrowUpTrayIcon className="w-4 h-4" />
+                Enviar Imagens
+              </>
+            )}
+          </Button>
         </Form>
       )}
     </Formik>
