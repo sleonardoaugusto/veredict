@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export default function Header({ title, onCloseAction }: HeaderProps) {
   return (
-    <div className="p-4 flex justify-between items-center bg-blue-200 text-blue-900">
+    <div className="p-4 flex justify-between items-center bg-indigo-700 text-white">
       {title && <h2 className="text-lg font-medium">{title}</h2>}
       {onCloseAction && (
         <button onClick={onCloseAction} className="hover:text-blue-700">
