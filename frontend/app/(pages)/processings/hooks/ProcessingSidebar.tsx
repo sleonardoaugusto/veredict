@@ -1,4 +1,5 @@
 'use client'
+
 import React from 'react'
 import Sidebar from '@/app/ui/Sidebar'
 import { Processing } from '@/app/lib/api/lavocat/types'
