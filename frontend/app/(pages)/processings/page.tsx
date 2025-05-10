@@ -47,13 +47,15 @@ export default function Page() {
             onRowClicked={onRowClicked}
           />
         </div>
-        {selectedRow && (
-          <ProcessingSidebar
-            isOpen={sidebarOpen}
-            processing={selectedRow}
-            onCloseAction={closeSidebar}
-          />
-        )}
+        <div className="relative z-30">
+          {selectedRow && (
+            <ProcessingSidebar
+              isOpen={sidebarOpen}
+              processing={selectedRow}
+              onCloseAction={closeSidebar}
+            />
+          )}
+        </div>
       </div>
     </>
   )
