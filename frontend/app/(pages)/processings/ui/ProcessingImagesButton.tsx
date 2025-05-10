@@ -15,7 +15,7 @@ export default function ProcessingImagesButton() {
   return (
     <>
       <Button
-        className="mt-2 btn btn-sm join-item"
+        className="mt-4 mb-2 btn btn-sm join-item"
         onClick={() => setIsOpen(true)}
       >
         Processar Imagens
