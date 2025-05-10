@@ -34,9 +34,7 @@ export default function Page() {
     <>
       <Header title="Processamentos" />
       <div className="relative ag-theme-alpine" data-test="processings-grid">
-        <div className="relative z-30">
-          <ProcessingImagesButton />
-        </div>
+        <ProcessingImagesButton />
         <div
           className="relative z-0"
           style={{ width: '100%', height: '100vh' }}
@@ -47,15 +45,13 @@ export default function Page() {
             onRowClicked={onRowClicked}
           />
         </div>
-        <div className="relative z-30">
-          {selectedRow && (
-            <ProcessingSidebar
-              isOpen={sidebarOpen}
-              processing={selectedRow}
-              onCloseAction={closeSidebar}
-            />
-          )}
-        </div>
+        {selectedRow && (
+          <ProcessingSidebar
+            isOpen={sidebarOpen}
+            processing={selectedRow}
+            onCloseAction={closeSidebar}
+          />
+        )}
       </div>
     </>
   )

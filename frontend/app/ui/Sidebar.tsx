@@ -31,7 +31,7 @@ export default function Sidebar({
   }, [isOpen, onCloseAction])
 
   return (
-    <>
+    <div className="relative z-30">
       {/* Overlay to dim the background */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${
@@ -52,6 +52,6 @@ export default function Sidebar({
         {/* Sidebar Content */}
         <div className="p-6 space-y-6 text-gray-800">{children}</div>
       </div>
-    </>
+    </div>
   )
 }
