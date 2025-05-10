@@ -25,7 +25,7 @@ export default function ProcessingImagesButton() {
         onCloseAction={closeSidebar}
         title="Processar Imagens"
       >
-        <FileUploadForm />
+        <FileUploadForm isOpen={isOpen} />
       </Sidebar>
     </>
   )
