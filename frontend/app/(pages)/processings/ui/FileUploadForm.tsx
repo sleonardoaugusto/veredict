@@ -8,6 +8,7 @@ import {
 } from '@/app/lib/api/lavocat/processings'
 import Button from '@/app/ui/Button'
 import { ArrowUpTrayIcon } from '@heroicons/react/16/solid'
+import Spinner from '@/app/ui/Spinner'
 
 export default function FileUploadForm() {
   const [createProcessing] = useCreateProcessingMutation()
@@ -54,7 +55,7 @@ export default function FileUploadForm() {
             {isSubmitting ? (
               <>
                 Enviado...
-                <div className="w-4 h-4 border-2 border-t-transparent border-indigo-700 rounded-full animate-spin" />
+                <Spinner />
               </>
             ) : (
               <>
