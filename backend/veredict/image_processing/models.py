@@ -36,7 +36,7 @@ class Processing(ModelBase):
                 ProcessingStatuses.FAILED,
             ]
         ).exists():
-            return ProcessingStatuses.PENDING.label
+            return ProcessingStatuses.PENDING
 
         if not self.processing_images.filter(
             status__in=[
@@ -44,9 +44,9 @@ class Processing(ModelBase):
                 ProcessingStatuses.PROCESSING,
             ]
         ).exists():
-            return ProcessingStatuses.COMPLETED.label
+            return ProcessingStatuses.COMPLETED
 
-        return ProcessingStatuses.PROCESSING.label
+        return ProcessingStatuses.PROCESSING
 
 
 class ProcessingImage(ModelBase):

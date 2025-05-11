@@ -12,35 +12,35 @@ class TestProcessStatus:
                     ProcessingStatuses.PENDING,
                     ProcessingStatuses.PENDING,
                 ],
-                ProcessingStatuses.PENDING.label,
+                ProcessingStatuses.PENDING,
             ),
             (
                 [
                     ProcessingStatuses.PENDING,
                     ProcessingStatuses.COMPLETED,
                 ],
-                ProcessingStatuses.PROCESSING.label,
+                ProcessingStatuses.PROCESSING,
             ),
             (
                 [
                     ProcessingStatuses.COMPLETED,
                     ProcessingStatuses.COMPLETED,
                 ],
-                ProcessingStatuses.COMPLETED.label,
+                ProcessingStatuses.COMPLETED,
             ),
             (
                 [
                     ProcessingStatuses.FAILED,
                     ProcessingStatuses.COMPLETED,
                 ],
-                ProcessingStatuses.COMPLETED.label,
+                ProcessingStatuses.COMPLETED,
             ),
             (
                 [
                     ProcessingStatuses.FAILED,
                     ProcessingStatuses.FAILED,
                 ],
-                ProcessingStatuses.COMPLETED.label,
+                ProcessingStatuses.COMPLETED,
             ),
         ],
     )
