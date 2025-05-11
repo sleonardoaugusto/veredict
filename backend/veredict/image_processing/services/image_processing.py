@@ -1,12 +1,17 @@
+import random
 import re
+from types import SimpleNamespace
 from typing import List
 
+from django.conf import settings
+from django.utils.datetime_safe import datetime
 from textractor.data.constants import TextractFeatures
 from veredict.image_processing.models import (
     ProcessingImage,
     ImageMetadata,
     Processing,
 )
+from veredict.image_processing.services.city_codes import CITY_CODE_MAPPING
 
 from veredict.textractor.client import TextractorClient
 from veredict.utils.logger import get_logger
@@ -84,9 +89,7 @@ def _populate_processing_image_metadata(
         _create_image_metadata(processing_image=processing_image, result=result)
 
 
-def textract_processing_image(
-    processing_image: ProcessingImage,
-):
+def run_textract(processing_image: ProcessingImage):
     queries = [
         tc.Query(
             "what is the Ocorrencia code number at the top?",
@@ -129,17 +132,65 @@ def textract_processing_image(
         queries=queries,
     )
     logger.info(
-        f"image_processing::Retrieved Textract service instance '{processing_image.pk}'."
+        f"image_processing:: Retrieved Textract service instance '{processing_image.pk}'."
     )
+    return textractor.run()
 
-    document = textractor.run()
+
+def textract_processing_image(
+    processing_image: ProcessingImage,
+):
+    if settings.DEBUG == True:
+        logger.info("image_processing:: Mocking Textract service")
+        document = _mock_textract()
+
+    else:
+        document = run_textract(processing_image)
+
     logger.info(
-        f"image_processing::Analysis completed for '{processing_image.pk}', processing metadata."
+        f"image_processing:: Analysis completed for '{processing_image.pk}', processing metadata."
     )
 
     _populate_processing_image_metadata(
         results=document.queries, processing_image=processing_image
     )
+
+
+def _mock_textract():
+    def _generate_ocr_code():
+        return random.randint(1000, 99999)
+
+    def _generate_date():
+        return datetime.today().strftime("%d/%m/%Y")
+
+    def _generate_city():
+        _all_cities = [
+            city for cities in CITY_CODE_MAPPING.values() for city in cities
+        ]
+        return random.choice(_all_cities)
+
+    class FakeDocument:
+        def __init__(self, queries):
+            self.queries = queries
+
+    class FakeQuery:
+        def __init__(self, alias, text):
+            self.alias = alias
+            self.result = SimpleNamespace(text=text)
+
+    mock_results: List[FakeQuery] = [
+        FakeQuery("ocr_code_1", _generate_ocr_code()),
+        FakeQuery("date_1", _generate_date()),
+        FakeQuery("city_1", _generate_city()),
+        FakeQuery("ocr_code_2", _generate_ocr_code()),
+        FakeQuery("date_2", _generate_date()),
+        FakeQuery("city_2", _generate_city()),
+        FakeQuery("ocr_code_3", _generate_ocr_code()),
+        FakeQuery("date_3", _generate_date()),
+        FakeQuery("city_3", _generate_city()),
+    ]
+
+    return FakeDocument(mock_results)
 
 
 def get_processing_tokens(processing: Processing):
