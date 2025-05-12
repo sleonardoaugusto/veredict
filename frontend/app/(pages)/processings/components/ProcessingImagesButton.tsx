@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Sidebar from '@/app/ui/Sidebar'
-import FileUploadForm from '@/app/(pages)/processings/ui/FileUploadForm'
+import FileUploadForm from '@/app/(pages)/processings/components/FileUploadForm'
 import Button from '@/app/ui/Button'
 
 export default function ProcessingImagesButton() {

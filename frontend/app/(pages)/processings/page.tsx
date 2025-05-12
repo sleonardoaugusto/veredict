@@ -10,7 +10,7 @@ import {
 } from 'ag-grid-community'
 import ProcessingSidebar from '@/app/(pages)/processings/hooks/ProcessingSidebar'
 import { Processing } from '@/app/lib/api/lavocat/types'
-import ProcessingImagesButton from '@/app/(pages)/processings/ui/ProcessingImagesButton'
+import ProcessingImagesButton from '@/app/(pages)/processings/components/ProcessingImagesButton'
 import Header from '@/app/ui/Header'
 ModuleRegistry.registerModules([AllCommunityModule])
 

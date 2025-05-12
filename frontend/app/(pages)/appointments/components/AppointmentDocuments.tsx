@@ -7,7 +7,7 @@ import {
   EyeIcon,
   TrashIcon,
 } from '@heroicons/react/16/solid'
-import { useAppointmentDocuments } from '@/app/(pages)/appointments/hooks/useAppointDocuments'
+import { useAppointmentDocuments } from '@/app/(pages)/appointments/hooks/useAppointmentDocuments'
 
 interface AppointmentDocumentsProps {
   appointmentId: number

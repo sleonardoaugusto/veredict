@@ -9,6 +9,8 @@ export type Appointment = {
   id: number
   title: string
   date: string // ISO string format
+  source: string
+  document_id: string
   services_types: string[]
   files: AppointmentDocument[]
   customer_name: string

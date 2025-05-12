@@ -5,16 +5,18 @@ export const appointmentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAppointments: builder.query<Appointment[], void>({
       query: () => '/attendances/',
+      providesTags: ['AppointmentDetails'],
     }),
     patchAppointment: builder.mutation<
       Partial<Appointment>,
-      { id: number; data: Partial<Appointment> }
+      { appointmentId: number; data: Partial<Appointment> }
     >({
-      query: ({ id, data }) => ({
-        url: `/attendances/${id}/`,
+      query: ({ appointmentId, data }) => ({
+        url: `/attendances/${appointmentId}/`,
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['AppointmentDetails', 'AppointmentNotes'],
     }),
   }),
 })

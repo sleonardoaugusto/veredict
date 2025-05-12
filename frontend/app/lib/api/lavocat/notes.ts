@@ -5,6 +5,7 @@ export const notesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getNotes: builder.query<Note[], { appointmentId: number }>({
       query: ({ appointmentId }) => `/attendances/${appointmentId}/notes/`,
+      providesTags: ['AppointmentNotes'],
     }),
     patchNote: builder.mutation<
       Partial<Note>,
@@ -15,6 +16,7 @@ export const notesApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['AppointmentNotes'],
     }),
   }),
 })

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Collapse from '@/app/ui/Collapase'
 import { ProcessingImage as ProcessingImageType } from '@/app/lib/api/lavocat/types'
 import Image from 'next/image'
-import ProcessingImageForm from '@/app/(pages)/processings/ui/ProcessingImageForm'
+import ProcessingImageForm from '@/app/(pages)/processings/components/ProcessingImageForm'
 import {
   ExclamationCircleIcon,
   ExclamationTriangleIcon,

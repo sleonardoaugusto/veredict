@@ -15,5 +15,10 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ['AppointmentDocuments', 'ProcessingImageMetadata'],
+  tagTypes: [
+    'AppointmentDetails',
+    'AppointmentNotes',
+    'AppointmentDocuments',
+    'ProcessingImageMetadata',
+  ],
 })
