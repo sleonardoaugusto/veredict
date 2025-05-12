@@ -16,6 +16,7 @@ export const baseApi = createApi({
   }),
   endpoints: () => ({}),
   tagTypes: [
+    'Appointments',
     'AppointmentDetails',
     'AppointmentNotes',
     'AppointmentDocuments',

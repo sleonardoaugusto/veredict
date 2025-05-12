@@ -1,10 +1,17 @@
+'use client'
+
 import { Appointment } from '@/app/lib/api/lavocat/types'
 import { Form, Formik } from 'formik'
 import { InputField } from '@/app/ui/InputField'
 import SelectField from '@/app/ui/SelectField'
 import { useAppointmentDetails } from '@/app/(pages)/appointments/hooks/useAppointmentDetails'
-import { usePatchAppointmentMutation } from '@/app/lib/api/lavocat/appointments'
+import {
+  useCreateAppointmentMutation,
+  usePatchAppointmentMutation,
+} from '@/app/lib/api/lavocat/appointments'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
+import React from 'react'
+import Button from '@/app/ui/Button'
 
 type CustomerDetailsProps = {
   appointment?: Appointment
@@ -14,16 +21,17 @@ export default function AppointmentDetails({
 }: CustomerDetailsProps) {
   const { appointmentTypeOptions } = useAppointmentDetails()
 
+  const [createAppointment] = useCreateAppointmentMutation()
   const [patchAppointment] = usePatchAppointmentMutation()
 
-  const initialValues = {
-    customer_name: appointment?.customer_name || null,
-    services_types: appointment?.services_types || '',
-    source: appointment?.source || null,
-    document_id: appointment?.document_id || null,
+  const initialValues: Partial<Appointment> = {
+    customer_name: appointment?.customer_name || '',
+    services_types: appointment?.services_types || [],
+    source: appointment?.source || '',
+    document_id: appointment?.document_id || '',
   }
 
-  const handleSubmit = async (fieldName: string, value: any) => {
+  const handlePatch = async (fieldName: string, value: any) => {
     if (appointment) {
       return await makeRequest(
         () =>
@@ -37,8 +45,19 @@ export default function AppointmentDetails({
     }
   }
 
+  const handleCreate = async (values: Partial<Appointment>) => {
+    return await makeRequest(
+      () =>
+        createAppointment({
+          data: values,
+        }),
+      'Atendimento salvo',
+      'Um erro ocorreu'
+    )
+  }
+
   return (
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+    <Formik initialValues={initialValues} onSubmit={handleCreate}>
       {({ values }) => (
         <Form>
           <div className="flex flex-row gap-x-6 mb-6">
@@ -46,14 +65,14 @@ export default function AppointmentDetails({
               placeholder="Origem"
               name="source"
               onBlur={() => {
-                handleSubmit('source', values.source)
+                handlePatch('source', values.source)
               }}
             />
             <InputField
               placeholder="CPF"
               name="document_id"
               onBlur={() => {
-                handleSubmit('document_id', values?.document_id)
+                handlePatch('document_id', values?.document_id)
               }}
             />
           </div>
@@ -62,7 +81,7 @@ export default function AppointmentDetails({
               placeholder="Nome"
               name="customer_name"
               onBlur={() => {
-                handleSubmit('customer_name', values.customer_name)
+                handlePatch('customer_name', values.customer_name)
               }}
             />
           </div>
@@ -73,10 +92,11 @@ export default function AppointmentDetails({
               options={appointmentTypeOptions}
               isMulti={true}
               onBlur={() => {
-                handleSubmit('services_types', values.services_types)
+                handlePatch('services_types', values.services_types)
               }}
             />
           </div>
+          {!appointment && <Button type="submit">Criar Atendimento</Button>}
         </Form>
       )}
     </Formik>

@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Select, { MultiValue, SingleValue } from 'react-select'
 import { useField, useFormikContext, FormikValues } from 'formik'
@@ -60,6 +62,10 @@ export default function SelectField({
         isMulti={isMulti}
         classNamePrefix="select"
         placeholder={placeholder}
+        menuPortalTarget={document.body} // prevent console errors
+        styles={{
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        }} // prevent console errors
       />
       {meta.touched && meta.error && (
         <div className="text-sm text-red-600 mt-1">{meta.error}</div>
