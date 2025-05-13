@@ -3,7 +3,10 @@
 import { Note } from '@/app/lib/api/lavocat/types'
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import { usePatchNoteMutation } from '@/app/lib/api/lavocat/notes'
+import {
+  useGetNotesQuery,
+  usePatchNoteMutation,
+} from '@/app/lib/api/lavocat/notes'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
 
 interface NoteProps {
@@ -15,7 +18,7 @@ interface FormValues {
   content: string
 }
 
-export default function AppointmentNote({ appointmentId, note }: NoteProps) {
+function AppointmentNote({ appointmentId, note }: NoteProps) {
   const [patchNote] = usePatchNoteMutation()
 
   const initialValues: FormValues = {
@@ -65,5 +68,28 @@ export default function AppointmentNote({ appointmentId, note }: NoteProps) {
         </Form>
       )}
     </Formik>
+  )
+}
+
+export default function AppointmentNotes({
+  appointmentId,
+}: {
+  appointmentId: number
+}) {
+  const { data: appointmentNotes } = useGetNotesQuery(
+    { appointmentId },
+    { skip: !appointmentId }
+  )
+
+  return (
+    <>
+      {appointmentNotes?.map((note) => (
+        <AppointmentNote
+          key={note.id}
+          appointmentId={appointmentId}
+          note={note}
+        />
+      ))}
+    </>
   )
 }

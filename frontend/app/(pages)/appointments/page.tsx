@@ -4,8 +4,9 @@ import AppointmentsGrid from './components/AppointmentsGrid'
 import Header from '@/app/ui/Header'
 import React, { useState } from 'react'
 import Button from '@/app/ui/Button'
-import AppointmentSidebar from '@/app/(pages)/appointments/components/AppointmentSidebar'
+import AppointmentForm from '@/app/(pages)/appointments/components/AppointmentForm'
 import { Appointment } from '@/app/lib/api/lavocat/types'
+import Sidebar from '@/app/ui/Sidebar'
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -16,6 +17,10 @@ export default function Page() {
     setIsOpen(false)
   }
 
+  const sidebarTitle = createdAppointment
+    ? 'Editar Atendimento'
+    : 'Criar Atendimento'
+
   return (
     <div>
       <Header title="Atendimentos" />
@@ -25,13 +30,16 @@ export default function Page() {
       >
         Novo Atendimento
       </Button>
-      <AppointmentSidebar
+      <Sidebar
         isOpen={isOpen}
         onCloseAction={closeSidebar}
-        title="Criar Atendimento"
-        appointment={createdAppointment}
-        setCreatedAppointmentAction={setCreatedAppointment}
-      />
+        title={sidebarTitle}
+      >
+        <AppointmentForm
+          appointment={createdAppointment}
+          setCreatedAppointmentAction={setCreatedAppointment}
+        />
+      </Sidebar>
       <AppointmentsGrid />
     </div>
   )

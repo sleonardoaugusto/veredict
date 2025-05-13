@@ -48,7 +48,7 @@ export default function AppointmentDetails({
   }
 
   const handleCreate = async (values: Partial<Appointment>) => {
-    const response = await makeRequest(
+    const data = await makeRequest(
       () =>
         createAppointment({
           data: values,
@@ -57,13 +57,17 @@ export default function AppointmentDetails({
       'Um erro ocorreu'
     )
 
-    if (onCreateAppointmentAction && response?.data) {
-      onCreateAppointmentAction(response.data)
+    if (onCreateAppointmentAction && data) {
+      onCreateAppointmentAction(data)
     }
   }
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleCreate}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleCreate}
+      enableReinitialize={true}
+    >
       {({ values }) => (
         <Form>
           <div className="flex flex-row gap-x-6 mb-6">
