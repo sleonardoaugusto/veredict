@@ -26,7 +26,10 @@ export default function Page() {
       <Header title="Atendimentos" />
       <Button
         className="mt-4 mb-2 btn btn-sm join-item"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true)
+          setCreatedAppointment(null)
+        }}
       >
         Novo Atendimento
       </Button>
