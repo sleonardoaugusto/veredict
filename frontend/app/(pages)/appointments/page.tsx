@@ -4,12 +4,13 @@ import AppointmentsGrid from './components/AppointmentsGrid'
 import Header from '@/app/ui/Header'
 import React, { useState } from 'react'
 import Button from '@/app/ui/Button'
-import Sidebar from '@/app/ui/Sidebar'
-import FileUploadForm from '@/app/(pages)/processings/components/FileUploadForm'
-import AppointmentDetails from '@/app/(pages)/appointments/components/AppointmentDetails'
+import AppointmentSidebar from '@/app/(pages)/appointments/components/AppointmentSidebar'
+import { Appointment } from '@/app/lib/api/lavocat/types'
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [createdAppointment, setCreatedAppointment] =
+    useState<Appointment | null>(null)
 
   function closeSidebar() {
     setIsOpen(false)
@@ -24,13 +25,13 @@ export default function Page() {
       >
         Novo Atendimento
       </Button>
-      <Sidebar
+      <AppointmentSidebar
         isOpen={isOpen}
         onCloseAction={closeSidebar}
-        title="Novo Atendimento"
-      >
-        <AppointmentDetails />
-      </Sidebar>
+        title="Criar Atendimento"
+        appointment={createdAppointment}
+        setCreatedAppointmentAction={setCreatedAppointment}
+      />
       <AppointmentsGrid />
     </div>
   )

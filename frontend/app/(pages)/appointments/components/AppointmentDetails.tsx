@@ -14,10 +14,12 @@ import React from 'react'
 import Button from '@/app/ui/Button'
 
 type CustomerDetailsProps = {
-  appointment?: Appointment
+  appointment?: Appointment | null
+  onCreateAppointmentAction?: (data: Appointment) => void
 }
 export default function AppointmentDetails({
   appointment,
+  onCreateAppointmentAction,
 }: CustomerDetailsProps) {
   const { appointmentTypeOptions } = useAppointmentDetails()
 
@@ -46,14 +48,18 @@ export default function AppointmentDetails({
   }
 
   const handleCreate = async (values: Partial<Appointment>) => {
-    return await makeRequest(
+    const response = await makeRequest(
       () =>
         createAppointment({
           data: values,
         }),
-      'Atendimento salvo',
+      'Atendimento criado',
       'Um erro ocorreu'
     )
+
+    if (onCreateAppointmentAction && response?.data) {
+      onCreateAppointmentAction(response.data)
+    }
   }
 
   return (

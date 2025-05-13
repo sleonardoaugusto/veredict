@@ -54,6 +54,7 @@ export default function AppointmentsGrid() {
       {selectedRow && (
         <AppointmentSidebar
           isOpen={sidebarOpen}
+          title="Editar Atendimento"
           appointment={selectedRow}
           onCloseAction={closeSidebar}
         />

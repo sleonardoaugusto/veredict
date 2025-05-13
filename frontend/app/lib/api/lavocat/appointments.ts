@@ -8,7 +8,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
       providesTags: ['Appointments'],
     }),
     createAppointment: builder.mutation<
-      Partial<Appointment>,
+      Appointment,
       { data: Partial<Appointment> }
     >({
       query: ({ data }) => ({
@@ -16,7 +16,6 @@ export const appointmentsApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['AppointmentDetails'],
     }),
     patchAppointment: builder.mutation<
       Appointment,
