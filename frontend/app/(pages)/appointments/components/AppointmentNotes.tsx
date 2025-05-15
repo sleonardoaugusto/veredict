@@ -57,7 +57,7 @@ function AppointmentNote({ appointmentId, note }: NoteProps) {
             <Field
               as="textarea"
               name="content"
-              placeholder="Enter content here..."
+              placeholder="Insira o conteúdo aqui..."
               rows={countRows(note.content) + 3}
               className="w-full border border-gray-300 rounded-md p-2 resize-none"
               onBlur={() => {
