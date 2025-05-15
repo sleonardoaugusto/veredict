@@ -26,7 +26,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ['AppointmentNotes'],
+      invalidatesTags: ['AppointmentNotes', 'Appointments'],
     }),
   }),
 })
