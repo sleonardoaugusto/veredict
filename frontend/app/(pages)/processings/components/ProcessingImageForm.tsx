@@ -88,8 +88,8 @@ export default function ProcessingImageForm({
             imageMetadataId: imageMetadata.id,
             data: values,
           }),
-        'Dados salvos',
-        'Um erro ocorreu'
+        'Dados Atualizados.',
+        'Um inesperado erro ocorreu.'
       )
 
       if (response) {

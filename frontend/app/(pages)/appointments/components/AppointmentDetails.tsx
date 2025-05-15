@@ -41,8 +41,8 @@ export default function AppointmentDetails({
             appointmentId: appointment?.id,
             data: { [`${fieldName}`]: value },
           }),
-        'Atendimento salvo',
-        'Um erro ocorreu'
+        'Dados Atualizados.',
+        'Um inesperado erro ocorreu.'
       )
     }
   }
@@ -53,8 +53,8 @@ export default function AppointmentDetails({
         createAppointment({
           data: values,
         }),
-      'Atendimento criado',
-      'Um erro ocorreu'
+      'Atendimento Criado.',
+      'Um inesperado erro ocorreu.'
     )
 
     if (onCreateAppointmentAction && data) {

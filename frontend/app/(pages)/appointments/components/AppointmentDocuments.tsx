@@ -1,12 +1,11 @@
 'use client'
 
 import AppointmentDocumentsGrid from '@/app/(pages)/appointments/components/AppointmentDocumentsGrid'
-import React from 'react'
+import React, { useState } from 'react'
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import Spinner from '@/app/ui/Spinner'
 import { ArrowUpTrayIcon } from '@heroicons/react/16/solid'
-import Button from '@/app/ui/Button'
 import { uploadAppointmentDocument } from '@/app/lib/api/lavocat/appointmentDocuments'
 
 interface AppointmentDocumentsProps {
@@ -16,6 +15,7 @@ interface AppointmentDocumentsProps {
 export default function AppointmentDocuments({
   appointmentId,
 }: AppointmentDocumentsProps) {
+  const [refreshKey, setRefreshKey] = useState<number>(0)
   const initialValues = { files: [] }
 
   const handleSubmit = async (
@@ -35,6 +35,7 @@ export default function AppointmentDocuments({
           uploadAppointmentDocument(file, appointmentId)
         )
       )
+      setRefreshKey((prev) => prev + 1)
     } catch (error) {
       console.error('Upload failed:', error)
     } finally {
@@ -85,7 +86,10 @@ export default function AppointmentDocuments({
           </Form>
         )}
       </Formik>
-      <AppointmentDocumentsGrid appointmentId={appointmentId} />
+      <AppointmentDocumentsGrid
+        appointmentId={appointmentId}
+        refreshKey={refreshKey}
+      />
     </>
   )
 }

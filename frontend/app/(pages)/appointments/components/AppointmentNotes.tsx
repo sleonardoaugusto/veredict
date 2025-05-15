@@ -39,8 +39,8 @@ function AppointmentNote({ appointmentId, note }: NoteProps) {
           noteId: note.id,
           data: values,
         }),
-      'Nota salva',
-      'Um erro ocorreu'
+      'Nota Atualizada.',
+      'Um inesperado erro ocorreu.'
     )
   }
 

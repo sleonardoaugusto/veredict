@@ -8,20 +8,28 @@ import {
   TrashIcon,
 } from '@heroicons/react/16/solid'
 import { useAppointmentDocumentsGrid } from '@/app/(pages)/appointments/hooks/useAppointmentDocumentsGrid'
+import { useEffect, useMemo, useState } from 'react'
 
 interface AppointmentDocumentsProps {
   appointmentId: number
+  refreshKey: number
 }
 
 export default function AppointmentDocumentsGrid({
   appointmentId,
+  refreshKey,
 }: AppointmentDocumentsProps) {
   const {
-    mutableDocuments,
+    appointmentDocuments,
+    refetchDocuments,
     handleDeleteFile,
     handleDownloadFile,
     handleEditFilename,
   } = useAppointmentDocumentsGrid(appointmentId)
+
+  useEffect(() => {
+    refetchDocuments()
+  }, [refreshKey])
 
   const renderActions = (params: ICellRendererParams) => (
     <div className="flex items-center space-x-3">
@@ -39,26 +47,29 @@ export default function AppointmentDocumentsGrid({
     </div>
   )
 
-  const columnDefs: ColDef[] = [
-    {
-      headerName: 'Documento',
-      field: 'filename',
-      flex: 1,
-      editable: true,
-      onCellValueChanged: handleEditFilename,
-    },
-    {
-      headerName: 'Ações',
-      cellRenderer: renderActions,
-      cellClass: 'flex items-center',
-      width: 150,
-    },
-  ]
+  const columnDefs = useMemo<ColDef[]>(
+    () => [
+      {
+        headerName: 'Documento',
+        field: 'filename',
+        flex: 1,
+        editable: true,
+        onCellValueChanged: handleEditFilename,
+      },
+      {
+        headerName: 'Ações',
+        cellRenderer: renderActions,
+        cellClass: 'flex items-center',
+        width: 150,
+      },
+    ],
+    []
+  )
 
   return (
     <div data-test="documents-grid" className="ag-theme-alpine">
       <AgGridReact
-        rowData={mutableDocuments}
+        rowData={appointmentDocuments}
         columnDefs={columnDefs}
         domLayout="autoHeight"
         getRowId={(params) => params.data.id.toString()}

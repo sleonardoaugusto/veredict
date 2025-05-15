@@ -1,37 +1,36 @@
 'use client'
 
-import { useMemo } from 'react'
 import { AppointmentDocument } from '@/app/lib/api/lavocat/types'
 import {
   useDeleteAppointmentDocumentMutation,
   useGetAppointmentDocumentsQuery,
   usePatchAppointmentDocumentMutation,
 } from '@/app/lib/api/lavocat/appointmentDocuments'
-import { showErrorToast, showSuccessToast } from '@/app/utils/toast'
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from '@/app/utils/toast'
 import { saveAs } from 'file-saver'
 import { NewValueParams } from 'ag-grid-community'
+import { useMemo } from 'react'
 
 export function useAppointmentDocumentsGrid(appointmentId: number) {
   const [patchDocument] = usePatchAppointmentDocumentMutation()
   const [deleteDocument] = useDeleteAppointmentDocumentMutation()
 
-  const { data: appointmentDocuments } = useGetAppointmentDocumentsQuery(
-    { appointmentId },
-    { skip: !appointmentId }
-  )
+  const { data: documents, refetch: refetchDocuments } =
+    useGetAppointmentDocumentsQuery({ appointmentId }, { skip: !appointmentId })
 
-  const mutableDocuments = useMemo(
-    () =>
-      appointmentDocuments
-        ? appointmentDocuments.map((document) => ({ ...document }))
-        : [],
-    [appointmentDocuments]
+  const appointmentDocuments = useMemo(
+    () => (documents ? documents.map((document) => ({ ...document })) : []),
+    [documents]
   )
 
   const handleDeleteFile = async (file: AppointmentDocument) => {
     try {
       await deleteDocument({ fileId: file.id }).unwrap()
-      showSuccessToast(`Documento "${file.filename}" deletado`)
+      showWarningToast(`Documento "${file.filename}" deletado`)
     } catch {
       showErrorToast('Erro ao excluir o arquivo')
     }
@@ -76,7 +75,8 @@ export function useAppointmentDocumentsGrid(appointmentId: number) {
   }
 
   return {
-    mutableDocuments,
+    appointmentDocuments,
+    refetchDocuments,
     handleDeleteFile,
     handleDownloadFile,
     handleEditFilename,
