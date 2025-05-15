@@ -8,7 +8,8 @@ export const appointmentDocumentsApi = baseApi.injectEndpoints({
       AppointmentDocument[],
       { appointmentId: number }
     >({
-      query: ({ appointmentId }) => `/attendances/${appointmentId}/documents/`,
+      query: ({ appointmentId }) =>
+        `/v1/attendances/${appointmentId}/documents/`,
       providesTags: ['AppointmentDocuments'],
     }),
     patchAppointmentDocument: builder.mutation<
@@ -20,7 +21,7 @@ export const appointmentDocumentsApi = baseApi.injectEndpoints({
       }
     >({
       query: ({ appointmentId, documentId, data }) => ({
-        url: `/attendances/${appointmentId}/documents/${documentId}/`,
+        url: `/v1/attendances/${appointmentId}/documents/${documentId}/`,
         method: 'PATCH',
         body: data,
       }),
@@ -29,7 +30,7 @@ export const appointmentDocumentsApi = baseApi.injectEndpoints({
     deleteAppointmentDocument: builder.mutation<void, { fileId: number }>({
       query: ({ fileId }) => ({
         method: 'DELETE',
-        url: `/attendance-files/${fileId}/`,
+        url: `/v1/attendance-files/${fileId}/`,
       }),
       invalidatesTags: ['AppointmentDocuments'],
     }),
@@ -41,7 +42,7 @@ export const uploadAppointmentDocument = async (
   processingId: number
 ) => {
   const formData = new FormData()
-  formData.append('attendance', processingId)
+  formData.append('attendance', processingId.toString())
   formData.append('file', file)
   formData.append('filename', file.name)
 
@@ -49,7 +50,7 @@ export const uploadAppointmentDocument = async (
     const token = AuthService.getToken()
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/attendance-files/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/attendance-files/`,
       {
         method: 'POST',
         body: formData,

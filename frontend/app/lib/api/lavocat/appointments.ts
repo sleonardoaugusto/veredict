@@ -4,7 +4,7 @@ import { Appointment } from '@/app/lib/api/lavocat/types'
 export const appointmentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAppointments: builder.query<Appointment[], void>({
-      query: () => '/attendances/',
+      query: () => '/v1/attendances/',
       providesTags: ['Appointments'],
     }),
     createAppointment: builder.mutation<
@@ -12,7 +12,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
       { data: Partial<Appointment> }
     >({
       query: ({ data }) => ({
-        url: `/attendances/`,
+        url: `/v1/attendances/`,
         method: 'POST',
         body: data,
       }),
@@ -22,7 +22,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
       { appointmentId: number; data: Partial<Appointment> }
     >({
       query: ({ appointmentId, data }) => ({
-        url: `/attendances/${appointmentId}/`,
+        url: `/v1/attendances/${appointmentId}/`,
         method: 'PATCH',
         body: data,
       }),

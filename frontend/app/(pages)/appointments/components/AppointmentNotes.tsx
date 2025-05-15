@@ -8,6 +8,7 @@ import {
   usePatchNoteMutation,
 } from '@/app/lib/api/lavocat/notes'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
+import { InputField } from '@/app/ui/InputField'
 
 interface NoteProps {
   appointmentId: number
@@ -54,12 +55,11 @@ function AppointmentNote({ appointmentId, note }: NoteProps) {
             data-test="note"
           >
             <h3 className="font-semibold text-lg mb-2">{note.header}</h3>
-            <Field
+            <InputField
               as="textarea"
               name="content"
               placeholder="Insira o conteúdo aqui..."
               rows={countRows(note.content) + 3}
-              className="w-full border border-gray-300 rounded-md p-2 resize-none"
               onBlur={() => {
                 handleSubmit()
               }}
