@@ -11,7 +11,7 @@ import { showErrorToast, showSuccessToast } from '@/app/utils/toast'
 import { saveAs } from 'file-saver'
 import { NewValueParams } from 'ag-grid-community'
 
-export function useAppointmentDocuments(appointmentId: number) {
+export function useAppointmentDocumentsGrid(appointmentId: number) {
   const [patchDocument] = usePatchAppointmentDocumentMutation()
   const [deleteDocument] = useDeleteAppointmentDocumentMutation()
 
@@ -56,24 +56,24 @@ export function useAppointmentDocuments(appointmentId: number) {
   }
 
   const handleEditFilename = async (params: NewValueParams) => {
-  try {
-    const { oldValue, colDef } = params;
-    const fileExtension = oldValue.substring(oldValue.lastIndexOf('.') + 1);
+    try {
+      const { oldValue, colDef } = params
+      const fileExtension = oldValue.substring(oldValue.lastIndexOf('.') + 1)
 
-    if (!params.newValue.includes(`.${fileExtension}`)) {
-      params.newValue = `${params.newValue}.${fileExtension}`;
+      if (!params.newValue.includes(`.${fileExtension}`)) {
+        params.newValue = `${params.newValue}.${fileExtension}`
+      }
+
+      // Type assertion to ensure compatibility with computed property name
+      const data = { [colDef.field as string]: params.newValue }
+
+      await patchDocument({ appointmentId, documentId: params.data.id, data })
+      showSuccessToast(`Nome do arquivo atualizado para "${params.newValue}"`)
+    } catch (error) {
+      console.error(`Erro ao renomear arquivo ${error}`)
+      showErrorToast('Erro ao renomear arquivo')
     }
-
-    // Type assertion to ensure compatibility with computed property name
-    const data = { [colDef.field as string]: params.newValue };
-
-    await patchDocument({ appointmentId, documentId: params.data.id, data });
-    showSuccessToast(`Nome do arquivo atualizado para "${params.newValue}"`);
-  } catch (error) {
-    console.error(`Erro ao renomear arquivo ${error}`);
-    showErrorToast('Erro ao renomear arquivo');
   }
-};
 
   return {
     mutableDocuments,

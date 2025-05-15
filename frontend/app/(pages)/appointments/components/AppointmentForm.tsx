@@ -3,8 +3,8 @@
 import React from 'react'
 import AppointmentNotes from '@/app/(pages)/appointments/components/AppointmentNotes'
 import { Appointment } from '@/app/lib/api/lavocat/types'
-import AppointmentDocuments from '@/app/(pages)/appointments/components/AppointmentDocuments'
 import AppointmentDetails from '@/app/(pages)/appointments/components/AppointmentDetails'
+import AppointmentDocuments from '@/app/(pages)/appointments/components/AppointmentDocuments'
 
 interface AppointmentSidebarProps {
   appointment: Appointment | null

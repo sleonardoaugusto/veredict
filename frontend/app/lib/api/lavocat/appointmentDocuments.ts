@@ -1,5 +1,6 @@
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AppointmentDocument } from '@/app/lib/api/lavocat/types'
+import { AuthService } from '@/app/lib/auth'
 
 export const appointmentDocumentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,6 +35,38 @@ export const appointmentDocumentsApi = baseApi.injectEndpoints({
     }),
   }),
 })
+
+export const uploadAppointmentDocument = async (
+  file: File,
+  processingId: number
+) => {
+  const formData = new FormData()
+  formData.append('attendance', processingId)
+  formData.append('file', file)
+  formData.append('filename', file.name)
+
+  try {
+    const token = AuthService.getToken()
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/attendance-files/`,
+      {
+        method: 'POST',
+        body: formData,
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error(`Failed to upload image: ${response.statusText}`)
+    }
+
+    return await response.json() // ✅ Parse JSON response
+  } catch (error) {
+    console.error('Upload error:', error)
+    throw error
+  }
+}
 
 export const {
   useGetAppointmentDocumentsQuery,
