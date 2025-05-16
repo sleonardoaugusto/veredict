@@ -1,5 +1,3 @@
-'use client'
-
 export function useAppointmentDetails() {
   const appointmentTypeOptions = [
     { value: 'DPVAT', label: 'DPVAT' },

@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react'
 import Collapse from '@/app/ui/Collapase'
 import type { ProcessingImage as ProcessingImageType } from '@/app/lib/api/lavocat/types'

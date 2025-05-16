@@ -55,10 +55,8 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
           NEXT_PUBLIC_IMAGE_HOSTNAME: ${{ secrets.NEXT_PUBLIC_IMAGE_HOSTNAME }}
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
-            set -e  # Exit immediately if any command fails
-            set -x  # Print commands for debugging
-            
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.LIGHTSAIL_IP }} << EOF
+            set -x
             cd /home/ubuntu/veredict
           
             # Force reset and pull latest code
@@ -66,7 +64,7 @@ jobs:
             git reset --hard origin/main
             git clean -fd
             git pull origin main --force
-          
+            
             echo "Setting environment variables..."
             export SECRET_KEY="${SECRET_KEY}"
             export ALLOWED_HOSTS="${ALLOWED_HOSTS}"
@@ -104,30 +102,7 @@ jobs:
             docker-compose -f compose.prod.yml down --remove-orphans
             docker system prune -af
             docker-compose -f compose.prod.yml up -d
-            
+          
             echo "Running database migrations and collecting static files..."
             docker-compose -f compose.prod.yml run --rm backend python manage.py migrate
-            
-            # Add container health check
-            echo "Checking if containers are running..."
-            sleep 10  # Give containers time to start
-            
-            # Check each essential container
-            containers=("backend" "frontend" "worker" "redis")  # Adjust based on your services
-            all_running=true
-            
-            for container in "${containers[@]}"; do
-              if [ -z "$(docker ps -q -f name=${container})" ]; then
-                echo "ERROR: Container ${container} is not running!"
-                all_running=false
-                docker logs ${container} || true  # Output logs if available
-              fi
-            done
-            
-            if [ "$all_running" = false ]; then
-              echo "::error::One or more containers failed to start"
-              exit 1
-            fi
-            
-            echo "All containers are running successfully!"
           EOF

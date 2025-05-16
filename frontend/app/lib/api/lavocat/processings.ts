@@ -1,5 +1,3 @@
-'use client'
-
 import { saveAs } from 'file-saver'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'

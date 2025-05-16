@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { useGetProcessingImagesQuery } from '@/app/lib/api/lavocat/processings'
 import ProcessingImage from '@/app/(pages)/processings/components/ProcessingImage'

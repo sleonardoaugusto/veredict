@@ -1,5 +1,3 @@
-'use client'
-
 import type { ColDef } from 'ag-grid-community'
 import { useMemo } from 'react'
 import { useGetAppointmentsQuery } from '@/app/lib/api/lavocat/appointments'

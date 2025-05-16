@@ -1,11 +1,9 @@
 import type {
   BaseQueryFn,
   FetchArgs,
-  FetchBaseQueryError} from '@reduxjs/toolkit/query/react';
-import {
-  createApi,
-  fetchBaseQuery
+  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { AuthService } from '@/app/lib/auth'
 
 const baseQuery = fetchBaseQuery({
@@ -15,7 +13,6 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
     }
-    headers.set('Content-Type', 'application/json')
     return headers
   },
 })

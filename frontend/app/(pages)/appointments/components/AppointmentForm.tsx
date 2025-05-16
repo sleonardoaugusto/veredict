@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import AppointmentNotes from '@/app/(pages)/appointments/components/AppointmentNotes'
 import type { Appointment } from '@/app/lib/api/lavocat/types'

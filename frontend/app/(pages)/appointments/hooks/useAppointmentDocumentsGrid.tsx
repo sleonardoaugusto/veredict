@@ -1,5 +1,3 @@
-'use client'
-
 import type { AppointmentDocument } from '@/app/lib/api/lavocat/types'
 import {
   useDeleteAppointmentDocumentMutation,

@@ -1,7 +1,5 @@
-'use client'
-
 import clsx from 'clsx'
-import type { ReactNode } from 'react';
+import type { ReactNode } from 'react'
 import React from 'react'
 
 interface FileUploadLabelProps {

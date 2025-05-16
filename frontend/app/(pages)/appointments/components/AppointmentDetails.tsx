@@ -1,5 +1,3 @@
-'use client'
-
 import { Appointment } from '@/app/lib/api/lavocat/types'
 import { Form, Formik } from 'formik'
 import { InputField } from '@/app/ui/InputField'

@@ -1,5 +1,3 @@
-'use client'
-
 import type { ColDef, ICellRendererParams } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import {

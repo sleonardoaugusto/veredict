@@ -1,5 +1,3 @@
-'use client'
-
 import AppointmentDocumentsGrid from '@/app/(pages)/appointments/components/AppointmentDocumentsGrid'
 import React, { useState } from 'react'
 import { Form, Formik } from 'formik'

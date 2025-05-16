@@ -1,4 +1,4 @@
-'use client'
+'use client' // prevent build error
 
 import React from 'react'
 import { Provider } from 'react-redux'

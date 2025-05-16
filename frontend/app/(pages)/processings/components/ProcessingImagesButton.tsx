@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react'
 import Sidebar from '@/app/ui/Sidebar'
 import FileUploadForm from '@/app/(pages)/processings/components/FileUploadForm'

@@ -1,12 +1,6 @@
-'use client'
-
 import { AgGridReact } from 'ag-grid-react'
-import type {
-  RowClickedEvent} from 'ag-grid-community';
-import {
-  AllCommunityModule,
-  ModuleRegistry
-} from 'ag-grid-community'
+import type { RowClickedEvent } from 'ag-grid-community'
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import AppointmentForm from '@/app/(pages)/appointments/components/AppointmentForm'
 import React, { useState } from 'react'
 import { useAppointmentsGrid } from '@/app/(pages)/appointments/hooks/useAppointmentsGrid'

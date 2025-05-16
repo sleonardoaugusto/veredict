@@ -1,5 +1,3 @@
-'use client'
-
 import type { Note } from '@/app/lib/api/lavocat/types'
 import { Form, Formik } from 'formik'
 import React from 'react'
