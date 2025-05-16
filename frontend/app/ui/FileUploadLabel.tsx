@@ -1,7 +1,8 @@
 'use client'
 
 import clsx from 'clsx'
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react';
+import React from 'react'
 
 interface FileUploadLabelProps {
   htmlFor: string

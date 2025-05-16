@@ -1,6 +1,6 @@
 'use client'
 
-import { AppointmentDocument } from '@/app/lib/api/lavocat/types'
+import type { AppointmentDocument } from '@/app/lib/api/lavocat/types'
 import {
   useDeleteAppointmentDocumentMutation,
   useGetAppointmentDocumentsQuery,
@@ -12,7 +12,7 @@ import {
   showWarningToast,
 } from '@/app/utils/toast'
 import { saveAs } from 'file-saver'
-import { NewValueParams } from 'ag-grid-community'
+import type { NewValueParams } from 'ag-grid-community'
 import { useMemo } from 'react'
 
 export function useAppointmentDocumentsGrid(appointmentId: number) {

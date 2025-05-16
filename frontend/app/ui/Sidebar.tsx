@@ -1,4 +1,5 @@
-import React, { useEffect, ReactNode } from 'react'
+import type { ReactNode } from 'react';
+import React, { useEffect } from 'react'
 import Header from '@/app/ui/Header'
 
 interface SidebarProps {

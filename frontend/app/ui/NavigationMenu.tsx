@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CalendarIcon, CogIcon } from '@heroicons/react/24/outline'
+import type { ReactNode } from 'react'
 
 export default function NavigationMenu() {
   const pathname = usePathname()
@@ -36,7 +37,7 @@ export default function NavigationMenu() {
 interface NavItemProps {
   href: string
   label: string
-  icon: React.ReactNode
+  icon: ReactNode
   active?: boolean
 }
 

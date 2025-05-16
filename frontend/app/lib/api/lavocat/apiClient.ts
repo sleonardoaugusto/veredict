@@ -9,7 +9,7 @@ export const makeRequest = async <T>(
     const resp = await action().unwrap()
     showSuccessToast(successMessage)
     return resp
-  } catch (error: any) {
+  } catch {
     showErrorToast(errorMessage)
   }
 }

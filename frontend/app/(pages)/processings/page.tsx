@@ -3,13 +3,14 @@
 import React, { useState } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { useProcessingsGrid } from '@/app/(pages)/processings/hooks/useProcessingsGrid'
+import type {
+  RowClickedEvent} from 'ag-grid-community';
 import {
   AllCommunityModule,
-  ModuleRegistry,
-  RowClickedEvent,
+  ModuleRegistry
 } from 'ag-grid-community'
 import ProcessingSidebar from '@/app/(pages)/processings/hooks/ProcessingSidebar'
-import { Processing } from '@/app/lib/api/lavocat/types'
+import type { Processing } from '@/app/lib/api/lavocat/types'
 import ProcessingImagesButton from '@/app/(pages)/processings/components/ProcessingImagesButton'
 import Header from '@/app/ui/Header'
 ModuleRegistry.registerModules([AllCommunityModule])

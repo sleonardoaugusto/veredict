@@ -5,7 +5,7 @@ import Header from '@/app/ui/Header'
 import React, { useState } from 'react'
 import Button from '@/app/ui/Button'
 import AppointmentForm from '@/app/(pages)/appointments/components/AppointmentForm'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import type { Appointment } from '@/app/lib/api/lavocat/types'
 import Sidebar from '@/app/ui/Sidebar'
 
 export default function Page() {

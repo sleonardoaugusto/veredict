@@ -1,5 +1,5 @@
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
-import { AppointmentDocument } from '@/app/lib/api/lavocat/types'
+import type { AppointmentDocument } from '@/app/lib/api/lavocat/types'
 import { AuthService } from '@/app/lib/auth'
 
 export const appointmentDocumentsApi = baseApi.injectEndpoints({

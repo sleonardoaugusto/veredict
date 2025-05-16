@@ -1,6 +1,6 @@
 'use client'
 
-import { ColDef, ICellRendererParams } from 'ag-grid-community'
+import type { ColDef, ICellRendererParams } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import {
   ArrowDownTrayIcon,
@@ -8,7 +8,7 @@ import {
   TrashIcon,
 } from '@heroicons/react/16/solid'
 import { useAppointmentDocumentsGrid } from '@/app/(pages)/appointments/hooks/useAppointmentDocumentsGrid'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 interface AppointmentDocumentsProps {
   appointmentId: number

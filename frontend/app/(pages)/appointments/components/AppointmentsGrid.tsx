@@ -1,15 +1,16 @@
 'use client'
 
 import { AgGridReact } from 'ag-grid-react'
+import type {
+  RowClickedEvent} from 'ag-grid-community';
 import {
   AllCommunityModule,
-  ModuleRegistry,
-  RowClickedEvent,
+  ModuleRegistry
 } from 'ag-grid-community'
 import AppointmentForm from '@/app/(pages)/appointments/components/AppointmentForm'
 import React, { useState } from 'react'
 import { useAppointmentsGrid } from '@/app/(pages)/appointments/hooks/useAppointmentsGrid'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import type { Appointment } from '@/app/lib/api/lavocat/types'
 import Sidebar from '@/app/ui/Sidebar'
 
 ModuleRegistry.registerModules([AllCommunityModule])

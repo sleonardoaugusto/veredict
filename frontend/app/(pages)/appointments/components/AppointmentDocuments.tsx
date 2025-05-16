@@ -2,7 +2,6 @@
 
 import AppointmentDocumentsGrid from '@/app/(pages)/appointments/components/AppointmentDocumentsGrid'
 import React, { useState } from 'react'
-import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import Spinner from '@/app/ui/Spinner'
 import { ArrowUpTrayIcon } from '@heroicons/react/16/solid'
@@ -47,7 +46,7 @@ export default function AppointmentDocuments({
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {({ setFieldValue, isSubmitting, values, resetForm, submitForm }) => (
+        {({ setFieldValue, isSubmitting, submitForm }) => (
           <Form>
             <FileUploadLabel htmlFor="file-upload">
               {isSubmitting ? (

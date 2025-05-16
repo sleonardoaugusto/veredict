@@ -1,5 +1,5 @@
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import type { Appointment } from '@/app/lib/api/lavocat/types'
 
 export const appointmentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

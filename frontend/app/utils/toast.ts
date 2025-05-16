@@ -1,4 +1,5 @@
-import { Slide, toast, ToastContainerProps } from 'react-toastify'
+import type { ToastContainerProps } from 'react-toastify';
+import { Slide, toast } from 'react-toastify'
 
 export const toastDefaultOptions: ToastContainerProps = {
   autoClose: 5000,

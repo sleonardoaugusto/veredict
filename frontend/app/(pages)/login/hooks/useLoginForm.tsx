@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { FormikValues } from 'formik'
+import type { FormikValues } from 'formik'
 import { AuthService } from '@/app/lib/auth'
 import { useAuthenticateMutation } from '@/app/lib/api/lavocat/auth'
 import { useRouter } from 'next/navigation'

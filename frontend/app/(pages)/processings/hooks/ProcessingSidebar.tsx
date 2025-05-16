@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Sidebar from '@/app/ui/Sidebar'
-import { Processing } from '@/app/lib/api/lavocat/types'
+import type { Processing } from '@/app/lib/api/lavocat/types'
 import ProcessingList from '@/app/(pages)/processings/components/ProcessingList'
 import { downloadTokens } from '@/app/lib/api/lavocat/processings'
 import { ArrowDownTrayIcon } from '@heroicons/react/16/solid'

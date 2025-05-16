@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
-import Select, { MultiValue, SingleValue } from 'react-select'
-import { useField, useFormikContext, FormikValues } from 'formik'
+import type { MultiValue, SingleValue } from 'react-select'
+import Select from 'react-select'
+import type { FormikValues } from 'formik'
+import { useField, useFormikContext } from 'formik'
 
 type Option = {
   value: string
@@ -89,7 +91,7 @@ export default function SelectField({
         options={options}
         value={getValue()}
         onChange={handleChange}
-        onBlur={(e) => {
+        onBlur={() => {
           field.onBlur({ target: { name } }) // Formik blur
           if (typeof onBlur === 'function') {
             onBlur(field.value) // custom onBlur
@@ -98,7 +100,7 @@ export default function SelectField({
         isMulti={isMulti}
         classNamePrefix="select"
         placeholder={placeholder}
-        menuPortalTarget={document.body} // prevent console errors
+        menuPortalTarget={typeof window !== 'undefined' ? document.body : null} // prevent console/build errors
         styles={customStyles}
       />
       {meta.touched && meta.error && (

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import AppointmentNotes from '@/app/(pages)/appointments/components/AppointmentNotes'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import type { Appointment } from '@/app/lib/api/lavocat/types'
 import AppointmentDetails from '@/app/(pages)/appointments/components/AppointmentDetails'
 import AppointmentDocuments from '@/app/(pages)/appointments/components/AppointmentDocuments'
 

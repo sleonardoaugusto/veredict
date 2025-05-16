@@ -1,4 +1,4 @@
-import { Note } from '@/app/lib/api/lavocat/types'
+import type { Note } from '@/app/lib/api/lavocat/types'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 
 export const notesApi = baseApi.injectEndpoints({

@@ -1,15 +1,16 @@
-import {
+import type {
   BaseQueryFn,
-  createApi,
   FetchArgs,
-  fetchBaseQuery,
-  FetchBaseQueryError,
+  FetchBaseQueryError} from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+  fetchBaseQuery
 } from '@reduxjs/toolkit/query/react'
 import { AuthService } from '@/app/lib/auth'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers) => {
     const token = AuthService.getToken()
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)

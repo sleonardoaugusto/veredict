@@ -1,13 +1,14 @@
 import { Field } from 'formik'
+import type { InputHTMLAttributes, FocusEventHandler } from 'react' // Add this import
 
 interface InputFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+  extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   name: string
   placeholder?: string
   className?: string
   as?: 'input' | 'textarea'
   rows?: number
-  onBlur?: React.FocusEventHandler<any>
+  onBlur?: FocusEventHandler<any>
 }
 
 export function InputField({

@@ -8,7 +8,7 @@ import {
 import { Form, Formik } from 'formik'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
 import { InputField } from '@/app/ui/InputField'
-import { ProcessingImageMetadata } from '@/app/lib/api/lavocat/types'
+import type { ProcessingImageMetadata } from '@/app/lib/api/lavocat/types'
 
 interface ProcessingImageFormProps {
   processingImageId: number

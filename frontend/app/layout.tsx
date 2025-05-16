@@ -3,6 +3,7 @@ import './globals.css'
 import { inter } from '@/app/ui/fonts'
 import ClientWrapper from '@/app/ClientWrapper'
 import NavigationMenu from '@/app/ui/NavigationMenu'
+import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: 'Veredito',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html lang="en" data-theme="light">
