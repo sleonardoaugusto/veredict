@@ -56,9 +56,10 @@ jobs:
           echo "AWS_REGION=$AWS_REGION" >> backend/.env.test
 
       - name: Set up Docker Compose for Tests
-        run: |
-          docker-compose -f compose.backend.tests.yml up -d --build
-          docker-compose -f compose.backend.tests.yml run --rm backend pytest --disable-warnings
+        run: docker-compose -f compose.backend.tests.yml up -d --build
+
+      - name: Run Tests
+        run: docker-compose -f compose.backend.tests.yml run --rm backend pytest --disable-warnings
 
       - name: Debug Running Containers
         run: docker ps -a
