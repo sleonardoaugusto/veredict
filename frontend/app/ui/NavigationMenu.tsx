@@ -7,6 +7,8 @@ import { CalendarIcon, CogIcon } from '@heroicons/react/24/outline'
 export default function NavigationMenu() {
   const pathname = usePathname()
 
+  if (pathname === '/login') return null
+
   return (
     <div className="group h-screen w-16 hover:w-64 bg-indigo-50 text-indigo-900 p-4 border-r border-indigo-100 transition-all duration-300 ease-in-out overflow-hidden flex flex-col">
       <h2 className="text-xl font-semibold mb-6 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
