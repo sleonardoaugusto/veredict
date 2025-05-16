@@ -35,7 +35,7 @@ export default function LoginForm() {
             <Form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Username
+                  Usuário
                 </label>
                 <InputField name="username" placeholder="Usuário" />
                 <ErrorMessage
@@ -47,7 +47,7 @@ export default function LoginForm() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
+                  Senha
                 </label>
                 <InputField
                   name="password"
