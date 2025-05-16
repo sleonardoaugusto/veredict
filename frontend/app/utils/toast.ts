@@ -1,7 +1,7 @@
 import { Slide, toast, ToastContainerProps } from 'react-toastify'
 
 export const toastDefaultOptions: ToastContainerProps = {
-  autoClose: 3000,
+  autoClose: 5000,
   hideProgressBar: true,
   theme: 'colored',
   transition: Slide,
@@ -14,45 +14,48 @@ export const toastDefaultOptions: ToastContainerProps = {
 
 const baseToastStyle = {
   justifyContent: 'center',
-  backgroundColor: 'white',
-  fontSize: '0.85rem',
+  fontSize: '0.875rem',
   fontWeight: 'bold',
   width: 'fit-content',
   height: 'fit-content',
-  padding: '0.5rem 4rem',
+  padding: '0.5rem 2.5rem',
   minHeight: '0',
   marginBottom: '0',
+  borderRadius: '6px',
 }
 
 const toastStyles = {
   success: {
     ...baseToastStyle,
-    color: '#4CAF50',
+    backgroundColor: '#F0FDF4',
+    color: '#22C55E',
   },
   error: {
     ...baseToastStyle,
-    color: '#DC143C',
+    backgroundColor: '#FEF2F2',
+    color: '#DC2626',
   },
   warning: {
     ...baseToastStyle,
-    color: '#1E90FF',
+    backgroundColor: '#FFF7ED',
+    color: '#F97316',
   },
 }
-// Function to show a success toast with green text and white background
+
 export const showSuccessToast = (message: string) => {
   toast.success(message, {
     style: toastStyles.success,
   })
 }
 
-export const showWarningToast = (message: string) => {
-  toast.error(message, {
-    style: toastStyles.warning,
-  })
-}
-
 export const showErrorToast = (message: string) => {
   toast.error(message, {
     style: toastStyles.error,
+  })
+}
+
+export const showWarningToast = (message: string) => {
+  toast.warn(message, {
+    style: toastStyles.warning,
   })
 }

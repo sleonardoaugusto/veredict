@@ -11,6 +11,11 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        accent: 'var(--accent)',
+        border: 'var(--border)',
+        surface: 'var(--surface)',
+        danger: 'var(--danger)',
+        success: 'var(--success)',
       },
     },
   },

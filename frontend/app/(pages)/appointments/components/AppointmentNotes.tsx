@@ -51,10 +51,13 @@ function AppointmentNote({ appointmentId, note }: NoteProps) {
         <Form>
           <div
             key={note.id}
-            className="border p-4 rounded-md shadow-sm bg-gray-100"
+            className="border border-[#CBD5E1] p-4 rounded-md shadow-sm bg-[#F9FAFB]"
             data-test="note"
           >
-            <h3 className="font-semibold text-lg mb-2">{note.header}</h3>
+            <h3 className="font-semibold text-[#1E2A38] text-lg mb-2">
+              {note.header}
+            </h3>
+
             <InputField
               as="textarea"
               name="content"

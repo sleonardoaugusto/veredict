@@ -10,7 +10,7 @@ export default function NavigationMenu() {
   if (pathname === '/login') return null
 
   return (
-    <div className="group h-screen w-16 hover:w-64 bg-indigo-50 text-indigo-900 p-4 border-r border-indigo-100 transition-all duration-300 ease-in-out overflow-hidden flex flex-col">
+    <div className="group h-screen w-16 hover:w-64 bg-foreground text-surface p-4 transition-all duration-300 ease-in-out overflow-hidden flex flex-col mr-2">
       <h2 className="text-xl font-semibold mb-6 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         Menu
       </h2>
@@ -45,7 +45,9 @@ function NavItem({ href, label, icon, active }: NavItemProps) {
     <Link
       href={href}
       className={`flex items-center space-x-3 px-2 py-2 rounded-md transition-colors ${
-        active ? 'bg-indigo-100 text-indigo-700' : 'hover:bg-indigo-100'
+        active
+          ? 'bg-[#2B3C4F] text-white'
+          : 'text-indigo-200 hover:bg-[#2B3C4F] hover:text-white'
       }`}
     >
       <span>{icon}</span>

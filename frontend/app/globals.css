@@ -5,3 +5,21 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.ag-theme-alpine {
+  --ag-background-color: #F9FAFB;      /* softer light background */
+  --ag-foreground-color: #1E2A38;      /* dark text */
+  --ag-border-color: #CBD5E1;          /* subtle borders */
+  --ag-header-background-color: #E5EAF0;
+  --ag-header-foreground-color: #1E2A38;
+  --ag-row-hover-color: #F0F4F8;
+}
+
+
+:root {
+  --background: #F4F6F8;
+  --foreground: #1E2A38;
+  --surface: #ffffff;
+  --accent: #8CA6C1;
+  --border: #CBD5E1;
+}

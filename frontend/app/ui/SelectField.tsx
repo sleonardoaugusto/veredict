@@ -46,6 +46,42 @@ export default function SelectField({
     return options.find((opt) => opt.value === field.value) || null
   }
 
+  const customStyles = {
+    control: (base: any, state: { isFocused: any }) => ({
+      ...base,
+      backgroundColor: 'var(--surface)', // #ffffff
+      borderColor: state.isFocused ? 'var(--accent)' : 'var(--border)',
+      boxShadow: state.isFocused ? '0 0 0 1px var(--accent)' : 'none',
+      color: 'var(--foreground)',
+      '&:hover': {
+        borderColor: 'var(--accent)',
+      },
+    }),
+    option: (base: any, state: { isFocused: any }) => ({
+      ...base,
+      backgroundColor: state.isFocused ? 'var(--accent)' : 'var(--surface)',
+      color: state.isFocused ? 'white' : 'var(--foreground)',
+    }),
+    multiValue: (base: any) => ({
+      ...base,
+      backgroundColor: 'var(--accent)',
+      color: 'white',
+    }),
+    multiValueLabel: (base: any) => ({
+      ...base,
+      color: 'white',
+    }),
+    multiValueRemove: (base: any) => ({
+      ...base,
+      color: 'white',
+      ':hover': {
+        backgroundColor: '#DC143C', // danger red on remove hover
+        color: 'white',
+      },
+    }),
+    menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
+  }
+
   return (
     <div className="w-full resize-none z-20">
       <Select
@@ -63,9 +99,7 @@ export default function SelectField({
         classNamePrefix="select"
         placeholder={placeholder}
         menuPortalTarget={document.body} // prevent console errors
-        styles={{
-          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-        }} // prevent console errors
+        styles={customStyles}
       />
       {meta.touched && meta.error && (
         <div className="text-sm text-red-600 mt-1">{meta.error}</div>

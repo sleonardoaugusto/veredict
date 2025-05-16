@@ -8,10 +8,13 @@ interface HeaderProps {
 
 export default function Header({ title, onCloseAction }: HeaderProps) {
   return (
-    <div className="p-4 flex justify-between items-center bg-indigo-700 text-white">
-      {title && <h2 className="text-lg font-medium">{title}</h2>}
+    <div className="p-4 flex justify-between items-center bg-foreground text-surface shadow-sm">
+      {title && <h2 className="text-lg font-semibold">{title}</h2>}
       {onCloseAction && (
-        <button onClick={onCloseAction} className="hover:text-blue-700">
+        <button
+          onClick={onCloseAction}
+          className="text-surface hover:text-accent transition-colors"
+        >
           <XMarkIcon className="h-6 w-6" />
         </button>
       )}

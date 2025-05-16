@@ -7,6 +7,7 @@ import { Form, Formik } from 'formik'
 import Spinner from '@/app/ui/Spinner'
 import { ArrowUpTrayIcon } from '@heroicons/react/16/solid'
 import { uploadAppointmentDocument } from '@/app/lib/api/lavocat/appointmentDocuments'
+import FileUploadLabel from '@/app/ui/FileUploadLabel'
 
 interface AppointmentDocumentsProps {
   appointmentId: number
@@ -48,15 +49,7 @@ export default function AppointmentDocuments({
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ setFieldValue, isSubmitting, values, resetForm, submitForm }) => (
           <Form>
-            <label
-              htmlFor="file-upload"
-              className={clsx(
-                'inline-flex items-center gap-1 px-3 py-1 text-sm font-normal border rounded transition',
-                isSubmitting
-                  ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed pointer-events-none'
-                  : 'bg-indigo-50 text-indigo-700 border-indigo-100 hover:bg-indigo-100 cursor-pointer'
-              )}
-            >
+            <FileUploadLabel htmlFor="file-upload">
               {isSubmitting ? (
                 <>
                   Enviando...
@@ -68,7 +61,7 @@ export default function AppointmentDocuments({
                   Enviar Documentos
                 </>
               )}
-            </label>
+            </FileUploadLabel>
             <input
               id="file-upload"
               type="file"

@@ -1,5 +1,4 @@
 import React, { useEffect, ReactNode } from 'react'
-import { XMarkIcon } from '@heroicons/react/16/solid'
 import Header from '@/app/ui/Header'
 
 interface SidebarProps {
@@ -15,7 +14,6 @@ export default function Sidebar({
   title,
   children,
 }: SidebarProps) {
-  // Close sidebar on ESC key press
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onCloseAction()
@@ -32,7 +30,7 @@ export default function Sidebar({
 
   return (
     <div className="relative z-30">
-      {/* Overlay to dim the background */}
+      {/* Overlay */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
@@ -40,17 +38,18 @@ export default function Sidebar({
         onClick={onCloseAction}
       />
 
-      {/* Sidebar */}
+      {/* Sidebar Panel */}
       <div
-        className={`fixed top-0 right-0 h-full overflow-auto w-1/2 bg-white shadow-lg transform transition-transform z-50 ${
+        className={`fixed top-0 right-0 h-full overflow-auto w-1/2 bg-surface text-foreground shadow-lg transform transition-transform z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
+        role="dialog"
+        aria-modal="true"
         data-test="sidebar"
       >
         <Header title={title} onCloseAction={onCloseAction} />
 
-        {/* Sidebar Content */}
-        <div className="p-6 space-y-6 text-gray-800">{children}</div>
+        <div className="p-6 space-y-6">{children}</div>
       </div>
     </div>
   )

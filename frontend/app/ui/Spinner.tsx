@@ -1,7 +1,18 @@
 import React from 'react'
 
-export default function Spinner() {
+interface SpinnerProps {
+  size?: number
+}
+
+export default function Spinner({ size = 4 }: SpinnerProps) {
   return (
-    <div className="w-4 h-4 border-2 border-t-transparent border-indigo-700 rounded-full animate-spin" />
+    <div
+      className={`
+        w-${size} h-${size}
+        border-2 border-t-transparent
+        border-accent
+        rounded-full animate-spin
+      `}
+    />
   )
 }

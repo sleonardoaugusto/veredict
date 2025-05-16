@@ -10,6 +10,7 @@ import Button from '@/app/ui/Button'
 import { ArrowUpTrayIcon, CheckIcon } from '@heroicons/react/16/solid'
 import Spinner from '@/app/ui/Spinner'
 import clsx from 'clsx'
+import FileUploadLabel from '@/app/ui/FileUploadLabel'
 
 export default function FileUploadForm({ isOpen }: { isOpen: boolean }) {
   const [filesUploaded, setFilesUploaded] = useState<boolean>(false)
@@ -63,17 +64,12 @@ export default function FileUploadForm({ isOpen }: { isOpen: boolean }) {
           <Form>
             <div className="space-y-2">
               {/* Upload (File Picker) */}
-              <label
+              <FileUploadLabel
                 htmlFor="file-upload"
-                className={clsx(
-                  'inline-flex items-center gap-1 px-3 py-1 text-sm font-normal border rounded transition',
-                  isSubmitting || filesUploaded
-                    ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed pointer-events-none'
-                    : 'bg-indigo-50 text-indigo-700 border-indigo-100 hover:bg-indigo-100 cursor-pointer'
-                )}
+                isSubmitting={isSubmitting || filesUploaded}
               >
                 Selecionar Imagens
-              </label>
+              </FileUploadLabel>
 
               <input
                 id="file-upload"
