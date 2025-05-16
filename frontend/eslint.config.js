@@ -63,6 +63,7 @@ export default [
       '@next/next/no-html-link-for-pages': 'error',
       '@next/next/no-img-element': 'warn',
       '@next/next/no-typos': 'error',
+      '@typescript-eslint/consistent-type-imports': 'off',
     },
   },
 

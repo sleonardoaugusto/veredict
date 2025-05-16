@@ -7,6 +7,13 @@ import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: 'Veredito',
+  icons: [
+    {
+      url: '/veredito-icon.png',
+      sizes: '16x16',
+      type: 'image/png',
+    },
+  ],
 }
 
 export default function RootLayout({
