@@ -1,23 +1,38 @@
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import type { Appointment } from '@/app/lib/api/lavocat/types'
 
 export const appointmentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAppointments: builder.query<Appointment[], void>({
-      query: () => '/attendances/',
+      query: () => '/v1/attendances/',
+      providesTags: ['Appointments'],
+    }),
+    createAppointment: builder.mutation<
+      Appointment,
+      { data: Partial<Appointment> }
+    >({
+      query: ({ data }) => ({
+        url: `/v1/attendances/`,
+        method: 'POST',
+        body: data,
+      }),
     }),
     patchAppointment: builder.mutation<
-      Partial<Appointment>,
-      { id: number; data: Partial<Appointment> }
+      Appointment,
+      { appointmentId: number; data: Partial<Appointment> }
     >({
-      query: ({ id, data }) => ({
-        url: `/attendances/${id}/`,
+      query: ({ appointmentId, data }) => ({
+        url: `/v1/attendances/${appointmentId}/`,
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['AppointmentNotes', 'Appointments'],
     }),
   }),
 })
 
-export const { useGetAppointmentsQuery, usePatchAppointmentMutation } =
-  appointmentsApi
+export const {
+  useGetAppointmentsQuery,
+  useCreateAppointmentMutation,
+  usePatchAppointmentMutation,
+} = appointmentsApi

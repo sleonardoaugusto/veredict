@@ -2,20 +2,34 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { inter } from '@/app/ui/fonts'
 import ClientWrapper from '@/app/ClientWrapper'
+import NavigationMenu from '@/app/ui/NavigationMenu'
+import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: 'Veredito',
+  icons: [
+    {
+      url: '/veredito-icon.png',
+      sizes: '16x16',
+      type: 'image/png',
+    },
+  ],
 }
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html lang="en" data-theme="light">
       <body className={`${inter.className} antialiased`}>
-        <ClientWrapper>{children}</ClientWrapper>
+        <div className="flex min-h-screen w-full bg-[#E5EAF0] text-[#1E2A38]">
+          <NavigationMenu />
+          <main className="flex-1 w-full overflow-x-hidden">
+            <ClientWrapper>{children}</ClientWrapper>
+          </main>
+        </div>
       </body>
     </html>
   )

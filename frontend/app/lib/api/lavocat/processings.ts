@@ -1,9 +1,7 @@
-'use client'
-
 import { saveAs } from 'file-saver'
 import { baseApi } from '@/app/lib/api/lavocat/baseApi'
 import { AuthService } from '@/app/lib/auth'
-import {
+import type {
   Processing,
   ProcessingImage,
   ProcessingImageMetadata,
@@ -12,11 +10,11 @@ import {
 export const processingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProcessings: builder.query<Processing[], void>({
-      query: () => '/processings/',
+      query: () => '/v1/processings/',
     }),
     createProcessing: builder.mutation<{ id: number }, void>({
       query: () => ({
-        url: '/processings/',
+        url: '/v1/processings/',
         method: 'POST',
       }),
     }),
@@ -25,14 +23,14 @@ export const processingsApi = baseApi.injectEndpoints({
       { processingId: number }
     >({
       query: ({ processingId }) =>
-        `/processings/${processingId}/processing-images/`,
+        `/v1/processings/${processingId}/processing-images/`,
     }),
     getProcessingImageMetadata: builder.query<
       ProcessingImageMetadata[],
       { processingImageId: number }
     >({
       query: ({ processingImageId }) =>
-        `/processing-images/${processingImageId}/metadata/`,
+        `/v1/processing-images/${processingImageId}/metadata/`,
       providesTags: ['ProcessingImageMetadata'],
     }),
     patchProcessingImageMetadata: builder.mutation<
@@ -44,7 +42,7 @@ export const processingsApi = baseApi.injectEndpoints({
       }
     >({
       query: ({ processingImageId, imageMetadataId, data }) => ({
-        url: `/processing-images/${processingImageId}/metadata/${imageMetadataId}/`,
+        url: `/v1/processing-images/${processingImageId}/metadata/${imageMetadataId}/`,
         method: 'PATCH',
         body: data,
       }),
@@ -66,7 +64,7 @@ export const createProcessingImage = async ({
     const token = AuthService.getToken()
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/processings/${processingId}/processing-images/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/processings/${processingId}/processing-images/`,
       {
         method: 'POST',
         body: formData,
@@ -93,7 +91,7 @@ export const downloadTokens = async ({
   const token = AuthService.getToken()
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/processings/${processingId}/tokens/`,
+    `${process.env.NEXT_PUBLIC_API_URL}/v1/processings/${processingId}/tokens/`,
     {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },

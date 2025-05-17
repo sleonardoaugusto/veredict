@@ -1,10 +1,12 @@
-'use client'
-
-import { Note } from '@/app/lib/api/lavocat/types'
-import { Field, Form, Formik } from 'formik'
+import type { Note } from '@/app/lib/api/lavocat/types'
+import { Form, Formik } from 'formik'
 import React from 'react'
-import { usePatchNoteMutation } from '@/app/lib/api/lavocat/notes'
+import {
+  useGetNotesQuery,
+  usePatchNoteMutation,
+} from '@/app/lib/api/lavocat/notes'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
+import { InputField } from '@/app/ui/InputField'
 
 interface NoteProps {
   appointmentId: number
@@ -15,7 +17,7 @@ interface FormValues {
   content: string
 }
 
-export default function AppointmentNote({ appointmentId, note }: NoteProps) {
+function AppointmentNote({ appointmentId, note }: NoteProps) {
   const [patchNote] = usePatchNoteMutation()
 
   const initialValues: FormValues = {
@@ -36,8 +38,8 @@ export default function AppointmentNote({ appointmentId, note }: NoteProps) {
           noteId: note.id,
           data: values,
         }),
-      'Nota salva',
-      'Um erro ocorreu'
+      'Nota Atualizada.',
+      'Um inesperado erro ocorreu.'
     )
   }
 
@@ -47,16 +49,18 @@ export default function AppointmentNote({ appointmentId, note }: NoteProps) {
         <Form>
           <div
             key={note.id}
-            className="border p-4 rounded-md shadow-sm bg-gray-100"
+            className="border border-[#CBD5E1] p-4 rounded-md shadow-sm bg-[#F9FAFB]"
             data-test="note"
           >
-            <h3 className="font-semibold text-lg mb-2">{note.header}</h3>
-            <Field
+            <h3 className="font-semibold text-[#1E2A38] text-lg mb-2">
+              {note.header}
+            </h3>
+
+            <InputField
               as="textarea"
               name="content"
-              placeholder="Enter content here..."
+              placeholder="Insira o conteúdo aqui..."
               rows={countRows(note.content) + 3}
-              className="w-full border border-gray-300 rounded-md p-2 resize-none"
               onBlur={() => {
                 handleSubmit()
               }}
@@ -65,5 +69,28 @@ export default function AppointmentNote({ appointmentId, note }: NoteProps) {
         </Form>
       )}
     </Formik>
+  )
+}
+
+export default function AppointmentNotes({
+  appointmentId,
+}: {
+  appointmentId: number
+}) {
+  const { data: appointmentNotes } = useGetNotesQuery(
+    { appointmentId },
+    { skip: !appointmentId }
+  )
+
+  return (
+    <>
+      {appointmentNotes?.map((note) => (
+        <AppointmentNote
+          key={note.id}
+          appointmentId={appointmentId}
+          note={note}
+        />
+      ))}
+    </>
   )
 }

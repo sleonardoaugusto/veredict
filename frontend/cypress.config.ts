@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 
 import { defineConfig } from 'cypress'
 

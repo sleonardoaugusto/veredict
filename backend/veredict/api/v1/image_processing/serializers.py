@@ -8,10 +8,19 @@ from veredict.image_processing.models import (
 
 
 class ProcessingOutputSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField()
+
     class Meta:
-        ref_name = "ProcessingImageOutput"
+        ref_name = "ProcessingOutput"
         model = Processing
-        fields = ("created_at", "id")
+        fields = ("created_at", "id", "status")
+
+    def get_created_at(self, obj):
+        return obj.created_at.strftime("%d/%m/%Y - %H:%M")
+
+    def get_status(self, instance):
+        return instance.status.label
 
 
 class ProcessingImageInputSerializer(serializers.ModelSerializer):
@@ -49,13 +58,13 @@ class ImageMetadataInputSerializer(serializers.ModelSerializer):
 
 class ProcessingImageCreateOutputSerializer(serializers.ModelSerializer):
     class Meta:
-        ref_name = "ProcessingImageOutput"
+        ref_name = "ProcessingImageCreateOutput"
         model = ProcessingImage
         fields = ("id", "processing", "image")
 
 
 class ProcessingImageListOutputSerializer(serializers.ModelSerializer):
     class Meta:
-        ref_name = "ProcessingImageOutput"
+        ref_name = "ProcessingImageListOutput"
         model = ProcessingImage
         fields = ("id", "processing", "image")

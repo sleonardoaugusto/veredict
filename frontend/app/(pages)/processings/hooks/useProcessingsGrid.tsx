@@ -1,5 +1,5 @@
 import { useGetProcessingsQuery } from '@/app/lib/api/lavocat/processings'
-import { ColDef } from 'ag-grid-community'
+import type { ColDef } from 'ag-grid-community'
 
 export function useProcessingsGrid() {
   const { data: processings, isLoading, error } = useGetProcessingsQuery()

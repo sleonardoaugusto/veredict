@@ -19,7 +19,7 @@ class TestProcessingListView:
         response = client.get(url)
         assert response.status_code == status.HTTP_200_OK
         assert len(response.json()) == 1
-        assert set(response.json()[0]) == {"id", "created_at"}
+        assert set(response.json()[0]) == {"id", "created_at", "status"}
 
     def test_post_processing(self, client):
         assert not Processing.objects.exists()

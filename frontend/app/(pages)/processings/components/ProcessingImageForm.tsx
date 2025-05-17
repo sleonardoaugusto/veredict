@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useEffect } from 'react'
 import {
   useGetProcessingImageMetadataQuery,
@@ -8,7 +6,7 @@ import {
 import { Form, Formik } from 'formik'
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
 import { InputField } from '@/app/ui/InputField'
-import { ProcessingImageMetadata } from '@/app/lib/api/lavocat/types'
+import type { ProcessingImageMetadata } from '@/app/lib/api/lavocat/types'
 
 interface ProcessingImageFormProps {
   processingImageId: number
@@ -88,8 +86,8 @@ export default function ProcessingImageForm({
             imageMetadataId: imageMetadata.id,
             data: values,
           }),
-        'Dados salvos',
-        'Um erro ocorreu'
+        'Dados Atualizados.',
+        'Um inesperado erro ocorreu.'
       )
 
       if (response) {

@@ -1,10 +1,14 @@
 import { Field } from 'formik'
+import type { InputHTMLAttributes, FocusEventHandler } from 'react' // Add this import
 
-type InputFieldProps = {
+interface InputFieldProps
+  extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   name: string
-  placeholder: string
-  onBlur: () => void
+  placeholder?: string
   className?: string
+  as?: 'input' | 'textarea'
+  rows?: number
+  onBlur?: FocusEventHandler<any>
 }
 
 export function InputField({
@@ -12,15 +16,24 @@ export function InputField({
   placeholder,
   onBlur,
   className = '',
+  as = 'input',
+  rows = 3,
+  ...props
 }: InputFieldProps) {
-  const baseClass = 'w-full border border-gray-300 rounded-md p-2 resize-none'
+  const baseClass = `w-full rounded-md px-3 py-2 
+    border border-border bg-surface text-foreground placeholder-gray-400 shadow-sm transition
+    focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent
+  `
 
   return (
     <Field
       name={name}
       placeholder={placeholder}
-      className={`${baseClass} ${className}`}
       onBlur={onBlur}
+      as={as}
+      className={`${baseClass} ${className}`}
+      {...(as === 'textarea' ? { rows } : {})}
+      {...props}
     />
   )
 }

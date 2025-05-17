@@ -11,8 +11,14 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        accent: 'var(--accent)',
+        border: 'var(--border)',
+        surface: 'var(--surface)',
+        danger: 'var(--danger)',
+        success: 'var(--success)',
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('daisyui')],
 } satisfies Config

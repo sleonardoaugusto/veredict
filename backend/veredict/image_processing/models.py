@@ -19,7 +19,34 @@ def upload_to(instance, filename):
     return f"{ProcessingImage.DOCUMENT_ROOT_FOLDER}/images/{processing_pk}/{new_filename}"
 
 
-class Processing(ModelBase): ...
+class ProcessingStatuses(models.TextChoices):
+    PENDING = "pending", "Pendente"
+    PROCESSING = "processing", "Processando"
+    COMPLETED = "completed", "Completo"
+    FAILED = "failed", "Falhou"
+
+
+class Processing(ModelBase):
+    @property
+    def status(self):
+        if not self.processing_images.filter(
+            status__in=[
+                ProcessingStatuses.PROCESSING,
+                ProcessingStatuses.COMPLETED,
+                ProcessingStatuses.FAILED,
+            ]
+        ).exists():
+            return ProcessingStatuses.PENDING
+
+        if not self.processing_images.filter(
+            status__in=[
+                ProcessingStatuses.PENDING,
+                ProcessingStatuses.PROCESSING,
+            ]
+        ).exists():
+            return ProcessingStatuses.COMPLETED
+
+        return ProcessingStatuses.PROCESSING
 
 
 class ProcessingImage(ModelBase):
@@ -33,6 +60,11 @@ class ProcessingImage(ModelBase):
     )
     image = models.FileField(
         null=False, blank=False, upload_to=upload_to, storage=MediaStorage()
+    )
+    status = models.CharField(
+        default=ProcessingStatuses.PENDING,
+        max_length=124,
+        choices=ProcessingStatuses.choices,
     )
 
 

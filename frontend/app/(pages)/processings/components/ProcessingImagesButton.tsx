@@ -1,8 +1,7 @@
-'use client'
-
 import React, { useState } from 'react'
 import Sidebar from '@/app/ui/Sidebar'
-import FileUploadForm from '@/app/(pages)/processings/ui/FileUploadForm'
+import FileUploadForm from '@/app/(pages)/processings/components/FileUploadForm'
+import Button from '@/app/ui/Button'
 
 export default function ProcessingImagesButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -13,15 +12,18 @@ export default function ProcessingImagesButton() {
 
   return (
     <>
-      <button className="btn btn-sm join-item" onClick={() => setIsOpen(true)}>
+      <Button
+        className="mt-4 mb-2 btn btn-sm join-item"
+        onClick={() => setIsOpen(true)}
+      >
         Processar Imagens
-      </button>
+      </Button>
       <Sidebar
         isOpen={isOpen}
         onCloseAction={closeSidebar}
-        title="Detalhes do Processamento"
+        title="Processar Imagens"
       >
-        <FileUploadForm />
+        <FileUploadForm isOpen={isOpen} />
       </Sidebar>
     </>
   )

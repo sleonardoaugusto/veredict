@@ -1,15 +1,11 @@
-'use client'
-
 import { AgGridReact } from 'ag-grid-react'
-import {
-  AllCommunityModule,
-  ModuleRegistry,
-  RowClickedEvent,
-} from 'ag-grid-community'
-import AppointmentSidebar from '@/app/(pages)/appointments/components/AppointmentSidebar'
-import { useState } from 'react'
+import type { RowClickedEvent } from 'ag-grid-community'
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
+import AppointmentForm from '@/app/(pages)/appointments/components/AppointmentForm'
+import React, { useState } from 'react'
 import { useAppointmentsGrid } from '@/app/(pages)/appointments/hooks/useAppointmentsGrid'
-import { Appointment } from '@/app/lib/api/lavocat/types'
+import type { Appointment } from '@/app/lib/api/lavocat/types'
+import Sidebar from '@/app/ui/Sidebar'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
@@ -51,13 +47,13 @@ export default function AppointmentsGrid() {
         columnDefs={columnDefs}
         onRowClicked={onRowClicked}
       />
-      {selectedRow && (
-        <AppointmentSidebar
-          isOpen={sidebarOpen}
-          appointment={selectedRow}
-          onCloseAction={closeSidebar}
-        />
-      )}
+      <Sidebar
+        isOpen={sidebarOpen}
+        onCloseAction={closeSidebar}
+        title="Editar Atendimento"
+      >
+        <AppointmentForm appointment={selectedRow} />
+      </Sidebar>
     </div>
   )
 }

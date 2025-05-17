@@ -1,48 +1,62 @@
-import {Slide, toast, ToastContainerProps} from 'react-toastify'
+import type { ToastContainerProps } from 'react-toastify';
+import { Slide, toast } from 'react-toastify'
 
 export const toastDefaultOptions: ToastContainerProps = {
-    autoClose: 3000,
-    hideProgressBar: true,
-    theme: 'colored',
-    transition: Slide,
-    position: 'bottom-center',
-    pauseOnFocusLoss: false,
-    icon: false,
-    closeOnClick: true,
-    limit: 1
+  autoClose: 5000,
+  hideProgressBar: true,
+  theme: 'colored',
+  transition: Slide,
+  position: 'bottom-center',
+  pauseOnFocusLoss: false,
+  icon: false,
+  closeOnClick: true,
+  limit: 1,
 }
 
 const baseToastStyle = {
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    fontSize: '0.85rem',
-    fontWeight: 'bold',
-    width: 'fit-content',
-    height: 'fit-content',
-    padding: '0.5rem 4rem',
-    minHeight: '0',
-    marginBottom: '0'
-};
+  justifyContent: 'center',
+  fontSize: '0.875rem',
+  fontWeight: 'bold',
+  width: 'fit-content',
+  height: 'fit-content',
+  padding: '0.5rem 2.5rem',
+  minHeight: '0',
+  marginBottom: '0',
+  borderRadius: '6px',
+}
 
 const toastStyles = {
-    success: {
-        ...baseToastStyle,
-        color: '#4CAF50',
-    },
-    error: {
-        ...baseToastStyle,
-        color: '#DC143C',
-    },
-};
-// Function to show a success toast with green text and white background
+  success: {
+    ...baseToastStyle,
+    backgroundColor: '#F0FDF4',
+    color: '#22C55E',
+  },
+  error: {
+    ...baseToastStyle,
+    backgroundColor: '#FEF2F2',
+    color: '#DC2626',
+  },
+  warning: {
+    ...baseToastStyle,
+    backgroundColor: '#FFF7ED',
+    color: '#F97316',
+  },
+}
+
 export const showSuccessToast = (message: string) => {
-    toast.success(message, {
-        style: toastStyles.success
-    })
+  toast.success(message, {
+    style: toastStyles.success,
+  })
 }
 
 export const showErrorToast = (message: string) => {
-    toast.error(message, {
-        style: toastStyles.error
-    })
+  toast.error(message, {
+    style: toastStyles.error,
+  })
+}
+
+export const showWarningToast = (message: string) => {
+  toast.warn(message, {
+    style: toastStyles.warning,
+  })
 }
