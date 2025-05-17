@@ -57,7 +57,7 @@ class Attendance(ModelBase):
     is_client = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["-updated_at"]
+        ordering = ["-created_at"]
 
 
 def upload_to(instance, filename):
