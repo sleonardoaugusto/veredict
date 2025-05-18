@@ -1,7 +1,6 @@
 import { Appointment } from '@/app/lib/api/lavocat/types'
 import { Form, Formik } from 'formik'
 import { InputField } from '@/app/ui/InputField'
-import SelectField from '@/app/ui/SelectField'
 import { useAppointmentDetails } from '@/app/(pages)/appointments/hooks/useAppointmentDetails'
 import {
   useCreateAppointmentMutation,
@@ -10,6 +9,11 @@ import {
 import { makeRequest } from '@/app/lib/api/lavocat/apiClient'
 import React from 'react'
 import Button from '@/app/ui/Button'
+import dynamic from 'next/dynamic'
+
+const SelectField = dynamic(() => import('@/app/ui/SelectField'), {
+  ssr: false,
+})
 
 type CustomerDetailsProps = {
   appointment?: Appointment | null
