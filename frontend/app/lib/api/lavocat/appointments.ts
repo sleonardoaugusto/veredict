@@ -16,6 +16,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Appointments'],
     }),
     patchAppointment: builder.mutation<
       Appointment,

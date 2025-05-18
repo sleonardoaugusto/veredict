@@ -17,6 +17,7 @@ export const processingsApi = baseApi.injectEndpoints({
         url: '/v1/processings/',
         method: 'POST',
       }),
+      invalidatesTags: ['Processings'],
     }),
     getProcessingImages: builder.query<
       ProcessingImage[],

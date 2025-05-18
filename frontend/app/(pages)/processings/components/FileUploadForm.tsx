@@ -8,17 +8,21 @@ import Button from '@/app/ui/Button'
 import { ArrowUpTrayIcon, CheckIcon } from '@heroicons/react/16/solid'
 import Spinner from '@/app/ui/Spinner'
 import FileUploadLabel from '@/app/ui/FileUploadLabel'
+import { baseApi } from '@/app/lib/api/lavocat/baseApi'
+import { useDispatch } from 'react-redux'
 
 export default function FileUploadForm({ isOpen }: { isOpen: boolean }) {
   const [filesUploaded, setFilesUploaded] = useState<boolean>(false)
   const [createProcessing] = useCreateProcessingMutation()
 
+  const dispatch = useDispatch()
+
   const initialValues = {
     image: [] as File[],
   }
 
-  // Move the reset logic outside the Formik render callback
   const [formKey, setFormKey] = useState(0)
+
   useEffect(() => {
     if (!isOpen) {
       setFilesUploaded(false)
@@ -48,6 +52,7 @@ export default function FileUploadForm({ isOpen }: { isOpen: boolean }) {
         )
       )
       setFilesUploaded(true)
+      dispatch(baseApi.util.invalidateTags(['Processings'])) // triggers refetch
     } catch (error) {
       console.error('Upload failed:', error)
     } finally {

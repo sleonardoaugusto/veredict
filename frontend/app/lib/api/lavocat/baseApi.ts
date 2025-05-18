@@ -42,6 +42,7 @@ export const baseApi = createApi({
     'AppointmentDetails',
     'AppointmentNotes',
     'AppointmentDocuments',
+    'Processings',
     'ProcessingImageMetadata',
   ],
 })
