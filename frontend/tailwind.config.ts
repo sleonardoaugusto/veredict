@@ -11,11 +11,14 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        'dark-blue': 'var(--dark-blue)',
         accent: 'var(--accent)',
         border: 'var(--border)',
         surface: 'var(--surface)',
         danger: 'var(--danger)',
         success: 'var(--success)',
+        'ag-grid-header-background-color':
+          'var(--ag-grid-header-background-color)',
       },
     },
   },

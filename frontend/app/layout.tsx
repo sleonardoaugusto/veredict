@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={`${inter.className} antialiased`}>
-        <div className="flex min-h-screen w-full bg-[#E5EAF0] text-[#1E2A38]">
+        <div className="flex min-h-screen w-full bg-ag-grid-header-background-color">
           <NavigationMenu />
           <main className="flex-1 w-full overflow-x-hidden">
             <ClientWrapper>{children}</ClientWrapper>

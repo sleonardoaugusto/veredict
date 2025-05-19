@@ -22,7 +22,7 @@ export default function LoginForm() {
           height={72}
           className="mx-auto mb-4"
         />
-        <h2 className="text-2xl font-bold mb-6 text-center text-[#1E2A38]">
+        <h2 className="text-2xl font-bold mb-6 text-center text-foreground">
           Veredito
         </h2>
 
