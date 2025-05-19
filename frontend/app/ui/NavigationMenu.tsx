@@ -11,7 +11,7 @@ export default function NavigationMenu() {
   if (pathname === '/login') return null
 
   return (
-    <div className="group h-screen w-16 hover:w-64 bg-foreground text-surface p-4 transition-all duration-300 ease-in-out overflow-hidden flex flex-col mr-2">
+    <div className="group h-screen w-16 hover:w-64 bg-foreground text-surface p-4 transition-all duration-300 ease-in-out overflow-hidden flex flex-col">
       <h2 className="text-xl font-semibold mb-6 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         Menu
       </h2>

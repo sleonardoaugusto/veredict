@@ -3,12 +3,8 @@
 import React, { useState } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { useProcessingsGrid } from '@/app/(pages)/processings/hooks/useProcessingsGrid'
-import type {
-  RowClickedEvent} from 'ag-grid-community';
-import {
-  AllCommunityModule,
-  ModuleRegistry
-} from 'ag-grid-community'
+import type { RowClickedEvent } from 'ag-grid-community'
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 import ProcessingSidebar from '@/app/(pages)/processings/hooks/ProcessingSidebar'
 import type { Processing } from '@/app/lib/api/lavocat/types'
 import ProcessingImagesButton from '@/app/(pages)/processings/components/ProcessingImagesButton'
@@ -34,7 +30,10 @@ export default function Page() {
   return (
     <>
       <Header title="Processamentos" />
-      <div className="relative ag-theme-alpine" data-test="processings-grid">
+      <div
+        className="relative ag-theme-alpine ml-2"
+        data-test="processings-grid"
+      >
         <ProcessingImagesButton />
         <div
           className="relative z-0"

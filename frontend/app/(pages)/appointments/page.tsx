@@ -24,26 +24,28 @@ export default function Page() {
   return (
     <div>
       <Header title="Atendimentos" />
-      <Button
-        className="mt-4 mb-2 btn btn-sm join-item"
-        onClick={() => {
-          setIsOpen(true)
-          setCreatedAppointment(null)
-        }}
-      >
-        Novo Atendimento
-      </Button>
-      <Sidebar
-        isOpen={isOpen}
-        onCloseAction={closeSidebar}
-        title={sidebarTitle}
-      >
-        <AppointmentForm
-          appointment={createdAppointment}
-          setCreatedAppointmentAction={setCreatedAppointment}
-        />
-      </Sidebar>
-      <AppointmentsGrid />
+      <div className="ml-2">
+        <Button
+          className="mt-4 mb-2 btn btn-sm join-item"
+          onClick={() => {
+            setIsOpen(true)
+            setCreatedAppointment(null)
+          }}
+        >
+          Novo Atendimento
+        </Button>
+        <Sidebar
+          isOpen={isOpen}
+          onCloseAction={closeSidebar}
+          title={sidebarTitle}
+        >
+          <AppointmentForm
+            appointment={createdAppointment}
+            setCreatedAppointmentAction={setCreatedAppointment}
+          />
+        </Sidebar>
+        <AppointmentsGrid />
+      </div>
     </div>
   )
 }
