@@ -11,6 +11,7 @@ export const processingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProcessings: builder.query<Processing[], void>({
       query: () => '/v1/processings/',
+      providesTags: ['Processings'],
     }),
     createProcessing: builder.mutation<{ id: number }, void>({
       query: () => ({
