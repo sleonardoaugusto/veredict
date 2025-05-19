@@ -26,8 +26,8 @@ export default function AppointmentsGrid() {
     setSelectedRow(null)
   }
 
-  if (isLoading) return <p>Loading appointments...</p>
-  if (error) return <p>Error loading appointments. Please try again later.</p>
+  if (isLoading) return <p>Carregando atendimentos...</p>
+  if (error) return <p>Erro ao carregar atendimentos.</p>
 
   return (
     <div
