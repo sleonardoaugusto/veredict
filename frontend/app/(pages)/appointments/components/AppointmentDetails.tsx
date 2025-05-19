@@ -1,3 +1,4 @@
+import * as Yup from 'yup'
 import { Appointment } from '@/app/lib/api/lavocat/types'
 import { Form, Formik } from 'formik'
 import { InputField } from '@/app/ui/InputField'
@@ -35,6 +36,14 @@ export default function AppointmentDetails({
     document_id: appointment?.document_id || '',
   }
 
+  const validationSchema = Yup.object({
+    customer_name: Yup.string().required("Campo 'nome' é obrigatório"),
+    document_id: Yup.string()
+      .required('CPF é obrigatório')
+      .matches(/^\d+$/, 'Somente números são permitidos')
+      .length(11, 'CPF deve ter 11 dígitos'),
+  })
+
   const handlePatch = async (fieldName: string, value: any) => {
     if (appointment) {
       return await makeRequest(
@@ -67,6 +76,7 @@ export default function AppointmentDetails({
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={handleCreate}
       enableReinitialize={true}
     >
@@ -74,14 +84,14 @@ export default function AppointmentDetails({
         <Form>
           <div className="flex flex-row gap-x-6 mb-6">
             <InputField
-              placeholder="Origem"
+              placeholder="Digite a Origem"
               name="source"
               onBlur={() => {
                 handlePatch('source', values.source)
               }}
             />
             <InputField
-              placeholder="CPF"
+              placeholder="Digite o CPF (somente números)"
               name="document_id"
               onBlur={() => {
                 handlePatch('document_id', values?.document_id)
@@ -90,7 +100,7 @@ export default function AppointmentDetails({
           </div>
           <div className="flex flex-row gap-x-6 mb-6">
             <InputField
-              placeholder="Nome"
+              placeholder="Digite o Nome"
               name="customer_name"
               onBlur={() => {
                 handlePatch('customer_name', values.customer_name)
