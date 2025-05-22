@@ -24,6 +24,7 @@ CITY_CODE_MAPPING = {
         "TABOAO DA SERRA",
         "ITAPEVI",
         "JANDIRA",
+        "POA",
     ],
     "02": [
         "NOVA GRANADA",
@@ -59,6 +60,7 @@ CITY_CODE_MAPPING = {
         "SAO ROQUE",
         "IPERO",
         "LARANJAL PAULISTA",
+        "MAIRINQUE",
     ],
     "05": [
         "SAO JOSE DOS CAMPOS",
@@ -81,6 +83,7 @@ CITY_CODE_MAPPING = {
         "RIBEIRÃO PIRES",
         "CAMPOS DO JORDAO",
         "CRUZEIRO",
+        "SANTO ANTONIO DO PINHAL",
     ],
     "06": [
         "BAURU",
@@ -154,6 +157,8 @@ CITY_CODE_MAPPING = {
         "FERNANDOPOLIS",
         "URUPES",
         "MACEDONIA",
+        "AMERICO DE CAMPOS",
+        "NHANDEARA",
     ],
     "10": [
         "CAMPINAS",
@@ -179,6 +184,7 @@ CITY_CODE_MAPPING = {
         "BOM JESUS DOS PERDOES",
         "SOCORRO",
         "PEDREIRA",
+        "MOGI GUACU",
     ],
     "12": [
         "ARARAQUARA",
@@ -221,6 +227,8 @@ CITY_CODE_MAPPING = {
         "BEBEDOURO",
         "RIBEIRAO CORRENTE",
         "MATAO",
+        "PONTAL",
+        "GUARA",
     ],
     "13": [
         "ARACATUBA",
@@ -234,7 +242,6 @@ CITY_CODE_MAPPING = {
         "VALPARAISO",
         "PIACATU",
         "AVANHANDAVA",
-        "GUARARAPES",
         "ANDRADINA",
         "CASTILHO",
         "ILHA SOLTEIRA",
